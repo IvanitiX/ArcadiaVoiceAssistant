@@ -22,6 +22,7 @@
 \usepackage{tabularx}
 \usepackage{booktabs}
 
+
 \usepackage[table,xcdraw]{xcolor}
 \hypersetup{
 	colorlinks=true,	% false: boxed links; true: colored links
@@ -33,7 +34,7 @@
 \pagestyle{fancyplain} % Makes all pages in the document conform to the custom headers and footers
 \fancyhead[L]{} % Empty left header
 \fancyhead[C]{} % Empty center header
-\fancyhead[R]{Me Llamo Así} % My name
+\fancyhead[R]{Iván Valero Rodríguez} % My name
 \fancyfoot[L]{} % Empty left footer
 \fancyfoot[C]{} % Empty center footer
 \fancyfoot[R]{\thepage} % Page numbering for right footer
@@ -43,10 +44,41 @@
 
 \usepackage{titlesec, blindtext, color}
 \definecolor{gray75}{gray}{0.75}
+\definecolor{azul}{HTML}{456CF7}
+\definecolor{lightblue}{HTML}{d5d9e6}
+\definecolor{mintgreen}{HTML}{c2edc5}
 \newcommand{\hsp}{\hspace{20pt}}
-\titleformat{\chapter}[hang]{\Huge\bfseries}{\thechapter\hsp\textcolor{gray75}{|}\hsp}{0pt}{\Huge\bfseries}
 \setcounter{secnumdepth}{4}
-\usepackage[Lenny]{fncychap}
+\usepackage[Bjornstrup]{fncychap}
+\ChNumVar{\fontsize{76}{80}\usefont{OT1}{pzc}{m}{n}\selectfont}
+\ChTitleVar{\raggedleft\Large\sffamily\bfseries}
+
+\renewcommand\DOCH{%
+  \settowidth{\py}{\CNoV\thechapter}
+  \addtolength{\py}{-10pt}
+  \fboxsep=0pt%
+  \colorbox{lightblue}{\rule{0pt}{40pt}\parbox[b]{\textwidth}{\hfill}}%
+  \kern-\py\raise20pt%
+  \hbox{\color{azul}\CNoV\thechapter}\\%
+}
+
+\renewcommand\DOTI[1]{%
+  \nointerlineskip\raggedright%
+  \fboxsep=\myhi%
+  \vskip-1ex%
+  \colorbox{lightblue}{\parbox[t]{\mylen}{\CTV\FmTi{#1}}}\par\nobreak%
+  \vskip 40pt%
+}
+
+\renewcommand\DOTIS[1]{%
+  \fboxsep=0pt
+  \colorbox{mintgreen}{\rule{0pt}{40pt}\parbox[b]{\textwidth}{\hfill}}\\%
+  \nointerlineskip\raggedright%
+  \fboxsep=\myhi%
+  \colorbox{mintgreen}{\parbox[t]{\mylen}{\CTV\FmTi{#1}}}\par\nobreak%
+  \vskip 40pt%
+ }
+
 
 
 \begin{document}
