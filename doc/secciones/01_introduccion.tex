@@ -15,25 +15,70 @@ Actualmente, nuestro día a día está rodeado de sistemas software que gestiona
 
 Además, cada tanto tiempo se publican piezas de \textit{hardware} o programas \textit{software} novedosos que se integran aún más en la vida cotidiana. Como ejemplos podemos tener innovaciones como los teléfonos móviles (quienes evolucionaron en los actuales \textit{smartphones}), los televisores que actualmente disponen de integraciones con los servicios de \textit{streaming}, y lo que en nuestro caso nos compete, que serían los asistentes de voz.
 
-Los asistentes de voz se tratan de sistemas \textit{software} que pueden estar bien como aplicación para sistemas de escritorio, móviles o por Internet; o embebidos en un dispositivo \textit{hardware} que se sitúa en algún punto de la casa; con las cuales se interactúa con la voz, de forma que al hablarle al dispositivo se abra un proceso internamente que toma lo que se habla y devuelve generalmente la reproducción de un audio. Puede ser un sonido, una canción o una voz sintetizada respondiendo a la petición. Trataremos de definir más a detalle las acciones y entresijos que el sistema realiza (desde que recibe el audio hasta que da una respuesta) en el estado del arte.
+Los asistentes de voz se tratan de sistemas \textit{software} que pueden estar bien como aplicación para sistemas de escritorio, móviles o por Internet; o embebidos en un dispositivo \textit{hardware} que se sitúa en algún punto de la casa; con las cuales se interactúa con la voz, de forma que al hablarle al dispositivo se abra un proceso internamente que toma lo que se habla y devuelve generalmente la reproducción de un audio. Puede ser un sonido, una canción o una voz sintetizada respondiendo a la petición. 
 
-\subsection{El desarrollo del \textit{Software} y la liberación del código }
+% ¿Y qué aportan los Asistentes de Voz a la Sociedad de la Información?
+
+Trataremos de definir más a detalle las acciones y entresijos que el sistema realiza (desde que recibe el audio hasta que da una respuesta) en el estado del arte.
+
+\subsection{El desarrollo del \textit{Software} y la propiedad del código }
 \subsubsection{Desarrollando Software}
+Haciendo mención al profesor Alberto Espinosa \cite{Prieto2006-ss}, podríamos entender el software no sólo como aquellos programas que se pueden ejecutar en un computador, sino además a todo lo que lo relaciona, desde las metodologías empleadas en su desarrollo, los datos que internamente interpretan y cómo los organizan, el análisis de cómo se implementará el sistema resultante y, en general, toda herramienta que permita su realización. 
+
+El proceso de hacer Software ha ido cambiando con el pasar de los años con tal de hacer más eficiente el proceso de diseño y codificación de este. Se pasó de un procedimiento lineal en cascada con una codificación sin estandarizar, a una serie de aproximaciones que todos los desarrolladores adoptan; basadas en estilos de codificación, metodologías ágiles como Scrum y XP, o patrones de diseño y arquitecturales; entre otros. 
+
+Por consiguiente, se lleva a una comprensión del código y de cómo integrar el sistema o interactuar con éste, una documentación sobre todo lo que se haya implicado con tal de converger en el producto resultante.
+
+Por lo que se ha expuesto entonces en este epígrafe, vemos que al trabajar en el área del Desarrollo del Software trabajamos con convenciones estandarizadas que acaban en una serie de documentos que exponen cómo se ha ideado el programa o programas a programar junto con instrucciones para poder compilarlo y/o instalarlo; el código ya programado (en general con comentarios) y el ejecutable o sistema montado (si se aplica)
+
 \subsubsection{Las empresas y la propiedad del código}
+Las empresas llevan adaptándose o adelantándose a los hábitos que la sociedad va experimentando día a día.
+Desde la introducción de los computadores (primero en el ámbito científico y con el pasar de los años extendiéndose a un público más general), las empresas requieren de programas que por les faciliten la gestión y/o automatización de algunos ámbitos y procesos que aplican entre sus operaciones y responsabilidades.
+
+Por consecuencia, se da una necesidad de preparar más programas para las terminales que satisfagan las tareas más mecánicas y repetitivas o que sirvan de ayuda a la realización de tal tarea consiguiendo más eficiencia en el proceso. Para suplir esa demanda se crean otros tipos de empresa dedicados a desarrollar ese software (a medida o para un grupo de usuarios más extendido) consiguiendo de paso algún beneficio económico. Entre ellos podríamos destacar a Microsoft, Apple o IBM, quienes en los últimos años han ido tomando relevancia en conjunto con la historia reciente de la computación y de la llegada del ordenador personal.
+
+Eso sí, si estas empresas toman tiempo y recursos en realizar soluciones computacionales para satisfacer esas demandas con tal de conseguir beneficios, ¿cómo pueden protegerse de que la competencia pueda sacar fácilmente una versión con las mismas o similares prestaciones, sacando así una versión de esa solución por un precio menor? Una de las ideas más intuitivas sería simplemente \textbf{no dando el código} ni las instrucciones para montarlo, dando en su lugar sólo un ejecutable que pueda comprender el Sistema Operativo que se use. 
+
+Si bien es una solución correcta, posee ciertos inconvenientes que podrían acarrear el desarrollo a largo plazo. Podríamos listar unas cuantas:
+
+\begin{itemize}
+	\item \textbf{Compatibilidad}: Los programas resultantes están compilados y preparados para ser ejecutados en los entornos que la empresa que los desarrolla ve a conveniencia del usuario final. Sin embargo, lo que a tales creadores les parece el entorno medio para poder usar su software; puede acabar no coincidiendo con el real. Y aún así, si logra que funcione para los usuarios de ese entorno, puede que otros que no trabajen en tal contexto no puedan hacer usufructo de la aplicación aún habiendo pagado por ella.
+	
+	\item \textbf{Privacidad y auditoría}: Cada día, la sociedad empieza a usar dispositivos para poder acceder a la información que lo rodea. Así mismo, desean poder tener protegidos los datos que le definen como persona en el mundo real y poder aislarlos de su perfil en las redes. Si bien hay normativas y organismos que velan para que sus datos sean lo más confidenciales posible (por ejemplo, en \cite{lopd-2018}) ; al tener un código cerrado se desconoce realmente si las empresas obran de buena fe y si todos los datos y telemetría que recogen (en caso de que proceda) son los descritos en sus Términos y Condiciones de Uso.
+	
+	Ante ello, se podrían exigir auditorías de código por parte de entes reguladores o de terceros para poder analizar lo que hace el programa, qué datos usa y cómo los trata, para poder compararlos con los descritos en el documento redactado por la empresa y poder decidir la elección de usar o no el programa.
+	
+	\item \textbf{Restricción de la libertad de uso}
+\end{itemize}
+
+%Hablar de los términos legales y la Propiedad Intelectual
+
 \subsubsection{Software de Código Abierto y Software Libre}
+
+En respuesta a los inconvenientes discutidos en la anterior enumeración, han surgido iniciativas como la \textit{Free Software Foundation} \cite{fsf-about}, donde se promueve que el código del programa resultante esté disponible al público junto con la documentación necesaria con tal de incentivar la colaboración entre programadores de tener aplicaciones para todos, que permitan ser modificados sin restricciones.
+
+%Hablar de las 4 libertades
+
+Si bien la corriente ideológica de la FSF establece muy bien los fundamentos para luchar contra el cierre del código, esa ideología impone una serie de libertades y reglas estrictas para que se tome como tal. 
+
+En respuesta, y como una iniciativa más abierta que la comentada previamente, surge la \textit{Open Source Initiative} \cite{osi-about}, quienes definen una iniciativa más centrada en pragmas, permitiendo así una liberación del código a la vez que se permite una protección de la autoría ligeramente mayor. De esta manera, empresas como Google y Facebook permiten que sus proyectos puedan recibir colaboración de la comunidad informática a la vez que pueden restringir el ámbito de uso que concede ese código o su software resultante.
+
+%Hablar de los términos legales en las licencias.
+
+Detallaremos en el Estado del Arte un poco más sobre las licencias existentes que puedan ser más relevantes, las diferencias entre ellas y posibles cuestiones con respecto a usar varios proyectos pequeños para realizar una aplicación más grande.
 
 \section{Estructura del trabajo}
 
 El trabajo se compone de los siguientes capítulos:
 
 \begin{enumerate}[C{a}pítulo 1.- ]
-	\item \textbf{Introducción} Es el capítulo actual, donde 
+	\item \textbf{Introducción} Es el capítulo actual, donde se explica los pilares que cimientan el proyecto para motivar la realización de este Trabajo.
 	\item \textbf{Descripción del problema} Aquí se habla, ya puestos en antecedentes, de qué se quiere resolver con el sistema resuelto
-	\item \textbf{Estado del arte} En este capítulo se analizará el estado de la situación del problema, de las soluciones ya realizadas y de las herramientas que se podrían utilizar para ello.
+	\item \textbf{Estado del arte} En este capítulo se analizará la situación del problema, las soluciones ya realizadas y las herramientas que se podrían utilizar para crear la nuestra propia.
 	\item \textbf{Planificación} En este apartado realizaremos una estimación del tiempo necesario para realizar el proyecto.
-	\item \textbf{Análisis} En el capítulo se usan las herramientas para preparar el diseño del proyecto de cara a su posterior implementación.
+	\item \textbf{Análisis} En el capítulo se usan las herramientas para preparar el diseño del proyecto de cara a su posterior codificación.
 	\item \textbf{Implementación} Tras lo previsto en el anterior epígrafe, aquí se comentará cómo se ha realizado el sistema resultante.
-	\item \textbf{Conclusiones} En el último apartado se discutirán tópicos que han podido surgir durante el transcurso del Trabajo, posibles mejoras que podrían implementarse en el futuro y qué se ha aprendido durante el camino que pueda aplicarse en la vida tras el aprendizaje en el Grado.
+	\item \textbf{Conclusiones} En el último apartado se discutirán tópicos que han podido surgir durante el transcurso del Trabajo, posibles mejoras que podrían implementarse en el futuro, qué se ha aplicado en las diferentes asignaturas del Grado y qué se ha aprendido durante el camino que pueda aplicarse en la vida tras esta etapa de aprendizaje.
 \end{enumerate}
 
 Este proyecto es software libre, y está liberado con la licencia \cite{gplv3}.
