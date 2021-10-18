@@ -17,7 +17,11 @@ Además, cada tanto tiempo se publican piezas de \textit{hardware} o programas \
 
 Los asistentes de voz se tratan de sistemas \textit{software} que pueden estar bien como aplicación para sistemas de escritorio, móviles o por Internet; o embebidos en un dispositivo \textit{hardware} que se sitúa en algún punto de la casa; con las cuales se interactúa con la voz, de forma que al hablarle al dispositivo se abra un proceso internamente que toma lo que se habla y devuelve generalmente la reproducción de un audio. Puede ser un sonido, una canción o una voz sintetizada respondiendo a la petición. 
 
-% ¿Y qué aportan los Asistentes de Voz a la Sociedad de la Información?
+Los Asistentes de Voz permiten una nueva dimensión en el mundo de los Dispositivos de Interfaz Humana, ya que en los últimos años la comunicación por voz está siendo habitual en aplicaciones de mensajería y el hecho de no necesitar usar casi las manos o la vista para interactuar con éstos hace que sea de ayuda a personas con diversidad cognitiva o motora (por ejemplo, las personas ciegas). Además, depende de cómo se defina el tono del Asistente, se puede permitir una interacción más cercana a una conversación entre seres humanos.
+
+El hecho de que se quiera hacer esto último abre varias cuestiones, como saber qué temas hablar, en qué idiomas se podría comunicar o qué vocabulario usar.
+
+Esto, por consecuencia, debería dar a una serie de patrones que debe seguir. Estos patrones pueden compartir una respuesta común o que un patrón pueda dar varias respuestas. Por consiguiente, uno de los posibles puntos a tratar sería cómo podemos hacer que esa información se pueda completar para que el léxico, habilidades y conocimientos de nuestro agente pueda enriquecerse.
 
 Trataremos de definir más a detalle las acciones y entresijos que el sistema realiza (desde que recibe el audio hasta que da una respuesta) en el estado del arte.
 
@@ -37,7 +41,15 @@ Desde la introducción de los computadores (primero en el ámbito científico y 
 
 Por consecuencia, se da una necesidad de preparar más programas para las terminales que satisfagan las tareas más mecánicas y repetitivas o que sirvan de ayuda a la realización de tal tarea consiguiendo más eficiencia en el proceso. Para suplir esa demanda se crean otros tipos de empresa dedicados a desarrollar ese software (a medida o para un grupo de usuarios más extendido) consiguiendo de paso algún beneficio económico. Entre ellos podríamos destacar a Microsoft, Apple o IBM, quienes en los últimos años han ido tomando relevancia en conjunto con la historia reciente de la computación y de la llegada del ordenador personal.
 
-Eso sí, si estas empresas toman tiempo y recursos en realizar soluciones computacionales para satisfacer esas demandas con tal de conseguir beneficios, ¿cómo pueden protegerse de que la competencia pueda sacar fácilmente una versión con las mismas o similares prestaciones, sacando así una versión de esa solución por un precio menor? Una de las ideas más intuitivas sería simplemente \textbf{no dando el código} ni las instrucciones para montarlo, dando en su lugar sólo un ejecutable que pueda comprender el Sistema Operativo que se use. 
+Eso sí, si estas empresas toman tiempo y recursos en realizar soluciones computacionales para satisfacer esas demandas con tal de conseguir beneficios, ¿cómo pueden protegerse de que la competencia pueda sacar fácilmente una versión con las mismas o similares prestaciones, sacando así una versión de esa solución por un precio menor? Una de las ideas más intuitivas sería simplemente \textbf{no dando el código} ni las instrucciones para montarlo, dando en su lugar sólo un ejecutable y las dependencias necesarias de forma que pueda correr en el Sistema Operativo (o varios de esos ejecutables si se han compilado versiones para diferentes arquitecturas y kernels, y si así se permite). 
+
+Además, al hacer tal protección, según las leyes españolas, posee dos tipos de derechos \cite{propint-1996}:
+
+\begin{itemize}
+	\item \textbf{Derechos morales} Son aquellos derechos inalienables e irrenunciables por los que puede decidir sobre el objeto que se ha querido proteger legalmente (en nuestro caso, un software).
+	
+	\item \textbf{Derechos de explotación} Son aquellas herramientas que puede usar o facilitar a un tercero con tal de trabajar con su proyecto para obtener beneficios por ello.
+\end{itemize}
 
 Si bien es una solución correcta, posee ciertos inconvenientes que podrían acarrear el desarrollo a largo plazo. Podríamos listar unas cuantas:
 
@@ -46,24 +58,38 @@ Si bien es una solución correcta, posee ciertos inconvenientes que podrían aca
 	
 	\item \textbf{Privacidad y auditoría}: Cada día, la sociedad empieza a usar dispositivos para poder acceder a la información que lo rodea. Así mismo, desean poder tener protegidos los datos que le definen como persona en el mundo real y poder aislarlos de su perfil en las redes. Si bien hay normativas y organismos que velan para que sus datos sean lo más confidenciales posible (por ejemplo, en \cite{lopd-2018}) ; al tener un código cerrado se desconoce realmente si las empresas obran de buena fe y si todos los datos y telemetría que recogen (en caso de que proceda) son los descritos en sus Términos y Condiciones de Uso.
 	
-	Ante ello, se podrían exigir auditorías de código por parte de entes reguladores o de terceros para poder analizar lo que hace el programa, qué datos usa y cómo los trata, para poder compararlos con los descritos en el documento redactado por la empresa y poder decidir la elección de usar o no el programa.
+	Ante ello, se podrían exigir auditorías de código por parte de entes reguladores o de terceros para poder analizar lo que hace el programa, qué datos usa y cómo los trata, para poder compararlos con los descritos en el documento redactado por la empresa y poder decidir la elección de usar o no el programa, aunque podría ser difícil si se quisiera hacer de forma independiente por las protecciones legales y los propios Términos de Uso.
 	
-	\item \textbf{Restricción de la libertad de uso}
+	\item \textbf{Restricción de la libertad de uso} Al tener la propiedad de la aplicación, las empresas pueden ejercer todo derecho que les permita defenderse de aquellas copias y eliminar a potenciales competidores. Así, por lo comentado anteriormente en \cite{propint-1996}, pueden usar sus derechos morales con tal de que no permitan modificaciones a su programa mientras puedan distribuir copias de este gracias a su derecho de reproducción.
 \end{itemize}
-
-%Hablar de los términos legales y la Propiedad Intelectual
 
 \subsubsection{Software de Código Abierto y Software Libre}
 
 En respuesta a los inconvenientes discutidos en la anterior enumeración, han surgido iniciativas como la \textit{Free Software Foundation} \cite{fsf-about}, donde se promueve que el código del programa resultante esté disponible al público junto con la documentación necesaria con tal de incentivar la colaboración entre programadores de tener aplicaciones para todos, que permitan ser modificados sin restricciones.
 
-%Hablar de las 4 libertades
+De hecho, esta iniciativa parte de una filosofía basada en 4 grandes puntos que denominan \textbf{libertades} \cite{fsf-philosophy}:
+
+\begin{enumerate}[\textbf{L{i}bert{a}d} 1\textbf{.-}]
+	\setcounter{enumi}{-1}
+	\item Ejecutar el programa como uno quiera, dando igual el soporte, arquitectura o SO. Si lo puede hacer ejecutar, no hay que impedírselo.
+	\item Permitir estudiar su funcionamiento y que pueda modificarse su código fuente. Como consecuencia, los archivos deben estar disponibles en algún lado o al menos poder darles acceso a su obtención.
+	\item Redistribuir copias para ayudar a otros (de forma gratuita o pagando)
+	\item Permitir que otros puedan distribuir versiones modificadas del proyecto original para que la comunidad pueda beneficiarse de esos cambios.
+\end{enumerate}
 
 Si bien la corriente ideológica de la FSF establece muy bien los fundamentos para luchar contra el cierre del código, esa ideología impone una serie de libertades y reglas estrictas para que se tome como tal. 
 
-En respuesta, y como una iniciativa más abierta que la comentada previamente, surge la \textit{Open Source Initiative} \cite{osi-about}, quienes definen una iniciativa más centrada en pragmas, permitiendo así una liberación del código a la vez que se permite una protección de la autoría ligeramente mayor. De esta manera, empresas como Google y Facebook permiten que sus proyectos puedan recibir colaboración de la comunidad informática a la vez que pueden restringir el ámbito de uso que concede ese código o su software resultante.
+En respuesta, y como una iniciativa más abierta que la comentada previamente, surge la \textit{Open Source Initiative} \cite{osi-about}, quienes definen una iniciativa más centrada en pragmas, permitiendo así una liberación del código y una participación abierta de la comunidad a la vez que se permite una protección de la autoría ligeramente mayor. De esta manera, empresas como Google y Facebook permiten que sus proyectos puedan recibir colaboración de la comunidad informática a la vez que pueden restringir el ámbito de uso que concede ese código o su software resultante.
 
-%Hablar de los términos legales en las licencias.
+Al hablar de Software Libre y Software Open Source, una de las grandes cuestiones son las Licencias. 
+
+Las Licencias, a nivel legal\cite{fsfe-licensing} , son un contrato entre el desarrollador (buen en solitario, bien el grupo) y el creador de la Licencia en el que liberan ciertos o todos los derechos de explotación mientras que se mantiene una protección sobre la autoría del trabajo. Con una de estos contratos se persigue:
+\begin{itemize}
+	\item Por una parte, hacer que el código fuente sea lo más simple y permisivo posible. Por ello, según lo laxa que sea la licencia, se podría permitir incluso que otros usen el código creado y distribuido libremente para hacer una aplicación de código cerrado con él.
+	\item Por la otra, se trata de proteger el derecho moral del autor, pudiendo tener cierto control para que todos puedan usar el proyecto de casi cualquier manera, salvo por ejemplo distribuir versiones modificadas para que se consideren propietarias.
+\end{itemize}
+
+
 
 Detallaremos en el Estado del Arte un poco más sobre las licencias existentes que puedan ser más relevantes, las diferencias entre ellas y posibles cuestiones con respecto a usar varios proyectos pequeños para realizar una aplicación más grande.
 
