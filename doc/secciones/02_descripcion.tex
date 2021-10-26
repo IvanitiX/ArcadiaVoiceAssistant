@@ -20,9 +20,52 @@ Por lo que se ha comentado en la Introducción sobre lo que rodea al desarrollo 
 \section{La solución propuesta}
 La solución que podemos proponer es hacer un software de Asistente de Voz por nuestra cuenta. Esto nos da un roadmap extenso, donde habrá que ver desde un punto de vista competitivo al panorama general para después extraer de ahí la vista general del software, que se reflejará en una serie de diagramas que se reflejarán finalmente en el código.
 
+Se explorará la posibilidad de modularizar el Asistente con tal de poder agregar funcionalidades (en forma de preguntas, respuestas y utilidades) de forma sencilla.
+
+Otro tema interesante de tratar sería a qué entorno dirigir este Proyecto. En principio se hará para Sistemas Operativos de escritorio, aunque si el tiempo lo permite se explorará integrarlo en un SBC como podría ser una Raspberry Pi sin pantalla, permitiendo su funcionamiento a través de un micrófono y un altavoz. 
+
 \section{Las restricciones}
+\begin{itemize}
+	\item El más importante de todos, se tratarán de usar APIs libres u Open Source, lo máximo que se pueda. Será la gran diferencia con respecto a las otras alternativas más populares.
+	\item Por consecuencia sobre el anterior punto, la licencia a aplicar al conjunto del proyecto deberá ser compatible con la serie de complementos y componentes que se usen. Ello implica que el producto resultante será de Código Abierto o Libre.
+	\item El proyecto deberá realizarse antes de la fecha de entrega estimada, siendo esta Junio de 2022.
+\end{itemize}
 
 \section{Objetivos}
+Para llegar a la solución propuesta, se emplearán herramientas y se requerirá investigación y desarrollo que podríamos definir en base a una serie de objetivos de un granulado más fino. Además se separarán estos objetivos en dos tipos: 
+\begin{itemize}
+	\item \textbf{De Investigación y Aprendizaje (O-IA)} Son aquellos objetivos donde se involucra una formación sobre tecnologías, métodos y herramientas para tener una visión global de la situación y de cómo facilitar el trabajo durante la fase de Diseño y Desarrollo.
+	\item \textbf{De Diseño y Desarrollo (O-DD)} Son aquellas metas que se resolverán mediante las herramientas de planteamiento del sistema y su posterior codificación, pruebas y posible producción.
+\end{itemize}
 
+\subsection{Objetivos de Investigación y Aprendizaje}
+
+\begin{enumerate}[O-{IA}.1 -]
+	\item Entender el funcionamiento de los Asistentes de Voz.
+	\item Analizar el panorama del campo de los Asistentes de Voz y los avances que se han realizado.
+	\item Analizar las prestaciones que ofrecen otras alternativas propietarias y libres (si las hay)
+	\item Sintetizar los posibles componentes que conforman un Asistente de Voz y la escalabilidad de cada uno de ellos.
+	\item Entender el impacto del software propietario y sus alternativas libres o de Código Abierto.
+	\item Analizar las distintas licencias que se ofrecen y las compatibilidades entre éstas para elegir la idónea para la aplicación resultante.
+	\item Analizar varias aproximaciones de desarrollo (desarrollo en cascada, Metodologías Ágiles...) para elegir la planificación temporal y el enfoque del Trabajo.
+	\item Analizar el impacto que los descubrimientos en los Asistentes de Voz pueden producir en la Sociedad de la Información.
+	\item Leer sobre aquellos estándares y convenciones para facilitar la compartición y liberación del proyecto (por ejemplo. Códigos de conducta, Guías de contribución)
+	\item Aprender sobre herramientas de \textit{Continous Integration/Continous Deployment} y entender cómo pueden estas acelerar el desarrollo.
+\end{enumerate}
+
+\subsection{Objetivos de Diseño y Desarrollo}
+
+\begin{enumerate}[O-DD.1 -]
+	\item Pensar en perfiles de personas que usarían el sistema
+	\item Diseñar casos de uso en los que el software podría presentar algún problema con tal de buscar soluciones o limitaciones.
+	\item Diseñar las clases que albergarán los componentes de un Asistente de Voz, su interacción con los periféricos de Entrada/Salida y con aquellas APIs externas que se requieran para el funcionamiento básico del programa.
+	\item Idear una vía para escalar el número de posibles frases e interacciones que pueda reconocer el proyecto.
+	\item Planear la arquitectura del proyecto resultante, siguiendo las buenas prácticas del Desarrollo de Software
+	\item Con base a la arquitectura, codificar lo necesario para la implementación de la aplicación.
+	\item Diseñar pruebas para asegurar la calidad del proyecto y conocer los límites de la codificación.
+	\item Redactar documentación referida a la arquitectura del proyecto para su posterior mantenimiento
+	\item Redactar documentación orientada a aquellos desarrolladores que deseen escalar las oraciones que pueda reconocer y las respuestas que pueda contestar el Asistente de Voz resultante.
+	
+\end{enumerate}
 
 
