@@ -1,15 +1,56 @@
 \chapter{Estado del arte}
 
-\section{Asistentes de Voz: Escuchar, procesar, responder}
-Los Asistentes de Voz se podrían definir como ++++++++++++++++
-\subsection{Una reseña histórica}
-\subsubsection{Experimentando con la voz}
+\noindent\fbox{
+	\parbox{\textwidth}{
+		En este capítulo se analizará más a fondo la situación del problema, las soluciones ya realizadas, las herramientas que se pueden utilizar para realizar la solución, desde un punto de vista crítico.
+	}
+}
 
-\subsubsection{Primeras aplicaciones del reconocimiento de voz}
+\section{Asistentes de Voz: Escuchar, procesar, responder}
+
+Los Asistentes de Voz podrían definirse como un agente software que puede interpretar el habla humana y responder usando una voz sintetizada, según Matthew Hoy en su introducción a los Asistentes de Voz \cite{vaintroduction-matthewhoy}. 
+
+En general, esperan a ser invocados por una palabra clave, tras lo cual graban lo que se dice y lo procesa, interpretándolo como un comando. Ese comando puede implicar desde responder con la información necesaria, pasando por interactuar con el dispositivo donde está instalado (por poner un ejemplo, pidiendo controlar elementos multimedia), hasta poder incluso manejarse con otros dispositivos dentro o fuera de su alcance.
+
+\subsection{Una reseña histórica}
+La historia de los Asistentes de este tipo está ligada como la aplicación de dos grandes campos de la Inteligencia Artificial: el Reconocimiento de Voz y la Síntesis de Voz.
+\begin{itemize}
+	\item El \textbf{Reconocimiento de Voz} persigue la conversión de una grabación de una voz a un texto con el mismo mensaje que el hablado
+	\item La \textbf{Síntesis de Voz} busca justamente lo contrario: A través de un texto, lograr que una voz lo comunique.
+\end{itemize}
+
+En esta reseña histórica veremos los pasos relevantes en ambos campos hasta el primer Asistente de Voz.
+
+\subsubsection{Experimentando con la voz}
+Si bien la historia del reconocimiento de voz es más reciente, hace dos siglos se trataba de modelar el lenguaje según el movimiento del tracto vocal, dando así un paso en su síntesis.
+
+La primera instancia de aparatos que usen la voz data de un juguete de 1918 denominado Radio Rex, el cual al decir el nombre de Rex un perro salía de su caseta. La cuestión en ello es que no reconocía la voz como tal, sino la vibración. Nada más tocar la caseta con un poco de fuerza o dar un golpe cerca de él, saltaba un contacto de cobre que accionaba un mecanismo.
+
+No fue hasta 1950 que los Laboratorios Bell empezaron a hacer ciertos avances para reconocer la voz con Audrey. Era una máquina basada en una serie de relés que podía reconocer los dígitos del 0 al 9 y las palabras \textsc{Sí} y \textsc{No} con un 90\% de acierto. Sin embargo, ese aparato sólo podía reconocer ciertas voces y era enorme, con muchos cables y muy costoso. Se tenía ideado para automatizar el marcado en los teléfonos.
+
+\subsubsection{Primeras aplicaciones del reconocimiento y síntesis de voz}
+En 1930, los Laboratorios Bell crearon el \textit{Vocoder}, una máquina con un teclado que permitía analizar y sintetizar una voz electrónica, prometiendo ser una voz inteligible. Sin embargo, sonaba muy robótica y a veces no se entendía muy bien.
+
+La primera aplicación del reconocimiento de voz fue presentado por IBM en 1962. Con el nombre de \textit{Shoebox}, era una calculadora capaz de reconocer 16 comandos (los dígitos, \textsc{Plus}, \textsc{Minus}, \textsc{Subtotal}, \textsc{Total}, \textsc{False} y \textsc{Off}). Su salida se emitía sin embargo en una impresora.
+
+En 1961, el Doctor J.L Kelly usó un IBM 704 para sintetizar voz a través de un ordenador, cantando una canción en compañía de una orquesta. A partir de ese punto se ha ido trabajando en alas de una voz más natural que se pudiera lanzar con altavoces más pequeños.
+
+En 1972, en el DARPA, se culminó un sistema más complejo de Reconocimiento de Voz denominado \textit{Harpy}, el cual permitía reconocer 1000 palabras e incluso sus combinaciones con tal de crear oraciones y sentencias.
+
+En los 90, se empezó a vender programas software como \textit{Dragon Dictate}, que permitía reconocer bastantes palabras y que se distribuía de forma comercial al público, aunque el monto a gastar por entonces era de 6000 dólares.
 
 \subsubsection{Los primeros Asistentes Virtuales: el don artificial del habla}
 
+El campo de los Asistentes Virtuales ha sido basado en texto durante bastante tiempo. Pero hubo dos grandes eventos que dieron pie a la actualidad de los Asistentes de Voz, solapando la los años más recientes. En general, la década de los 2010 ha sido la que estamos continuando actualmente.
+
+\begin{itemize}
+	\item Por una parte, el equipo \textit{DeepQA} de IBM se dedicó desde 2004 a hacer un sistema que pudiera responder cualquier pregunta hablada. Este fue más conocido por ganar en simulacros de \textit{Jeopardy} contra campeones de ese programa en 2010 y 2011.
+	\item Por la otra, la popularización de los \textit{smartphones} con los iPhone de Apple y la compra de Siri para su posterior mejora, dio la popularidad de los Asistentes Virtuales de Voz que conocemos actualmente.
+\end{itemize}
+
 \subsection{En la actualidad...}
+Esta era es el apogeo de los Asistentes Virtuales, que están empezando a desarrollarse en multitud de formatos por parte de varias compañías conocidas. En esta parte hablaremos de algunos de ellos a modo introductorio, aunque en el Análisis hablaremos en detalle y analizaremos competitivamente sus habilidades.
+
 \subsubsection {Aplicaciones populares}
 
 \subsubsection{Un sinfín de formatos}
