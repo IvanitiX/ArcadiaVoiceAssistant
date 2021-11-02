@@ -29,7 +29,13 @@ La primera instancia de aparatos que usen la voz data de un juguete de 1918 deno
 No fue hasta 1950 que los Laboratorios Bell empezaron a hacer ciertos avances para reconocer la voz con Audrey. Era una máquina basada en una serie de relés que podía reconocer los dígitos del 0 al 9 y las palabras \textsc{Sí} y \textsc{No} con un 90\% de acierto. Sin embargo, ese aparato sólo podía reconocer ciertas voces y era enorme, con muchos cables y muy costoso. Se tenía ideado para automatizar el marcado en los teléfonos.
 
 \subsubsection{Primeras aplicaciones del reconocimiento y síntesis de voz}
-En 1930, los Laboratorios Bell crearon el \textit{Vocoder}, una máquina con un teclado que permitía analizar y sintetizar una voz electrónica, prometiendo ser una voz inteligible. Sin embargo, sonaba muy robótica y a veces no se entendía muy bien.
+En 1930, los Laboratorios Bell crearon el \textit{Vocoder}, una máquina con un teclado que permitía analizar y sintetizar una voz electrónica, prometiendo ser una voz inteligible. Sin embargo, sonaba muy robótica y a veces no se entendía muy bien. Posteriormente evolucionó al \textit{Voder}, que fue presentado en la Feria de Nueva York de 1939.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{imagenes/Voder.png}
+	\caption{Un esquema del \textit{Voder}. Extraído de \cite{voder}}
+\end{figure}
 
 La primera aplicación del reconocimiento de voz fue presentado por IBM en 1962. Con el nombre de \textit{Shoebox}, era una calculadora capaz de reconocer 16 comandos (los dígitos, \textsc{Plus}, \textsc{Minus}, \textsc{Subtotal}, \textsc{Total}, \textsc{False} y \textsc{Off}). Su salida se emitía sin embargo en una impresora.
 
@@ -41,7 +47,7 @@ En los 90, se empezó a vender programas software como \textit{Dragon Dictate}, 
 
 \subsubsection{Los primeros Asistentes Virtuales: el don artificial del habla}
 
-El campo de los Asistentes Virtuales ha sido basado en texto durante bastante tiempo. Pero hubo dos grandes eventos que dieron pie a la actualidad de los Asistentes de Voz, solapando la los años más recientes. En general, la década de los 2010 ha sido la que estamos continuando actualmente.
+El campo de los Asistentes Virtuales ha sido basado en texto durante bastante tiempo, donde a través de un globo podías leer sugerencias y consejos (como ejemplo podemos poner a Clippy, incorporado en 	Microsoft Office 97). Pero hubo dos grandes eventos que dieron pie a la actualidad de los Asistentes de Voz, solapando la los años más recientes. En general, la década de los 2010 ha sido la que estamos continuando actualmente.
 
 \begin{itemize}
 	\item Por una parte, el equipo \textit{DeepQA} de IBM se dedicó desde 2004 a hacer un sistema que pudiera responder cualquier pregunta hablada. Este fue más conocido por ganar en simulacros de \textit{Jeopardy} contra campeones de ese programa en 2010 y 2011.
@@ -52,8 +58,40 @@ El campo de los Asistentes Virtuales ha sido basado en texto durante bastante ti
 Esta era es el apogeo de los Asistentes Virtuales, que están empezando a desarrollarse en multitud de formatos por parte de varias compañías conocidas. En esta parte hablaremos de algunos de ellos a modo introductorio, aunque en el Análisis hablaremos en detalle y analizaremos competitivamente sus habilidades.
 
 \subsubsection {Aplicaciones populares}
+Hoy en día, las empresas más importantes tienen una instancia de Asistente Virtual por voz. Comentemos algunas de ellas:
+
+\begin{itemize}
+	\item \textbf{Apple Siri} Como se comentó previamente, fue el resultado de la compra de esa aplicación, la cual se integró en el iPhone 4S para darle distintivo a sus dispositivos, presentándose el 14 de Abril de 2011. Con el tiempo se fue extendiendo a los aparatos de Apple, formando parte de su ecosistema.
+	\item \textbf{Google Now} Al principio fue diseñado como un sistema de tarjetas que iba aprendiendo de las búsquedas e información del usuario para dar información relevante, pero este no respondía con voz. Posteriormente evolucionó a \textbf{Google Assistant} en Mayo de 2016, primero como parte de una app y extendiéndose de forma análoga a Siri en los dispositivos del ecosistema de Google y Android, siendo este software el que lo enmarca en esta lista.
+	\item \textbf{Amazon Alexa} Alexa fue presentada en Noviembre de 2014 para dispositivos Echo. Debido a la gran infraestructura que posee esta multinacional en cuanto a servidores y servicios de \textit{cloud} se refiere, gran parte de ese procesamiento pasa por esas infraestructuras. Además permite hacer aplicaciones (o \textbf{skills}) para que terceros puedan integrarse con este Asistente. Actualmente ha sido integrado en multitud de dispositivos incluso fuera de su ecosistema.También se está ofreciendo como un \textit{SaaS} (\textit{Software as a Service}) para poder integrarlo donde se pueda, además de ciertos plus como voces de famosos.
+	\item \textbf{Microsoft Cortana} La respuesta por parte de la empresa de Bill Gates ante el boom del tema a discutir, y tomando la inspiración de una de los personajes más icónicos de \textit{Halo} (uno de los juegos más famosos de la consola de la compañía, \textit{Xbox}), fue presentada en una conferencia de la empresa en Septiembre de 2014. Con la llegada de Windows 10, este asistente llegó integrado. Hay constancia de dos versiones para Android y iOS, pero sólo en inglés.
+\end{itemize}
+
+Además de estos, hay un montón más de ellos. En algunos casos, se crean por la falta de soporte de alguno de las empresas más grandes (por ejemplo, \textbf{Huawei Celia} fue desarrollado por las restricciones de Estados Unidos). En otros, por tener otras alternativas con filosofías como el \textit{FOSS}, del cual hablaremos posteriormente.
+
 
 \subsubsection{Un sinfín de formatos}
+Hoy en día, podemos encontrarnos estas aplicaciones casi en cualquier lado. Si bien en un principio estaba pensado para smartphones, enseguida fue adaptado a otros aparatos.
+Una de las propuestas fue con Amazon y su asistente Alexa, que fue embebida en un dispositivo sin pantalla llamado Echo. Sólo dispone de altavoces, micrófonos, una luz para saber si escucha y se podía conectar con el teléfono para poder insertar las contraseñas pertinentes. Posteriormente se hizo una versión que tenía una pantalla para mostrar algunas cosas.
+Gracias a la variedad de versiones de ese producto, se permite tener uno de esos Asistentes por precios más o menos caros, con calidades más o menos Premium.
+
+En general, los movimientos en estas aplicaciones tienden a comenzar en un pequeño sector el cual trata de expandirse para formar parte de la experiencia de un ecosistema donde se ha desarrollado.
+
+\subsubsection{Las ventajas}
+ \begin{itemize}
+ 	\item Una de las más notorias, como hemos visto, es que podemos tener uno de ellos en cualquier sitio.
+ 	\item La información se está solicitando y recibiendo usando la voz, por lo que no es necesario usar las manos o la vista (como hemos comentado en la Introducción)
+ \end{itemize}
+\subsubsection{Las desventajas}
+	\begin{itemize}
+		\item La más importante está relacionado con la seguridad y privacidad de lo que se usa en ello.
+	\end{itemize}
+
+\begin{figure}[p]
+	\centering
+	\includegraphics[height=0.98\textheight]{imagenes/Timeline_VA.png}
+	\caption{Una timeline con algunos de los eventos más importantes en el área. Extraído de \cite{va-history}}
+\end{figure}
 
 \section{Software Libre, Software de Código Abierto y Licencias}
 El software libre y sus licencias \cite{gplv3} ha permitido llevar a cabo una expansión del
