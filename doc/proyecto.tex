@@ -6,10 +6,10 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % \documentclass[paper=a4, fontsize=11pt]{scrartcl} % A4 paper and 11pt font size
-\documentclass[11pt, a4paper]{book}
+\documentclass[12pt, a4paper, openany]{book}
 \usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
-\usepackage[utf8]{inputenc}
 \usepackage{fourier} % Use the Adobe Utopia font for the document - comment this line to return to the LaTeX default
+\usepackage[utf8]{inputenc}
 \usepackage{listings} % para insertar código con formato similar al editor
 \usepackage[spanish, es-tabla]{babel} % Selecciona el español para palabras introducidas automáticamente, p.ej. "septiembre" en la fecha y especifica que se use la palabra Tabla en vez de Cuadro
 \usepackage{url} % ,href} %para incluir URLs e hipervínculos dentro del texto (aunque hay que instalar href)
@@ -29,7 +29,7 @@
 	linkcolor=black,	% color of internal links
 	urlcolor=cyan		% color of external links
 }
-\renewcommand{\familydefault}{\sfdefault}
+%\renewcommand{\familydefault}{\sfdefault}
 \usepackage{fancyhdr} % Custom headers and footers
 \pagestyle{fancyplain} % Makes all pages in the document conform to the custom headers and footers
 \fancyhead[EL]{Asistente de Voz Modular usando APIs libres} % Empty left header
@@ -53,7 +53,7 @@
 \setcounter{secnumdepth}{4}
 \usepackage[Bjornstrup]{fncychap}
 \ChNumVar{\fontsize{76}{80}\usefont{OT1}{pzc}{m}{n}\selectfont}
-\ChTitleVar{\raggedleft\Large\sffamily\bfseries}
+\ChTitleVar{\raggedleft\Large\bfseries}
 
 \renewcommand\DOCH{%
   \settowidth{\py}{\CNoV\thechapter}
@@ -108,7 +108,6 @@
 	\input{secciones/01_introduccion}
 
 	% Descripción del problema y hasta donde se llega
-	\newpage 
 	\input{secciones/02_descripcion}
 
 	% Estado del arte
