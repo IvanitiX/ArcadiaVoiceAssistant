@@ -168,10 +168,69 @@ Sin embargo, a nivel \textit{software} necesitaríamos:
 \subsection{El reconocimiento de voz}
 En la documentación sobre el tema, IBM \cite{sr-definition} define el Reconocimiento de Voz o \textit{Automatic Speech Recognition} (ASR) como la capacidad de un programa de procesar el habla y convertirlo en un texto escrito legible, que puedan entender también las máquinas para el posterior procesado de la información.
 
+Para poder reconocer esa voz, se necesita primero separar ese sonido en pequeños fragmentos que pueda comparar con un Modelo Acústico (es decir, un conjunto de sonidos pequeños que se conoce lo que significa), de forma que se pueden asociar los del audio enviado con estos para buscar similitudes. Con ello, se busca en un Modelo del lenguaje (un conjunto de letras o combinaciones de estas asociadas a ese sonido) qué palabras quieren decir, y las compara para dar un porcentaje de acierto. Finalmente devuelve un texto o varias versiones de un texto según las opciones que haya ido observando.
+
+Uno de los grandes retos en este campo viene porque no todos tenemos la misma voz, y por lo tanto si bien los Modelos Acústicos pueden reconocer muchas de ellas, no puede con todas, y es imposible tener todas las voces almacenadas. por lo tanto, se han pensado en varias maneras de abordar ese problema a través del Aprendizaje Automático. Mencionaremos algunas de ellas en estos epígrafes a un nivel introductorio.
+
+\subsubsection{Modelos de mezcla Gaussiana}
+Una primera tarea para abordar este campo sería usar la probabilidad de que el sonido coincida con lo que tiene en su modelo, pudiendo así saber qué sonido tiene cada uno.
+
+Si representáramos en una gráfica dos variables (como el fonema y el tiempo), podríamos ver que esos puntos se podrían agrupar en \textit{clusters} que se acercan a ese fonema para dar con la media de ellos y sacar el que más se parezca al resultado, haciendo así una clasificación de los sonidos. Eso es precisamente cómo funciona el modelo de mezcla gaussiana.
+
+Un modelo de mezcla Gaussiana es un modelo probabilístico que asume que todos los puntos a analizar se han generado a través de varias distribuciones gaussianas juntas (una cantidad $K$ de ellas). Por lo tanto, un punto en el plano puede estar cerca de un punto intermedio de esos $K$ que representa una de las distribuciones que se han mezclado, dando a entender que ese punto sea más probable de pertenecer a esa distribución que a otra.
+
+\subsubsection{Modelos ocultos de Markov}
+
+El propio hecho de intentar predecir qué va a decir alguien es un tanto arduo, ya que el mensaje que vas a comunicar puede ir completándose durante el tiempo que se está hablando. Podríamos decir entonces que el hecho de hablar es dar una cadena donde nos vamos enterando del mensaje por la secuencia de sonidos aleatorios, generando fonemas que se unen y comparan con los modelos para encontrar las palabras.
+
+Al final, podríamos darnos con esta serie de condiciones:
+\begin{itemize}
+	\item Tenemos un tiempo que podemos cuantificar discretamente : $ t \in \{1,2,3...\} $
+	\item Cada instante tenemos unas variables aleatorias que podemos o no observar (por ejemplo, la frecuencia del sonido o la letra que intenta decir)
+	\item Las relaciones entre los estados de esas variables según el tiempo sólo dependen del estado anterior (en nuestro caso, si se intenta decir \textit{mesa}, se debería escuchar primero la letra \textit{m}, luego entender \textit{me}, y así sucesivamente)
+	\item Los estados finales que puede tomar cada sonido al final se pueden relacionar con una letra o conjunto de ellas, que si bien es un conjunto grande, al menos es finito.
+\end{itemize}
+
+Esto podría ser por lo tanto un caso de aplicación de un \textbf{Modelo Oculto de Markov}, donde tenemos por una parte una variable aleatoria de estado que no se puede observar directamente (cómo en nuestro caso la letra o fonema que va a decir) y por la otra una variable que sí podemos observar directamente (por ejemplo, si grabamos ese sonido y sacamos su representación de las frecuencias).
+
+Este modelo posee dos propiedades que tienen cabida en el contexto que presentamos:
+\begin{itemize}
+	\item \textbf{Propiedad de Markov} En cada instante, el estado sólo depende del estado anterior. En nuestro caso, si en un instante $t$ se tiene la alta probabilidad de que un sonido se asocie con una consonante, en la siguiente ($t+1$) habría una gran probabilidad de que fuera una vocal, visto lo anterior.
+	
+	\item \textbf{Independencia de las percepciones} En cada instante, lo observado sólo depende de ese instante. Si en el caso del Reconocimiento de Voz tuviéramos en cuenta el sonido de antes, sería muy difícil saber qué fonemas suenan en cada momento para poder asociarlos correctamente, dando lugar a errores de comprensión.
+\end{itemize}
+
+Así, podríamos ver ese modelo como una especie de máquina de estados basado en una serie de probabilidades de que cambie de un estado a otro según lo que se observe.
+
+\subsubsection{Redes neuronales en el ámbito del Speech Recognition}
+Las redes neuronales son en esencia nodos con varias entradas que tienen asociados un peso o importancia a tener en cuenta, que se van ajustando según las conexiones en un grano más fino y se concentran en un resultado final que activa o desactiva.
+
+De esta forma, primero se entrena la red neuronal con una serie de datos que se saben qué resultado tienen para poder ajustarlo; y una vez entrenado, ya se puede dejar con datos que no se han probado.
+
+Hoy en día hay servicios a través de la nube que ofrecen APIs que permiten el reconocimiento de voz, además de softwares y librerías que permiten hacerlo de forma local, aunque al estar orientado a modelos embebidos tienen un reconocimiento más limitado que a través de servidores que pueden almacenar más sonidos y relaciones.
+
 
 \subsection{La síntesis de voz}
+Si el reconocimiento de voz trata el procesamiento del habla para extraer un texto, la síntesis de voz sería lo contrario, la producción artificial de ese habla \cite{tts-definition}. 
+
+Para ello se usan como base los grafemas (aquellas letras y grupos que se pronuncian de una manera). De esa forma, se separa el texto en dichos grafemas, tras lo cual se asocian esos grafemas a sus correspondientes sonidos o fonemas asociados, entonando así cada palabra, frase y finalmente leyendo el texto.
+
+Eso sí, de forma similar al Reconocimiento de Voz, tienen un Modelo para asignar los fonemas a sus grafemas. Aunque en este caso se simplifica el modelo acústico ya que se usa una serie de sonidos predeterminados para darle una voz al resultado.
+
+Uno de los grandes retos que se ha ido viendo mejoría es la naturalización de la voz que sintetiza. Si bien ha habido una mejora desde su creación y aún va evolucionando año tras año, todavía queda camino para llegar a una voz que no pudiéramos etiquetar como robótica.
+
+Al ser el Reconocimiento y la Síntesis de Voz procesos contrarios, se pueden emplear los mismos métodos para hacer una u otra cosa.
+ 
 
 \subsection{La lógica}
+
+La lógica del proyecto se puede parecer al de un chatbot de texto, el cual tiene como unidad básica las palabras, que se unen para poder encontrar sentencias o patrones que puede usar para asociarlas con una respuesta y así enviarlo al usuario.
+
+La primera aproximación para tener ese bot funcionando sería ir comprobando que lo que se envíe tenga una palabra clave que pueda buscar para saber si debe actuar. Pero las respuestas serían bastante estáticas.
+
+Una evolución de ello es que reconozca varias palabras en conjunto, o que admita múltiples palabras para llegar al mismo resultado, dando así un poco más de responsividad ante varias maneras de hacer la misma petición, pero no arreglaría lo primero.
+
+Podríamos entonces añadirle algunas peticiones que requieran de algo variable, como preguntar por el tiempo en una ciudad. De esta manera, las respuestas son más personalizadas para cada uno. El problema con esta iteración es que hay que saber dónde buscar esa información, pero hoy en día está solventado ya que gracias a la aparición de APIs y conexiones con Bases de Datos se pueden enriquecer esas mismas respuestas.
 
 \section{Software Libre, Software de Código Abierto y Licencias}
 El software libre y sus licencias \cite{gplv3} ha permitido llevar a cabo una expansión del
