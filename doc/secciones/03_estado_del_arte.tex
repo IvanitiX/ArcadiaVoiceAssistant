@@ -69,7 +69,9 @@ Hoy en día, las empresas más importantes tienen una instancia de Asistente Vir
 	\item \textbf{Microsoft Cortana} La respuesta por parte de la empresa de Bill Gates ante el boom del tema a discutir, y tomando la inspiración de una de los personajes más icónicos de \textit{Halo} (uno de los juegos más famosos de la consola de la compañía, \textit{Xbox}), fue presentada en una conferencia de la empresa en Septiembre de 2014. Con la llegada de Windows 10, este asistente llegó integrado. Hay constancia de dos versiones para Android y iOS, pero sólo en inglés.
 \end{itemize}
 
-Además de estos, hay un montón más de ellos. En algunos casos, se crean por la falta de soporte de alguno de las empresas más grandes (por ejemplo, \textbf{Huawei Celia} fue desarrollado por las restricciones de Estados Unidos). En otros, por tener otras alternativas con filosofías como el \textit{FOSS}, del cual hablaremos posteriormente. Un ejemplo de ello es \textbf{MyCroft}
+Además de estos, hay un montón más de ellos. En algunos casos, se crean por la falta de soporte de alguno de las empresas más grandes (por ejemplo, \textbf{Huawei Celia} fue desarrollado por las restricciones de Estados Unidos). En otros, por tener otras alternativas con filosofías como el \textit{FOSS}, del cual hablaremos posteriormente. Un ejemplo de ello es \textbf{MyCroft}, que asegura la privacidad de la información y la apertura de su código, además de ofrecerse como una alternativa ligera en cuanto a recursos.
+
+Posteriormente haremos un análisis competitivo de estas opciones a fin de comparar su funcionamiento y prestaciones, para hacernos una idea general de posibles mejoras.
 
 
 \subsubsection{Un sinfín de formatos}
@@ -232,10 +234,34 @@ Una evolución de ello es que reconozca varias palabras en conjunto, o que admit
 
 Podríamos entonces añadirle algunas peticiones que requieran de algo variable, como preguntar por el tiempo en una ciudad. De esta manera, las respuestas son más personalizadas para cada uno. El problema con esta iteración es que hay que saber dónde buscar esa información, pero hoy en día está solventado ya que gracias a la aparición de APIs y conexiones con Bases de Datos se pueden enriquecer esas mismas respuestas.
 
+Estas ideas han dado lugar a algunos lenguajes de marcado basados en \textit{pattern matching} que permiten realizar esas distinciones para dar respuestas. Podemos listar algunas de ellas:
+\begin{itemize}
+	\item \textbf{AIML (\textit{Artificial Intelligence Markup Language})} Es un lenguaje basado en XML que permite realizar algunas cosas básicas como guardar información básica, usar datos descritos en el patrón para devolverlos y decir respuestas aleatorias. Fue pensado para usarse en otro programa llamado \textit{AliceBot}, pero hay programas que permiten realizar el \textit{parsing} de documentos de este tipo.
+	
+	La base de AIML son las categorías, que dentro tienen patrones que escriben los usuarios y plantillas que devuelven los bots.
+	
+	\item \textbf{RiveScript} Basado en AIML, pero en vez de usar los bloques de XML utiliza unos pocos símbolos.
+	
+	\item \textbf{ChatScript} Basado en el Procesamiento del Lenguaje Natural, este lenguaje de scripting utiliza una serie de reglas para ejecutar las respuestas. Además permite hacer llamadas HTTP a servidores.
+\end{itemize}
+
 \section{Software Libre, Software de Código Abierto y Licencias}
-El software libre y sus licencias \cite{gplv3} ha permitido llevar a cabo una expansión del
-aprendizaje de la informática sin precedentes.
+El software libre y sus licencias \cite{gplv3} ha permitido llevar a cabo una expansión del aprendizaje de la informática sin precedentes. 
+
+Como se ha comentado en el primer capítulo, sirve como respuesta a la colisión de la protección de las propiedades intelectuales de las empresas contra los derechos de los usuarios por los cuales, con una copia adquirida, no puedan emplear algunas herramientas para poder preservar el producto que ha adquirido de ellos.
+
+Se ha llegado a un punto en la actualidad donde muchas de las herramientas más populares tienen una alternativa de software libre o ,al menos, de código abierto.
+
 \subsection{¿Desde cuándo existe?}
+La historia del software libre empieza más allá de que se acuñara ese término. En los años 60, era muy común que aquellos con la suerte de tener un ordenador trataran de facilitar el código de sus programas entre ellos. De hecho,las compañías que manufacturaban esos ordenadores no hacían la separación comercial del software dentro de las capacidades del computador.
+
+Ya en la década de 1970, empezaron a surgir empresas que comerciaban software de forma explícita, de forma que fuera compatible con hardware diseñado por otros con el objetivo de lucrarse con estos programas. Para limitar lo que podían hacer con esas aplicaciones, estas compañías ponían trabas a la hora de compartir, modificar y estudiar su producto.
+
+Como respuesta a ellos, y sobre todo en los centros universitarios como \textit{Berkeley} o \textit{Massachussets}, se formaron grupos académicos que distribuían sus programas de forma libre, siendo éstos un esbozo de lo que se conocen actualmente como grupos \textit{FOSS} (de \textit{Free and Open Source Software}) 
+
+Los hitos más relevantes en esta línea temporal fueron el desarrollo del Proyecto GNU de Richard Stallman, quien  sentó las bases de la iniciativa del Software Libre con sus 4 libertades que permiten el uso, modificación, compartición y estudio de aquel software que estuviera forjado con esa filosofía. Empezando como un proyecto que perseguía hacer un Sistema Operativo similar a Unix, sirvió para realizar montones de utilidades que seguimos usando aún a día de hoy, gracias a la aparición del segundo hito relevante.
+
+Este segundo hito no es ni más ni menos que la creación de Linux por el finlandés Linus Torvalds, que si bien al principio no estaba puesto como Software Libre, en su versión 0.12 se cambió a tal, lo que fue del agrado del proyecto GNU. Junto con la propagación del nuevo SO y la adaptación de las herramientas de GNU a este, se consolida una base sobre la que empresas y fundaciones dedicadas al \textit{FOSS} realizan compilaciones y variaciones sobre el núcleo dando lo que se conocen como \textit{distros}.
 
 \subsection{¿En qué beneficia liberar el código?}
 
