@@ -277,24 +277,36 @@ En una charla sobre Software Libre se discutió este punto, llegando a 4 grandes
 
 \subsection{El curioso mundillo de las Licencias y sus restricciones}
 
+Uno de los puntos más interesantes del Software Libre es que para poder proteger y asegurar que las condiciones de ésta se cumplan, hayan recurrido a crear un entorno legal que sirva de punto de referencia sobre la que partir y ayudar al desarrollo de proyectos dentro de este marco.
+
 \subsubsection{Detallando el marco legal de las Licencias}
 Las licencias son, como bien hemos dicho previamente, un contrato entre la persona que lo crea y el desarrollador que quiere aplicarlo en su proyecto. Esto da lugar a una serie de condiciones que deben cumplir ambas partes con tal de llegar a un punto donde ambas partes estén de acuerdo. En general se aplican licencias genéricas hechas por organismos reconocidos como la \textit{Free Software Foundation} o \textit{Creative Commons}, pero si se sabe de legislaciones y cumplen con la finalidad de poder estudiar y usar sin muchas restricciones, se podría realizar y usar.
 
 Vamos a hablar de algunas de las licencias más comunes usadas en el ámbito del Software Libre e incidiremos en el punto de la creación de licencias.
 
 \subsubsection{Free Software Foundation}
+Creadas en 1989,... %Motivación de la creación de licencias%
+%Hablar de los cambios en la versión 3%
+
 Por parte de la FSF, se han creado 3 licencias que se usan popularmente en este mundillo:
 
 \begin{itemize}
-	\item \textbf{GPL : \textit{GNU Public License}}
-	\item \textbf{LGPL: \textit{Lesser GNU Public License}}
-	\item \textbf{AGPL: \textit{Affero GNU Public License}}
+	\item \textbf{GPL : \textit{GNU Public License}} Esta licencia trata de declarar que el software es libre y protegerlo a su vez de apropiaciones indebidas, de forma que quien quiera pueda estudiar, usar, compartir y modificar. 
+	\item \textbf{LGPL: \textit{Lesser GNU Public License}} Es similar a la anterior, pero se diferencia en que el software puede formar parte de software privativo.
+	\item \textbf{AGPL: \textit{Affero GNU Public License}} Esta licencia hereda de GPL casi todo su contenido, al que además se le añade una nueva cláusula que obliga a distribuir ese software si se ejecuta dando servicios a través de una red de ordenadores.
 \end{itemize}
 
 \subsubsection{Creative Commons}
-% ¿Qué es Creative Commons?
+Creative Commons es una organización que se dedica a proveer de herramientas legales para poder compartir el conocimiento y la cultura (no exclusivamente al código). Esas herramientas son en realidad una serie de licencias modulares que permiten restringir o ceder en una serie de aspectos:
 
-Si bien en su versión 4.0 no se puede aplicar ya a software, en versiones anteriores mantiene su estructura, siendo esta basada en una escala de más a menos restricciones, quedando en el siguiente orden:
+\begin{itemize}
+	\item \textbf{BY (Reconocimiento) - } Pide que si se usa en algún lugar, se mencione al autor de éste
+	\item \textbf{NC (No comercial) - } Prohíbe que se use la obra con fines comerciales
+	\item \textbf{ND (Sin derivaciones) - } La obra puede permitir obras derivadas a partir del original.
+	\item \textbf{SA (Share-Alike o Compartir-Igual) - } Pide que quien vaya a usar la obra lo comparta en las mismas condiciones que el original.
+\end{itemize}
+
+Si bien en su versión 4.0 no se puede aplicar ya a software (aunque sí podría usarse, por ejemplo, para su documentación), en versiones anteriores mantiene su estructura, siendo esta basada en una escala de más a menos restricciones, quedando en el siguiente orden:
 
 \begin{itemize}
 	\item \textbf{CC BY-NC-ND (Reconocimiento + No Comercial + Sin Derivaciones)}
@@ -303,10 +315,21 @@ Si bien en su versión 4.0 no se puede aplicar ya a software, en versiones anter
 	\item \textbf{CC BY-ND (Reconocimiento + Sin Derivaciones)}
 	\item \textbf{CC BY-SA (Reconocimiento + Compartir Igual)}
 	\item \textbf{CC BY (Reconocimiento)}
-	\item \textbf{CC 0 (Zero)}
+	\item \textbf{CC 0 (Zero)} La obra es totalmente libre de usarse, el autor cede todos los derechos al usuario. Se conoce como \textit{Dominio Público}.
 \end{itemize}
 
 \subsubsection{Otros tipos de licencias}
+Otras empresas, organizaciones e individuos han creado otras licencias cambiando algunos aspectos pero continuando con el esfuerzo de GPL de crear un contrato que defina los límites de la distribución y ampara al desarrollador. A modo de reseña, listo algunos de ellos.
+
+\begin{itemize}
+	\item \textbf{Licencia MIT} Esta licencia es de tipo permisivo, por el cual sólo pide preservar los avisos de derechos de autor, aunque el usuario puede controlar más aspectos como, por ejemplo, vender el software final con las variaciones, o directamente cambiar la licencia. 
+	\item \textbf{Licencia Apache} Similar a la del MIT, permite no entregar el código fuente si se ha modificado sobre el proyecto original.
+	\item \textbf{The Unlicense} Similar a Creative Commons Zero, cede al dominio público el software resultante.
+	\item \textbf{Licencias cómicas} A modo de sátira, se crearon algunas licencias por parte de algunos desarrolladores que a efectos legales tienen validez, pero no son muy aplicables en la práctica.
+	 Entre ellos están el \textit{Beerware} (Sólo añade que si te encuentras con quien creó el software, le invites si quieres a tomar algo) o el \textit{Chicken Dance}, que comenta que por cada 1000 copias vendidas de este software, al menos la mitad de la compañía tiene que bailar una canción.
+\end{itemize}
 
 \subsubsection{¿Puedo crear una licencia?}
-Como se ha adelantado en el principio, podríamos dar como respuesta corta un Sí.
+Como se ha adelantado en el principio, podríamos dar como respuesta corta un Sí. Sería tan simple como poner las cláusulas y aplicarla en un proyecto. 
+
+Sin embargo, esto lleva también un trasfondo jurídico por el cual podría requerir la asistencia de un abogado o un asesor legal que tenga un mayor conocimiento en estos temas.
