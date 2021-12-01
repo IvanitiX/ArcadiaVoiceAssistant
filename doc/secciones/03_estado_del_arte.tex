@@ -114,7 +114,7 @@ Para empezar, podríamos empezar con lo que haría un \textit{software} convenci
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\textwidth]{imagenes/DiagramaBase.png}
-	\caption{Diagrama básico de un software}
+	\caption{Diagrama básico de un software. De elaboración propia.}
 \end{figure}
 
 Los datos que recoge, en nuestro caso, son voces. Por el otro extremo, lo mismo. Podríamos actualizar nuestro diagrama con esa salida.
@@ -122,7 +122,7 @@ Los datos que recoge, en nuestro caso, son voces. Por el otro extremo, lo mismo.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1.1\textwidth]{imagenes/DiagramaDatos.png}
-	\caption[Diagrama modificado.]{Diagrama modificado. Nótese que en vez de documentos se usa multimedia}
+	\caption[Diagrama modificado.]{Diagrama modificado. Nótese que en vez de documentos se usa multimedia. De elaboración propia.}
 \end{figure}
 
 Esas voces que se recogen no se generan solas. En el caso de la recogida, es un usuario quien habla a través de un micrófono para grabar esa voz que podrá procesar posteriormente. En el otro lado, esa voz se reproducirá a un altavoz. Esos procesos de grabación y reproducción tienen ya de por si su propia lógica intermedia para poder procesarlos. Con esta nueva información, el diagrama quedaría de la siguiente forma:
@@ -130,7 +130,7 @@ Esas voces que se recogen no se generan solas. En el caso de la recogida, es un 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1.1\textwidth]{imagenes/DiagramaIO.png}
-	\caption[Diagrama con E/S.]{El mismo diagrama que el anterior, pero señalando las Entradas y Salidas.}
+	\caption[Diagrama con E/S.]{El mismo diagrama que el anterior, pero señalando las Entradas y Salidas. De elaboración propia.}
 \end{figure}
 
 Ahora tenemos otras dos cuestiones sobre esos archivos de audio.
@@ -145,7 +145,7 @@ Por lo tanto, se crea una lógica para poder hacer esas conversiones, de forma q
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1.1\textwidth]{imagenes/DiagramaTTS_SR.png}
-	\caption[Diagrama con TTS/SR]{El diagrama anterior pero señalando las interacciones con el Speech Recognition y el Text-To-Speech (o Speech Synthesis)}
+	\caption[Diagrama con TTS/SR]{El diagrama anterior pero señalando las interacciones con el Speech Recognition y el Text-To-Speech (o Speech Synthesis). De elaboración propia.}
 \end{figure}
 
 Por último, la lógica que hay entre lo que se ha dicho y lo que tiene que leer la máquina debería poder procesar esa frase, buscar si sigue algún patrón o usa alguna palabra de relevancia (como ``Reproduce'', ``Canta'' o ``El tiempo en una ciudad''), y dar una respuesta que se pueda leer. Por lo tanto, el diagrama final a modo conceptual podría darse como la de la siguiente figura: 
@@ -153,7 +153,7 @@ Por último, la lógica que hay entre lo que se ha dicho y lo que tiene que leer
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1.1\textwidth]{imagenes/DiagramaIntuitivo.png}
-	\caption[Diagrama intuitivo final.]{Diagrama resultante. Nótese que la lógica en verdad es un proceso de relacionar conceptos.}
+	\caption[Diagrama intuitivo final.]{Diagrama resultante. Nótese que la lógica en verdad es un proceso de relacionar conceptos. De elaboración propia.}
 \end{figure}
 
 En resumen, podríamos decir que un Asistente de Voz consta a nivel \textit{hardware} de un ordenador con un micrófono o entrada de audio y un altavoz o salida de audio.
@@ -172,16 +172,16 @@ En la documentación sobre el tema, IBM \cite{sr-definition} define el Reconocim
 
 Para poder reconocer esa voz, se necesita primero separar ese sonido en pequeños fragmentos que pueda comparar con un Modelo Acústico (es decir, un conjunto de sonidos pequeños que se conoce lo que significa), de forma que se pueden asociar los del audio enviado con estos para buscar similitudes. Con ello, se busca en un Modelo del lenguaje (un conjunto de letras o combinaciones de estas asociadas a ese sonido) qué palabras quieren decir, y las compara para dar un porcentaje de acierto. Finalmente devuelve un texto o varias versiones de un texto según las opciones que haya ido observando.
 
-Uno de los grandes retos en este campo viene porque no todos tenemos la misma voz, y por lo tanto si bien los Modelos Acústicos pueden reconocer muchas de ellas, no puede con todas, y es imposible tener todas las voces almacenadas. por lo tanto, se han pensado en varias maneras de abordar ese problema a través del Aprendizaje Automático. Mencionaremos algunas de ellas en estos epígrafes a un nivel introductorio.
+Uno de los grandes retos en este campo viene porque no todos tenemos la misma voz, y por lo tanto si bien los Modelos Acústicos pueden reconocer muchas de ellas, no puede con todas, y es imposible tener todas las voces almacenadas. por lo tanto, se han pensado en varias maneras de abordar ese problema a través del Aprendizaje Automático. Mencionaremos algunas de ellas en estos epígrafes a un nivel introductorio. \cite{sr-methods}
 
-\subsubsection{Modelos de mezcla Gaussiana}
+\subsubsection{Modelos de mezcla Gaussiana} 
 Una primera tarea para abordar este campo sería usar la probabilidad de que el sonido coincida con lo que tiene en su modelo, pudiendo así saber qué sonido tiene cada uno.
 
 Si representáramos en una gráfica dos variables (como el fonema y el tiempo), podríamos ver que esos puntos se podrían agrupar en \textit{clusters} que se acercan a ese fonema para dar con la media de ellos y sacar el que más se parezca al resultado, haciendo así una clasificación de los sonidos. Eso es precisamente cómo funciona el modelo de mezcla gaussiana.
 
-Un modelo de mezcla Gaussiana es un modelo probabilístico que asume que todos los puntos a analizar se han generado a través de varias distribuciones gaussianas juntas (una cantidad $K$ de ellas). Por lo tanto, un punto en el plano puede estar cerca de un punto intermedio de esos $K$ que representa una de las distribuciones que se han mezclado, dando a entender que ese punto sea más probable de pertenecer a esa distribución que a otra.
+Un modelo de mezcla Gaussiana \cite{gaussiana} es un modelo probabilístico que asume que todos los puntos a analizar se han generado a través de varias distribuciones gaussianas juntas (una cantidad $K$ de ellas). Por lo tanto, un punto en el plano puede estar cerca de un punto intermedio de esos $K$ que representa una de las distribuciones que se han mezclado, dando a entender que ese punto sea más probable de pertenecer a esa distribución que a otra.
 
-\subsubsection{Modelos ocultos de Markov}
+\subsubsection{Modelos ocultos de Markov} 
 
 El propio hecho de intentar predecir qué va a decir alguien es un tanto arduo, ya que el mensaje que vas a comunicar puede ir completándose durante el tiempo que se está hablando. Podríamos decir entonces que el hecho de hablar es dar una cadena donde nos vamos enterando del mensaje por la secuencia de sonidos aleatorios, generando fonemas que se unen y comparan con los modelos para encontrar las palabras.
 
@@ -193,7 +193,7 @@ Al final, podríamos darnos con esta serie de condiciones:
 	\item Los estados finales que puede tomar cada sonido al final se pueden relacionar con una letra o conjunto de ellas, que si bien es un conjunto grande, al menos es finito.
 \end{itemize}
 
-Esto podría ser por lo tanto un caso de aplicación de un \textbf{Modelo Oculto de Markov}, donde tenemos por una parte una variable aleatoria de estado que no se puede observar directamente (cómo en nuestro caso la letra o fonema que va a decir) y por la otra una variable que sí podemos observar directamente (por ejemplo, si grabamos ese sonido y sacamos su representación de las frecuencias).
+Esto podría ser por lo tanto un caso de aplicación de un \textbf{Modelo Oculto de Markov}\cite{modelo-markov}, donde tenemos por una parte una variable aleatoria de estado que no se puede observar directamente (cómo en nuestro caso la letra o fonema que va a decir) y por la otra una variable que sí podemos observar directamente (por ejemplo, si grabamos ese sonido y sacamos su representación de las frecuencias).
 
 Este modelo posee dos propiedades que tienen cabida en el contexto que presentamos:
 \begin{itemize}
@@ -209,7 +209,13 @@ Las redes neuronales son en esencia nodos con varias entradas que tienen asociad
 
 De esta forma, primero se entrena la red neuronal con una serie de datos que se saben qué resultado tienen para poder ajustarlo; y una vez entrenado, ya se puede dejar con datos que no se han probado.
 
+\subsubsection{Frameworks y librerías}
+
 Hoy en día hay servicios a través de la nube que ofrecen APIs que permiten el reconocimiento de voz, además de softwares y librerías que permiten hacerlo de forma local, aunque al estar orientado a modelos embebidos tienen un reconocimiento más limitado que a través de servidores que pueden almacenar más sonidos y relaciones.
+
+En cuanto a servicios en la nube podemos destacar \textbf{IBM Watson}, \textbf{Amazon Polly} o \textbf{Google Cloud}, los cuales usan sus soluciones para ofrecer una API que permite obtener el audio a partir de una serie de instrucciones contenidas en una biblioteca o en varios endpoints.
+
+Sobre las soluciones más limitadas pero locales, podemos hablar de \textit{Vosk API} \cite{vosk}, que tiene modelos de 50 MB para idiomas como el Español, el Inglés o el Catalán.
 
 
 \subsection{La síntesis de voz}
@@ -222,6 +228,8 @@ Eso sí, de forma similar al Reconocimiento de Voz, tienen un Modelo para asigna
 Uno de los grandes retos que se ha ido viendo mejoría es la naturalización de la voz que sintetiza. Si bien ha habido una mejora desde su creación y aún va evolucionando año tras año, todavía queda camino para llegar a una voz que no pudiéramos etiquetar como robótica.
 
 Al ser el Reconocimiento y la Síntesis de Voz procesos contrarios, se pueden emplear los mismos métodos para hacer una u otra cosa.
+
+En cuanto a soluciones ya implementadas, por parte de la nube tanto Amazon como IBM y Google también tienen su TTS, y si hablamos de software local tenemos opciones como Festival o las voces preinstaladas en Microsoft, o Siri en caso de los Mac.
  
 
 \subsection{La lógica}
@@ -236,13 +244,13 @@ Podríamos entonces añadirle algunas peticiones que requieran de algo variable,
 
 Estas ideas han dado lugar a algunos lenguajes de marcado basados en \textit{pattern matching} que permiten realizar esas distinciones para dar respuestas. Podemos listar algunas de ellas:
 \begin{itemize}
-	\item \textbf{AIML (\textit{Artificial Intelligence Markup Language})} Es un lenguaje basado en XML que permite realizar algunas cosas básicas como guardar información básica, usar datos descritos en el patrón para devolverlos y decir respuestas aleatorias. Fue pensado para usarse en otro programa llamado \textit{AliceBot}, pero hay programas que permiten realizar el \textit{parsing} de documentos de este tipo.
+	\item \textbf{AIML (\textit{Artificial Intelligence Markup Language})} \cite{aiml} Es un lenguaje basado en XML que permite realizar algunas cosas básicas como guardar información básica, usar datos descritos en el patrón para devolverlos y decir respuestas aleatorias. Fue pensado para usarse en otro programa llamado \textit{AliceBot}, pero hay programas que permiten realizar el \textit{parsing} de documentos de este tipo.
 	
 	La base de AIML son las categorías, que dentro tienen patrones que escriben los usuarios y plantillas que devuelven los bots.
 	
-	\item \textbf{RiveScript} Basado en AIML, pero en vez de usar los bloques de XML utiliza unos pocos símbolos.
+	\item \textbf{RiveScript} \cite{rivescript} Basado en AIML, pero en vez de usar los bloques de XML utiliza unos pocos símbolos.
 	
-	\item \textbf{ChatScript} Basado en el Procesamiento del Lenguaje Natural, este lenguaje de scripting utiliza una serie de reglas para ejecutar las respuestas. Además permite hacer llamadas HTTP a servidores.
+	\item \textbf{ChatScript} \cite{chatscript} Basado en el Procesamiento del Lenguaje Natural, este lenguaje de scripting utiliza una serie de reglas para ejecutar las respuestas. Además permite hacer llamadas HTTP a servidores.
 \end{itemize}
 
 \section{Software Libre, Software de Código Abierto y Licencias}
@@ -285,8 +293,21 @@ Las licencias son, como bien hemos dicho previamente, un contrato entre la perso
 Vamos a hablar de algunas de las licencias más comunes usadas en el ámbito del Software Libre e incidiremos en el punto de la creación de licencias.
 
 \subsubsection{Free Software Foundation}
-Creadas en 1989,... %Motivación de la creación de licencias%
-%Hablar de los cambios en la versión 3%
+Creadas en 1989, se crearon las licencias GPL con el objetivo de proteger el software del proyecto GNU de que terceros hicieran algunas modificaciones que explotaran en un software privativo.
+
+Si bien al principio fue una licencia popular, este llevaba a que encontraran una serie de brechas en la descripción de la licencia. Estas eran:
+\begin{itemize}
+	\item \textbf{Tivoización} En honor a los aparatos de recepción de vídeo TiVo, es el hecho de que el software con posibilidad de modificación no se pudiera instalar en esos receptores ya que el hardware no lo soportaría.
+	
+	\item \textbf{Compatibilidad con el Affero GPL} debido a que no había cláusulas sobre el software en red.
+	
+	\item \textbf{Cláusula contra las represalias de patentes} Si bien en España y la mayoría de países se protege el software a través de los derechos de autor, en países como EEUU o Japón se puede patentar, y con esta versión se persigue que haya un amparo legal contra quienes intenten patentar el software libre y usen esas herramientas legales a quienes deseen modificarlo. De esta manera se hace un control de daños, ya que no se puede como tal evitar patentar versiones modificadas de un software libre.
+	
+	\item \textbf{Protección para herramientas contra el DRM} de forma que se pueden publicar programas que jueguen con la protección de los derechos de autor sin romper leyes de ese tipo, como el DMCA estadounidense.
+	
+\end{itemize} 
+
+Todo ello se resolvió con la versión 3 de sus licencias. \cite{gplv3-changelog}
 
 Por parte de la FSF, se han creado 3 licencias que se usan popularmente en este mundillo:
 
