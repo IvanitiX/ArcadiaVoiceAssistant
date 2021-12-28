@@ -18,12 +18,11 @@
 \usepackage{cite} %para incluir citas del archivo <nombre>.bib
 \usepackage{enumerate}
 \usepackage{hyperref}
-\usepackage{graphicx}
+\usepackage{graphicx,subfig}
 \usepackage{tabularx}
 \usepackage{booktabs}
-
-
 \usepackage[table,xcdraw]{xcolor}
+
 \hypersetup{
 	colorlinks=true,	% false: boxed links; true: colored links
 	linkcolor=black,	% color of internal links
@@ -116,7 +115,10 @@
 	\input{secciones/03_estado_del_arte}
 	
 	\newpage 
-	\input{secciones/04_planificacion}
+	\input{secciones/04_especificacion_de_requisitos}
+	
+	\newpage 
+	\input{secciones/05_planificacion}
 
 	% Análisis del problema
 	% 1. Análisis de requisitos
@@ -124,7 +126,7 @@
 	% 3. Solucion propuesta
 	% 4. Análisis de seguridad
 	\newpage 
-	\input{secciones/05_analisis}
+	\input{secciones/06_analisis}
 
 	% Desarrollo bajo sprints: 
 	% 	1. Permitir registros y login de usuarios
@@ -133,13 +135,13 @@
 	% 	4. Desarrollo del sistema de croquis
 	%   5. Instalación de la aplicación de manera automática
 	\newpage 
-	\input{secciones/06_implementacion}
+	\input{secciones/07_implementacion}
 
 	% Presupuesto
 
 	% Conclusiones
 	\newpage 
-	\input{secciones/07_conclusiones}
+	\input{secciones/08_conclusiones}
 
 	% Trabajos futuros
 
