@@ -163,7 +163,99 @@ Una vez pensado en posibles perfiles de uso, podríamos preguntarnos por alguna 
 
 \subsection{Caso 1: Irene y el calendario de exámenes}
 
-\subsection{Caso 2: Javier y las noticias}
+Para nuestra primera persona podemos tener el siguiente caso:
+
+`` \textit{5 de Abril de 2022. Se acerca la época de exámenes finales y poco a poco Irene va teniendo las fechas de estos. Viendo que es el momento de ponerse a prepararlos, apunta todos en su agenda, pero como en esta tiene además las tareas que ha de realizar, decide apuntar esos exámenes en el teléfono y en una hoja de calendario que tendrá que imprimir en la librería de al lado de su casa.}
+
+\textit{Al llegar a casa, coge el teléfono y los va anotando. Además, descarga un PDF con el calendario del mes y llega a la tienda para imprimirlos. Al volver, también los anota, aunque con algo de prisa para ponerse a hacer las tareas que tenía que terminar para mañana. En el descuido los deja en un estante mal colocados y se caen al suelo mojado tras fregar la habitación, dejando la tinta borrosa.}
+
+\textit{Al verlo, Irene se enfada un tanto por tener que volver a hacer el calendario.} ''
+
+\textbf{¿Cómo se podría entonces solucionar este problema?} Podríamos aplicar el Asistente a través de una conversación donde se podría comunicar las fechas con tal de crear recordatorios o consultar a través de la voz si tiene algún evento en los próximos días.
+
+Podríamos así tener una conversación para cada examen que quisiera introducir similar a:
+
+\textit{
+	\begin{itemize}
+		\item \textbf{Irene}: Recuérdame que tengo examen de Historia de España el 22 de Abril.
+		\item \textbf{Bot}: De acuerdo, el 22 de Abril te recordaré ``Examen de Historia de España''
+	\end{itemize}
+}
+
+\subsection{Caso 2: Irene y la técnica Pomodoro}
+
+Continuando con nuestra primera persona, podríamos darnos con otro caso en el que integrar el software podría servirle de ayuda.
+
+`` \textit{15 de Abril de 2022. Una semana para el examen de Historia de España. Irene va a su cuarto con su reloj y prepara un temporizador de 25 minutos.}
+
+\textit{Mientras estudia, se queda tan centrada que pasa al tiempo de descanso sin notar que el reloj ha vibrado. Cuando mira el reloj, se había pasado media hora más, así que se piensa hacer los 5 minutos de descanso en ese momento antes de activar el temporizador otra vez. Pero en ese caso tenía que estar pendiente del tiempo para no pasarse.} 
+
+\textit{El día acabó siendo bastante fructífero y había preparado sus apuntes para poder seguir estudiando al día siguiente, pero fue un tanto molesto para ella ya que estar pendiente del reloj era un poco engorroso.}''
+
+\textbf{¿Cómo se podría entonces solucionar este problema?} Podríamos aplicar el Asistente a través de dos cuentas atrás, una para la parte de estudio y otra para la parte de descanso, y pedir verbalmente que lo repita X veces, o que simplemente a través de pedir que ponga un contador Pomodoro se genere una conversación para configurar los tiempos y activarse automáticamente.
+
+Podríamos así tener dos estilos de conversación:
+
+La primera opción, que se repitiría tres veces:
+\textit{
+	\begin{itemize}
+		\item \textbf{Irene}: Bot, ponme un contador de 25 minutos
+		\item \textbf{Bot}: Contador en marcha
+		\item \textbf{Bot}: *Suena alarma*
+		\item \textbf{Irene}: Bot, ponme un contador de 5 minutos
+		\item \textbf{Bot}: Contador en marcha
+		\item \textbf{Bot}: *Suena alarma*
+	\end{itemize}
+}
+
+La segunda opción, donde se configuraría una vez:
+\textit{
+	\begin{itemize}
+		\item \textbf{Irene}: Bot, activa el contador Pomodoro
+		\item \textbf{Bot}: Ok, ¿cuánto tiempo quieres ponerte a estudiar?
+		\item \textbf{Irene}: 25 minutos
+		\item \textbf{Bot}: De acuerdo. ¿Cuántos de descanso?
+		\item \textbf{Irene}: 5 minutos
+		\item \textbf{Bot}: Vale. ¿Y cuántas veces?
+		\item \textbf{Irene}: Tres.
+		\item \textbf{Bot}: De acuerdo. El tiempo de estudio comienza en 3,2,1... ¡Tiempo!
+		\item \textbf{Bot}: (Tras 25 minutos) 3,2,1... ¡Es hora de un descanso!
+		\item \textbf{Bot}: (Tras 5 minutos) 3,2,1... ¡Manos a la obra de nuevo!
+		\item \textbf{Bot}: (Tras 25 minutos a la tercera vez) 3,2,1... *Alarma*
+	\end{itemize}
+}
+
+\subsection{Caso 3: Javier y las noticias}
+
+Para nuestra segunda persona, podríamos crear un caso en base a su condición especial:
+
+``
+\textit{Javier está sentado en el sofá escuchando la señal del canal de Noticias 24h cuando le llega un mensaje sobre una noticia de su pueblo. Quiere ir a leerlo pero el lector del teléfono se pone a leer partes de anuncios y se exaspera un tanto.}
+
+\textit{Buscando otra alternativa, se pone en el ordenador con el visor Braille. Intentando abrir la noticia, debe teclearla letra a letra, incomodándose un poco. Finalmente, tras una pequeña odisea, logra digitar la noticia y enterarse de que un amigo de la infancia había salido en portada por un logro en el que había participado.}
+''
+
+\textbf{¿Cómo se podría entonces solucionar este problema?} Podríamos aplicar el Asistente a través de una conversación donde se podría poner a leer las noticias de un diario.
+
+Podríamos así tener una conversación para cada examen que quisiera introducir similar a:
+
+\textit{
+	\begin{itemize}
+		\item \textbf{Javier}: Bot, ¿podrías leerme las noticias del diario <Diario>?
+		\item \textbf{Bot}: De acuerdo, aquí hay una noticia que dice así: ``Detenidos 2 vándalos que han pintado un tren del Metropolitano de Granada''. ¿Sigo leyendo?
+		\item \textbf{Javier}: Siguiente.
+		\item \textbf{Bot}: Vale, aquí hay otra noticia: ``Científicos de la UGR logran crear una memoria con materiales reciclados''. ¿Sigo leyendo?
+		\item \textbf{Javier}: Si.
+	\end{itemize}
+}
+
+En general, de los 3 casos podríamos sacar, sin entrar en las particularidades de cada caso:
+\begin{enumerate}
+	\item El sistema debe permitir una modularidad de forma que se puedan añadir nuevas funcionalidades sin necesidad de tocar todo el código principal.
+	\item Habría que tener en cuenta el contexto donde se esté conversando, ya que no es lo mismo cuando le llega una orden durante una conversación que nada más activar la \textit{trigger word}
+	\item Las respuestas deben sonar lo más claras y concisas posible.
+	\item Las órdenes deberían tener cierta flexibilidad en su forma de expresarse, ya que para pedir, por ejemplo, que se inicie un temporizador, podríamos decir \textit{Activa un temporizador para dentro de X minutos} o \textit{Programa una cuenta atrás de X minutos}
+\end{enumerate}
 
 \makebox{Con ello, cumplimos el Objetivo O-DD 1.}
 
@@ -194,4 +286,4 @@ Una vez pensado en posibles perfiles de uso, podríamos preguntarnos por alguna 
 	\end{tabularx}
 	\caption{Descripción del Requisito Funcional 1: Hablar al Asistente}
 \end{table}
-\subsection{Requisitos no funcionales}
+\subsection{Requisitos no funcionales} 
