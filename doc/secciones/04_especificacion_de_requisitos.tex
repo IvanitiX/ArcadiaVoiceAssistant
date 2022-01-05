@@ -257,7 +257,50 @@ En general, de los 3 casos podríamos sacar, sin entrar en las particularidades 
 	\item Las órdenes deberían tener cierta flexibilidad en su forma de expresarse, ya que para pedir, por ejemplo, que se inicie un temporizador, podríamos decir \textit{Activa un temporizador para dentro de X minutos} o \textit{Programa una cuenta atrás de X minutos}
 \end{enumerate}
 
-\makebox{Con ello, cumplimos el Objetivo O-DD 1.}
+
+\begin{table}[H]
+	\centering
+	\begin{tabularx}{\textwidth}{|>{\columncolor{mintgreen}}c>{\columncolor{mintgreen}}X|}
+		\hline
+		\includegraphics[width=30pt]{imagenes/Tarea_completada.png} & Con ello, cumplimos el Objetivo O-DD 1. \\
+		\hline
+	\end{tabularx}
+\end{table}
+
+\section{Análisis competitivo}
+
+Otra manera de encontrar posibles requisitos es observando a la competencia. Para ello podríamos analizar la funcionalidad de algunos de los competidores y sacar elementos comunes que podríamos traer en nuestro proyecto.
+
+Para el análisis compararemos los siguientes proyectos, los cuales están mencionados en el capítulo 3 sobre el estado del arte:
+
+\begin{itemize}
+	\item \textbf{Amazon Alexa}, a través de un dispositivo Echo Dot previamente configurado para obtener señal de Internet y conectado a una aplicación en el teléfono a través de la cual se ha iniciado sesión con una cuenta de Amazon.
+	\item \textbf{Microsoft Cortana}, a través de un ordenador con el Sistema Operativo Windows 10 instalado, y habiendo iniciado sesión previamente (pues es requerido por el programa)
+	\item \textbf{Google Assistant}, a través de un teléfono móvil Android que se use a diario. Téngase en cuenta que para poder usar estos dispositivos se requiere tener una cuenta de Google.
+\end{itemize}
+
+Nótese que en el análisis queda fuera \textbf{Apple Siri} ya que para ello requeriríamos de un dispositivo del ecosistema de Apple, y a fecha del análisis no se tenía en posesión de ningún dispositivo de la compañía.
+\newpage
+
+\begin{table}[H]
+	\begin{tabularx}{\textwidth}{|c|X|X|X|}
+		\hline
+		Propiedad & Alexa & Cortana & G-Assistant \\
+		\hline
+		¿Dónde se puede usar? & En dispositivos Echo y en la app Alexa & En ordenadores con Windows 10 y teléfonos Android y Apple & En teléfonos Android y en la web. \\
+		\hline
+	\end{tabularx}
+	\caption{Análisis competitivo entre Alexa, Cortana y Google Assistant}
+\end{table}
+
+\begin{table}[H]
+	\centering
+	\begin{tabularx}{\textwidth}{|>{\columncolor{mintgreen}}c>{\columncolor{mintgreen}}X|}
+		\hline
+		\includegraphics[width=30pt]{imagenes/Tarea_completada.png} & Con ello, cumplimos el Objetivo O-IA 3. \\
+		\hline
+	\end{tabularx}
+\end{table}
 
 \section{La Ingeniería de Requisitos en acción}
 
@@ -286,4 +329,5 @@ En general, de los 3 casos podríamos sacar, sin entrar en las particularidades 
 	\end{tabularx}
 	\caption{Descripción del Requisito Funcional 1: Hablar al Asistente}
 \end{table}
-\subsection{Requisitos no funcionales} 
+\subsection{Requisitos no funcionales}
+ 
