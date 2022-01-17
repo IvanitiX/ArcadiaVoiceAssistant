@@ -282,16 +282,49 @@ Para el análisis compararemos los siguientes proyectos, los cuales están menci
 Nótese que en el análisis queda fuera \textbf{Apple Siri} ya que para ello requeriríamos de un dispositivo del ecosistema de Apple, y a fecha del análisis no se tenía en posesión de ningún dispositivo de la compañía.
 \newpage
 
-\begin{table}[H]
-	\begin{tabularx}{\textwidth}{|c|X|X|X|}
+%\begin{xltabular}[H]
+	\begin{xltabular}{\textwidth}{|c|X|X|X|}
+		
+		\hline \multicolumn{4}{|r|}{{Continúa en la siguiente página $>>$}} \\ \hline
+		\endfoot
+		
 		\hline
-		Propiedad & Alexa & Cortana & G-Assistant \\
+		\endlastfoot
+		
 		\hline
-		¿Dónde se puede usar? & En dispositivos Echo y en la app Alexa & En ordenadores con Windows 10 y teléfonos Android y Apple & En teléfonos Android y en la web. \\
+		\textbf{\textit{Propiedad}} & \textbf{Alexa} & \textbf{Cortana} & \textbf{G-Assistant} \\
 		\hline
-	\end{tabularx}
+		\textit{¿Dónde se puede usar?} & En dispositivos Echo y en la app Alexa & En ordenadores con Windows 10 y teléfonos Android y Apple & En teléfonos Android y en la web, además de dispositivos Google Home. \\
+		\hline
+		\begin{minipage}[t]{0.3\textwidth}
+			\textit{¿Qué se necesita para empezar a usarlo?}
+		\end{minipage} & Cuenta de Amazon y acceso a Internet & Acceso a Internet. Últimamente, cuenta de Microsoft. & Cuenta de GMail/Google y acceso a Internet.\\
+	    \hline
+	    \multirow{2}{*}{\begin{minipage}[t]{0.3\textwidth}
+	    		\textit{¿Se puede añadir funcionalidades?¿Cómo?}
+	    \end{minipage}}
+	     & Se pueden programar \textit{skills} para distintos propósitos. Se puede descargar desde la app de Alexa. & Se podía, pero su creación ha quedado depreciada & Se permite a través del SDK de Google Actions. Se puede preguntar a la skill en concreto, aunque tiene su catálogo también para poder instalarlos\\
+	     \cline{2-4}
+         & \multicolumn{3}{c|}{\begin{minipage}[t]{0.6\textwidth}
+        		En algunas skills habrá que tener en cuenta que se requiera iniciar sesión en alguna cuenta de terceros
+        	\end{minipage}} \\
+        \hline
+        \begin{minipage}[t]{0.3\textwidth}
+        	\textit{¿Cómo es el comportamiento en caso de que falle el Internet?}
+        \end{minipage} & Avisa de que falta la conexión a Internet, pero reconoce la palabra clave & Al pulsar en el programa no contesta, pero informa de que no hay conexión & Al pulsar en el programa no contesta, pero informa de que no hay conexión\\
+        \hline
+        \begin{minipage}[t]{0.3\textwidth}
+        	\textit{¿El asistente puede reconocer varias maneras de decir una misma frase?}
+        \end{minipage} & Sigue ciertos patrones, y según la función permite cambiar la manera de expresar la orden o no & Tiene unas estructuras más fijas, no da mucho margen a expresar las órdenes de otra forma & Para funciones propias tiene una mayor variedad de patrones, pero para invocar las realizadas por otros se usa un patrón fijo \\ 
+        \hline
+        \begin{minipage}[t]{0.3\textwidth}
+        	\textit{¿El asistente puede responder de varias maneras a una orden?}
+        \end{minipage} & Para funciones que pueden cambiar en cualquier momento (por ej. Pedir la hora), suele tener una parte que no cambia, y según la función, añade ciertas frases. En otras órdenes, responde de forma aleatoria una respuesta de su repertorio. Si sólo tiene una, será esa la que se reproduzca & Responde de forma aleatoria una respuesta de su repertorio, o la única que tiene & Responde de forma aleatoria una respuesta de su repertorio, o la única que tiene \\ 
+        \hline
 	\caption{Análisis competitivo entre Alexa, Cortana y Google Assistant}
-\end{table}
+	\end{xltabular}
+	
+%\end{xltabular}
 
 \begin{table}[H]
 	\centering
@@ -305,6 +338,7 @@ Nótese que en el análisis queda fuera \textbf{Apple Siri} ya que para ello req
 \section{La Ingeniería de Requisitos en acción}
 
 \subsection{Requisitos funcionales}
+A continuación se listarán aquellos requisitos que se requerirán para realizar el Asistente de Voz a un nivel de Producto Mínimo Viable. Esto no quiere decir que se puedan añadir más funcionalidades en un futuro. De haber más, se indicarán a lo largo del documento.
 
 \begin{table}[H]
 	\centering
@@ -329,5 +363,148 @@ Nótese que en el análisis queda fuera \textbf{Apple Siri} ya que para ello req
 	\end{tabularx}
 	\caption{Descripción del Requisito Funcional 1: Hablar al Asistente}
 \end{table}
+
+\begin{table}[H]
+	\centering
+	\begin{tabularx}{\textwidth}{|c|X|} 
+		\hline
+		\textbf{Nº de RF }          &  2 \\ 
+		\hline
+		\textbf{Nombre}         &  Escuchar una respuesta del Asistente \\ 
+		\hline
+		\textbf{Descripción}    &  Como usuario, quiero poder escuchar la respuesta del programa para comunicarme con este \\ 
+		\hline
+		\textbf{Prioridad}      &  Alta  \\ 
+		\hline
+		\textbf{Entrada}        & Un sonido  \\ 
+		\hline
+		\textbf{Prerrequisitos} & La respuesta ha debido ser generada para poder pronunciarla \\ 
+		\hline
+		\textbf{Procesamiento}  &  Se generará un audio leyendo la respuesta conforme a los requisitos de la API que se use para reproducir el sonido. \\ 
+		\hline
+		\textbf{Postcondición}  &  - \\
+		\hline
+	\end{tabularx}
+	\caption{Descripción del Requisito Funcional 2: Escuchar al Asistente}
+\end{table}
+
+\begin{table}[H]
+	\centering
+	\begin{tabularx}{\textwidth}{|c|X|} 
+		\hline
+		\textbf{Nº de RF }          &  3 \\ 
+		\hline
+		\textbf{Nombre}         &  Sintetizar la voz de una pregunta \\ 
+		\hline
+		\textbf{Descripción}    &  Como sistema, quiero poder leer la pregunta para comunicarme con el usuario \\ 
+		\hline
+		\textbf{Prioridad}      &  Alta  \\ 
+		\hline
+		\textbf{Entrada}        & Un sonido grabado  \\ 
+		\hline
+		\textbf{Prerrequisitos} & Debe ser un audio hablado con la compresión que requiera las APIs que intervengan \\ 
+		\hline
+		\textbf{Procesamiento}  &  A través de un algoritmo de Speech Recognition, convertir el audio en un texto \\ 
+		\hline
+		\textbf{Postcondición}  &  - \\
+		\hline
+	\end{tabularx}
+	\caption{Descripción del Requisito Funcional 3: Sintetizar la voz de una pregunta.}
+\end{table}
+
+\begin{table}[H]
+	\centering
+	\begin{tabularx}{\textwidth}{|c|X|} 
+		\hline
+		\textbf{Nº de RF }          &  4 \\ 
+		\hline
+		\textbf{Nombre}         &  Generar un audio con la respuesta \\ 
+		\hline
+		\textbf{Descripción}    &  Como sistema, quiero poder hablar la respuesta del programa para comunicarme con el usuario \\ 
+		\hline
+		\textbf{Prioridad}      &  Alta  \\ 
+		\hline
+		\textbf{Entrada}        & Una cadena de texto con la respuesta  \\ 
+		\hline
+		\textbf{Prerrequisitos} & - \\ 
+		\hline
+		\textbf{Procesamiento}  &  A través de un algoritmo de Text-To-Speech, convertir el texto en un audio \\ 
+		\hline
+		\textbf{Postcondición}  &  - \\
+		\hline
+	\end{tabularx}
+	\caption{Descripción del Requisito Funcional 4: Generar un audio con la respuesta.}
+\end{table}
+
+\begin{table}[H]
+	\centering
+	\begin{tabularx}{\textwidth}{|c|X|} 
+		\hline
+		\textbf{Nº de RF }          &  5 \\ 
+		\hline
+		\textbf{Nombre}         &  Relacionar una pregunta con una respuesta  \\ 
+		\hline
+		\textbf{Descripción}    &  Como sistema, quiero procesar la pregunta para poder ofrecer una respuesta \\ 
+		\hline
+		\textbf{Prioridad}      &  Alta  \\ 
+		\hline
+		\textbf{Entrada}        & Una cadena de texto con la respuesta  \\ 
+		\hline
+		\textbf{Prerrequisitos} & - \\ 
+		\hline
+		\textbf{Procesamiento}  &  Buscará a través de un patrón o similar una respuesta a la petición del usuario \\ 
+		\hline
+		\textbf{Postcondición}  &  - \\
+		\hline
+	\end{tabularx}
+	\caption{Descripción del Requisito Funcional 5: Relacionar una pregunta con una respuesta.}
+\end{table}
+
 \subsection{Requisitos no funcionales}
+
+\begin{enumerate}[\textbf{RNF-} 1.]
+	\item \textbf{Usabilidad y legibilidad del código:} Debido a que va a ser un proyecto que luego se publicará y que además da pie a que otras personas colaboren en él, sería conveniente que el código sea lo más claro y conciso posible. Por tanto:
+	\begin{itemize}
+		\item Se realizará una \textbf{codificación modular}, de forma que los cambios estén lo más localizados posible y que no se requieran hacer muchos de ellos.
+		\item El código deberá seguir los estándares y convenios de codificación del lenguaje \textbf{Python}. Para comprobarlo, usaremos como linter \textbf{PyLint}, ya que nos aconsejará y advertirá tanto de posibles errores lógicos como de código que haya que refactorizar para seguir esos estándares.
+	\end{itemize}
+
+	\item \textbf{Implementación:} Para realizar el proyecto, haremos uso de varias tecnologías. Principalmente, requeriremos:
+		\begin{itemize}
+			\item Como lenguaje de programación principal se usará una versión >=3.5 de \textbf{Python}.
+			\item Se usarán APIs y Frameworks de Reconocimiento de Voz y de Text-to-Speech que posean licencias de \textbf{Software Libre} (GPL/LGPL/AGPL) o de \textbf{Código Abierto} (Licencia Apache/Mozilla/BSD).
+			\item De la misma manera, aquellos Frameworks que persigan la relación entre las preguntas o peticiones del usuario y las respuestas del sistema deberán seguir esas mismas condiciones.
+			\item En consecuencia, la versión de Python a utilizar deberá ser la última que soporten todas sus dependencias.
+		\end{itemize}
+	
+	\item \textbf{Rendimiento}: Al ser un sistema que requiere una interacción con el usuario lo más fluida posible, tendremos que regir alguna restricción:
+	\begin{itemize}
+		\item El tiempo entre la pregunta y la respuesta no debería exceder de los 5 segundos.
+	\end{itemize}
+
+	\item \textbf{Información a utilizar}: Al ser un sistema que interactúa con el usuario, recogerá algunos datos sensibles como nombre, IP del dispositivo donde está instalado o la propia voz. Por tanto:
+	\begin{itemize}
+		\item Los datos que se usen para personalizar la experiencia no deberán ser enviados, a no ser que se requiera alguna conexión a Internet, en cuyo caso se daría sólo lo necesario (por ejemplo, si se registra un lugar para consultar el tiempo, sólo se debería enviar una petición para consultar esa información para ese lugar).
+		\item El tratamiento de la voz, de ser posible, se realizará en el propio dispositivo.
+		\item Si se requiriera enviar alguna información sensible más allá de lo contemplado, debería de al menos notificarse una vez al usuario (por ejemplo, en la configuración inicial o en la documentación).
+	\end{itemize}
+.
+	\item \textbf{Ámbito legal}: Al ser un sistema que usa ciertas dependencias con licencias, sería necesario regularizar la situación con el siguiente requisito:
+	\begin{itemize}
+		\item La licencia del proyecto resultante deberá ser compatible con todas las dependencias utilizadas en este.
+	\end{itemize}
+
+	\item \textbf{Sistema}: El proyecto resultante debe poder ejecutarse en al menos algún dispositivo. Por tanto, las características del sistema a utilizar serían:
+	\begin{itemize}
+		\item Con entrada y salida de audio, bien soldado o cableado, bien a través de conectores (como Jack)
+		\item Capaz de ejecutar la versión de Python y las dependencias asociadas
+	\end{itemize}
+
+	De cara al desarrollo usaremos dos dispositivos para poder probarlo:
+	\begin{itemize}
+		\item El portátil donde se desarrollará el proyecto.
+		\item Una Raspberry Pi 3B, que tratará de emular a los dispositivos dedicados vistos en el Análisis Competitivo.
+	\end{itemize}
+	Estos usarán una distribución de Linux (Kubuntu 20.04 en el caso del portátil y Raspberry Pi OS en el caso del dispositivo homónimo) siguiendo los requisitos de Implementación.
+\end{enumerate}
  
