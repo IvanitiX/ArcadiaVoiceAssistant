@@ -410,9 +410,7 @@ A continuación se listarán aquellos requisitos que se requerirán para realiza
 		\hline
 	\end{tabularx}
 	\caption{Descripción del Requisito Funcional 3: Sintetizar la voz de una pregunta.}
-\end{table}
-
-\begin{table}[H]
+	\vspace{0.5cm}
 	\centering
 	\begin{tabularx}{\textwidth}{|c|X|} 
 		\hline
@@ -434,9 +432,7 @@ A continuación se listarán aquellos requisitos que se requerirán para realiza
 		\hline
 	\end{tabularx}
 	\caption{Descripción del Requisito Funcional 4: Generar un audio con la respuesta.}
-\end{table}
-
-\begin{table}[H]
+	\vspace{0.5cm}
 	\centering
 	\begin{tabularx}{\textwidth}{|c|X|} 
 		\hline
@@ -458,6 +454,55 @@ A continuación se listarán aquellos requisitos que se requerirán para realiza
 		\hline
 	\end{tabularx}
 	\caption{Descripción del Requisito Funcional 5: Relacionar una pregunta con una respuesta.}
+\end{table}
+
+
+\begin{table}[H]
+	\centering
+	\begin{tabularx}{\textwidth}{|c|X|} 
+		\hline
+		\textbf{Nº de RF }          &  6 \\ 
+		\hline
+		\textbf{Nombre}         &  Avisar que no se puede conectar a Internet  \\ 
+		\hline
+		\textbf{Descripción}    &  Como sistema, quiero comunicar que no se ha podido conectar a Internet para que el usuario trate de arreglar la incidencia \\ 
+		\hline
+		\textbf{Prioridad}      &  Media  \\ 
+		\hline
+		\textbf{Entrada}        & - \\ 
+		\hline
+		\textbf{Prerrequisitos} & Se ha tenido que generar una pregunta previa que requiriese usar servicios en línea  \\ 
+		\hline
+		\textbf{Procesamiento}  &  Generará un audio para avisar que no se puede conectar \\ 
+		\hline
+		\textbf{Postcondición}  &  - \\
+		\hline
+	\end{tabularx}
+	\caption{Descripción del Requisito Funcional 6: Avisar que no se puede conectar a Internet}
+\end{table}
+
+\begin{table}[H]
+	\centering
+	\begin{tabularx}{\textwidth}{|c|X|} 
+		\hline
+		\textbf{Nº de RF }          &  7 \\ 
+		\hline
+		\textbf{Nombre}         &  Responder que se desconoce la respuesta  \\ 
+		\hline
+		\textbf{Descripción}    &  Como sistema, quiero poder comunicar que no sé la respuesta a la pregunta para poder avisar al usuario \\ 
+		\hline
+		\textbf{Prioridad}      &  Media  \\ 
+		\hline
+		\textbf{Entrada}        & -  \\ 
+		\hline
+		\textbf{Prerrequisitos} & La pregunta dicha anteriormente no coincide con algún patrón o tipo de pregunta \\ 
+		\hline
+		\textbf{Procesamiento}  &  Generará un audio para responder al usuario \\ 
+		\hline
+		\textbf{Postcondición}  &  - \\
+		\hline
+	\end{tabularx}
+	\caption{Descripción del Requisito Funcional 7: Responder que se desconoce la respuesta}
 \end{table}
 
 \subsection{Requisitos no funcionales}
@@ -485,26 +530,26 @@ A continuación se listarán aquellos requisitos que se requerirán para realiza
 	\item \textbf{Información a utilizar}: Al ser un sistema que interactúa con el usuario, recogerá algunos datos sensibles como nombre, IP del dispositivo donde está instalado o la propia voz. Por tanto:
 	\begin{itemize}
 		\item Los datos que se usen para personalizar la experiencia no deberán ser enviados, a no ser que se requiera alguna conexión a Internet, en cuyo caso se daría sólo lo necesario (por ejemplo, si se registra un lugar para consultar el tiempo, sólo se debería enviar una petición para consultar esa información para ese lugar).
-		\item El tratamiento de la voz, de ser posible, se realizará en el propio dispositivo.
-		\item Si se requiriera enviar alguna información sensible más allá de lo contemplado, debería de al menos notificarse una vez al usuario (por ejemplo, en la configuración inicial o en la documentación).
+		\item El \textbf{tratamiento de la voz}, de ser posible, se realizará \textbf{en el propio dispositivo}.
+		\item Si se requiriera enviar alguna información sensible más allá de lo contemplado, debería de al menos \textbf{notificarse} una vez al usuario (por ejemplo, en la configuración inicial o en la documentación).
 	\end{itemize}
 .
 	\item \textbf{Ámbito legal}: Al ser un sistema que usa ciertas dependencias con licencias, sería necesario regularizar la situación con el siguiente requisito:
 	\begin{itemize}
-		\item La licencia del proyecto resultante deberá ser compatible con todas las dependencias utilizadas en este.
+		\item La licencia del proyecto resultante deberá ser \textbf{compatible} con todas las dependencias utilizadas en este.
 	\end{itemize}
 
-	\item \textbf{Sistema}: El proyecto resultante debe poder ejecutarse en al menos algún dispositivo. Por tanto, las características del sistema a utilizar serían:
+	\item \textbf{Sistema}: El proyecto resultante debe poder ejecutarse en al menos algún dispositivo. Por tanto, las \textbf{características} del sistema a utilizar serían:
 	\begin{itemize}
-		\item Con entrada y salida de audio, bien soldado o cableado, bien a través de conectores (como Jack)
-		\item Capaz de ejecutar la versión de Python y las dependencias asociadas
+		\item Con \textbf{entrada y salida de audio}, bien soldado o cableado, bien a través de conectores (como Jack)
+		\item Capaz de \textbf{ejecutar} la versión de \textbf{Python} y las dependencias asociadas
 	\end{itemize}
 
 	De cara al desarrollo usaremos dos dispositivos para poder probarlo:
 	\begin{itemize}
-		\item El portátil donde se desarrollará el proyecto.
-		\item Una Raspberry Pi 3B, que tratará de emular a los dispositivos dedicados vistos en el Análisis Competitivo.
+		\item El \textbf{portátil} donde se desarrollará el proyecto.
+		\item Una \textbf{Raspberry Pi 3B}, que tratará de emular a los dispositivos dedicados vistos en el Análisis Competitivo.
 	\end{itemize}
-	Estos usarán una distribución de Linux (Kubuntu 20.04 en el caso del portátil y Raspberry Pi OS en el caso del dispositivo homónimo) siguiendo los requisitos de Implementación.
+	Estos usarán una distribución de \textbf{Linux} (\textit{Kubuntu 20.04} en el caso del portátil y \textit{Raspberry Pi OS} en el caso del dispositivo homónimo) siguiendo los requisitos de Implementación.
 \end{enumerate}
  

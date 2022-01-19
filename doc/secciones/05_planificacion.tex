@@ -14,14 +14,159 @@ A grandes rasgos, se han desarrollado los objetivos separándolos en acciones m�
 
 \subsection{El Product Backlog}
 
+Aparte de los requisitos ya especificados en el apartado anterior, tendremos que añadir una parte de análisis donde, además de realizar diagramas para plasmar la idea a algo tangible:
+
+\begin{itemize}
+	\item Compararemos las distintas APIs de Reconocimiento de Voz
+	\item Compararemos las distintas APIs de Síntesis de Voz
+\end{itemize}
+
+Por otra parte, habrá que incluir de cara a la puesta a publicación de este proyecto una serie de documentos y extras:
+
+\begin{itemize}
+	\item Realización de un Readme para explicar qué es y cómo funciona
+	\item Realización de una Guía de contribución para estandarizar una manera de compartir las maneras de solventar fallos.
+	\item Aplicación de la licencia al proyecto, según lo comentado en el Objetivo O-IA 6.
+\end{itemize}
+
+Por tanto, el Product Backlog se listaría de la siguiente forma:
+
+\begin{center}
+		\begin{xltabular}{\textwidth}{|c|c|X|c|}
+			\hline
+			\textbf{Nº ID} & \textbf{Refiere a\newline (RF/Otro)} & \textbf{Descripción} & \textbf{Prioridad} \\
+			\hline
+			1 & RF-1. & Hablar al Asistente & Alta \\
+			\hline
+			2 & RF-2. & Escuchar una respuesta del Asistente & Alta \\
+			\hline
+			3 & RF-3. & Sintetizar la voz de una pregunta en un texto & Alta \\
+			\hline
+			4 & RF-4. & Generar un audio leyendo una respuesta & Alta \\
+			\hline
+			5 & RF-5. & Relacionar una pregunta con su respuesta & Alta \\
+			\hline
+			6 & RF-6. & Avisar de que no se puede conectar a Internet & Media \\
+			\hline
+			7 & RF-7. & Responder que se desconoce la respuesta a una pregunta & Media \\
+			\hline
+			8 & Otro & Comparar las APIs de Reconocimiento de Voz & Alta \\
+			\hline
+			9 & Otro & Comparar las APIs de Síntesis de Voz & Alta \\
+			\hline
+			10 & Otro & Aplicar la Licencia al proyecto & Media \\
+			\hline
+			11 & Otro & Crear un README para explicar cómo instalar y usar el proyecto & Media \\
+			\hline
+			12 & Otro & Crear una Guía de Conducta para explicar cómo realizar contribuciones al proyecto & Baja \\
+			\hline
+			\caption{Product Backlog del proyecto en la planificación inicial.}
+		\end{xltabular}
+\end{center}
+
 \subsection{División en sprints}
 Un primer esbozo para dividir todas las tareas en 3 grandes sprints de forma que se vayan realizando de forma continua y constante.
 
-\subsubsection{Sprint 1: ( semanas)}
+\subsubsection{Sprint 0: Análisis, comparación y planteamiento del sistema ( 4 semanas)}
+En este primer sprint se preparará todo lo necesario para empezar a programar el sistema.
 
-\subsubsection{Sprint 2: ( semanas)}
+Por una parte, trataremos de resolver estos puntos del Backlog:
 
-\subsubsection{Sprint 3: ( semanas)}
+\begin{table}[H]
+	\begin{tabularx}{\textwidth}{|c|X|c|}
+		\hline
+		\textbf{Nº ID} & \textbf{Descripción} & \textbf{Prioridad} \\
+		\hline
+		8 &  Comparar las APIs de Reconocimiento de Voz & Alta \\
+		\hline
+		9 &  Comparar las APIs de Síntesis de Voz & Alta \\
+		\hline
+	\end{tabularx}
+\end{table}
+
+Por otra parte, se realizarán los diagramas necesarios para poder cumplir los requisitos establecidos.
+
+\subsubsection{Sprint 1: Adaptando las APIs al proyecto (2 semanas)}
+En este primer Sprint se trasteará con las librerías seleccionadas para poder adaptar sus métodos y así simplificar las llamadas a estas en base a lo planeado en el análisis.
+
+Trataremos de resolver los siguientes puntos del Backlog:
+
+\begin{table}[H]
+	\begin{tabularx}{\textwidth}{|c|X|c|}
+		\hline
+		\textbf{Nº ID} & \textbf{Descripción} & \textbf{Prioridad} \\
+		\hline
+		1 & RF-1. Hablar al Asistente & Alta \\
+		\hline
+		2 & RF-2. Escuchar una respuesta del Asistente & Alta \\
+		\hline
+		3 & RF-3. Sintetizar la voz de una pregunta en un texto & Alta \\
+		\hline
+		4 & RF-4. Generar un audio leyendo una respuesta & Alta \\
+		\hline
+	\end{tabularx}
+\end{table}
+
+\subsubsection{Sprint 2: Conectando preguntas con respuestas (6 semanas)}
+El segundo Sprint es el más importante del proyecto, ya que nos permitirá completar todo el flujo de funcionamiento del Asistente gracias a que podrá saber qué pregunta se formula y buscar si puede dar una respuesta.
+
+Trataremos de resolver los siguientes puntos del Backlog del producto:
+\begin{table}[H]
+	\begin{tabularx}{\textwidth}{|c|X|c|}
+		\hline
+		\textbf{Nº ID} & \textbf{Descripción} & \textbf{Prioridad} \\
+		\hline
+			5 & RF-5. Relacionar una pregunta con su respuesta & Alta \\
+		\hline
+			7 & RF-7. Responder que se desconoce la respuesta a una pregunta & Media \\
+		\hline
+	\end{tabularx}
+\end{table}
+
+\subsubsection{Sprint 3: Haciendo algunas funcionalidades de muestra al Asistente ( 4 semanas)}
+
+En este punto, tenemos un Asistente que podría escuchar y hablar, pero no sabe qué responder ante cualquier cosa que le preguntemos. Por lo tanto, hay que darle algunos conocimientos con algunas funcionalidades de muestra.
+
+Trataremos de resolver los siguientes puntos del Backlog:
+\begin{table}[H]
+	\begin{tabularx}{\textwidth}{|c|X|c|}
+		\hline
+		\textbf{Nº ID} & \textbf{Descripción} & \textbf{Prioridad} \\
+		\hline
+			6 & RF-6. Avisar de que no se puede conectar a Internet & Media \\
+		\hline
+	\end{tabularx}
+\end{table}
+
+Además de ello, se tendrían que crear algunas funcionalidades (dentro del tiempo que nos ocupa) para poder presentar el producto con algo a lo que pueda responder.
+
+\subsection{Sprint 4: Adaptando el repositorio para su liberación (4 semanas)}
+
+En la recta final del trabajo, antes de entregar el proyecto para la evaluación y de poder liberarse el repositorio, necesitaremos preparar algunas instrucciones para que cualquiera lo pueda probar y modificar a su antojo.
+
+Se probaría a resolver estos puntos del Backlog:
+\begin{table}[H]
+	\begin{tabularx}{\textwidth}{|c|X|c|}
+		\hline
+		\textbf{Nº ID} & \textbf{Descripción} & \textbf{Prioridad} \\
+		\hline
+		10 &  Aplicar la Licencia al proyecto & Media \\
+		\hline
+		11 & Crear un README para explicar cómo instalar y usar el proyecto & Media \\
+		\hline
+		12 & Crear una Guía de Conducta para explicar cómo realizar contribuciones al proyecto & Baja \\
+		\hline
+	\end{tabularx}
+\end{table}
+
+En este punto, habrá también que comprobar que el sistema en su conjunto funcione, lo que se podría alargar por temas de debugging y pruebas.
+
+\subsection{Velocidad de equipo}
+En términos de Velocidad, habría que considerar que cada día que se dedica a este proyecto tiene una media de 3 horas y 30 minutos.
+
+Hay 4 días de media a la semana donde se puede dedicar a la realización del Asistente. 
+
+En total, cada semana se trabajaría una media de 14 horas a partir de la Fase de Análisis.
 
 \subsection{Diagrama de Gantt}
 La temporización en este punto quedaría desarrollada por el siguiente Diagrama de Gantt:
@@ -75,7 +220,7 @@ Listamos en la siguiente tabla los costes relacionados con ellos:
 			\hline
 			Raspberry Pi 3B & 8 & 35 & 1 & 0'36\\
 			\hline
-			Portátil HP Pavilion Gaming 15-2008ec & 4 & 550 & 4 & 1\\
+			Portátil HP Pavilion Gaming 15-2008ec & 4 & 550 & 5 & 57'29\\
 			\hline
 		\end{tabularx}
 		\caption{Tabla de estimación de costes por productos físicos}
@@ -94,9 +239,9 @@ En el caso de las herramientas software, notamos que todas son gratuitas, pero d
 			\hline
 			Visual Studio Code & Editor de Código. Soporta integraciones para Python, entre otros lenguajes & 0 \\
 			\hline
-			Vosk & Framework de Código Abierto para Reconocimiento de Voz & 0 \\
+			Vosk/Mozilla Deepspeech & Framework de Código Abierto para Reconocimiento de Voz & 0 \\
 			\hline
-			eSpeak & Framework de Código Abierto para Text-to-Speech & 0 \\
+			eSpeak / Festival & Framework de Código Abierto para Text-to-Speech & 0 \\
 			\hline
 			TeX Studio & Editor de \LaTeX  para redactar la documentación & 0 \\
 			\hline
@@ -124,11 +269,11 @@ En total, nos daríamos con el siguiente presupuesto:
 			\hline
 			Personal & 200 \\
 			\hline
-			Productos físicos & 50 \\
+			Productos físicos & 57'65 \\
 			\hline
 			Productos lógicos & 0\\
 			\hline
-			Total & 20\\
+			Total & 57'65\\
 			\hline
 		\end{tabularx}
 		\caption{Tabla de estimación de costes totales}
