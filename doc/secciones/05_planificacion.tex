@@ -140,7 +140,7 @@ Trataremos de resolver los siguientes puntos del Backlog:
 
 Además de ello, se tendrían que crear algunas funcionalidades (dentro del tiempo que nos ocupa) para poder presentar el producto con algo a lo que pueda responder.
 
-\subsection{Sprint 4: Adaptando el repositorio para su liberación (4 semanas)}
+\subsubsection{Sprint 4: Adaptando el repositorio para su liberación (4 semanas)}
 
 En la recta final del trabajo, antes de entregar el proyecto para la evaluación y de poder liberarse el repositorio, necesitaremos preparar algunas instrucciones para que cualquiera lo pueda probar y modificar a su antojo.
 
@@ -168,6 +168,8 @@ Hay 4 días de media a la semana donde se puede dedicar a la realización del As
 
 En total, cada semana se trabajaría una media de 14 horas a partir de la Fase de Análisis.
 
+Al ser 20 semanas, se estiman un total de 280 horas totales dedicadas al proyecto en total a partir de la fase de análisis. (56 horas en el Sprint 0, 28 en el Sprint 1, 84 en el Sprint 2, y 56 horas por cada uno de los Sprints restantes)
+
 \subsection{Diagrama de Gantt}
 La temporización en este punto quedaría desarrollada por el siguiente Diagrama de Gantt:
 
@@ -183,6 +185,38 @@ Para seguir el desarrollo se hará uso de dos artefactos que acompañan al frame
 \subsection{El personal}
 Si bien este proyecto se va a acabar realizando por una persona realmente, supongamos el caso de que este proyecto lo realizara una pequeña startup de 4 miembros, de forma que hubiera un Scrum Master, un Product Owner, un documentalista y un desarrollador que trabajará principalmente en Python.
 
+Para el Sprint 0, estimaremos las horas que harían cada uno en base a estos porcentajes:
+\begin{itemize}
+	\item \textbf{Programador}: 50\% -> 28 h
+	\item \textbf{Documentalista}: 30\% -> 16'8 h
+	\item \textbf{Product Owner}: 15\% -> 8'4 h
+	\item \textbf{Scrum Master}: 5\% -> 2'8 h
+\end{itemize}
+
+En los Sprints 1 al 3, seguirán estos porcentajes:
+\begin{itemize}
+	\item \textbf{Programador}: 70\% -> 19'6 h (Sp. 1) / 58'8 h (Sp. 2)/ 39'2 h (Sp. 3)
+	\item \textbf{Documentalista}: 10\% -> 2'8 h (Sp. 1)/ 8'4 h (Sp. 2)/ 5'6 h (Sp. 3)
+	\item \textbf{Product Owner}: 10\% -> 2'8 h (Sp. 1)/ 8'4 h (Sp. 2)/ 5'6 h (Sp. 3)
+	\item \textbf{Scrum Master}: 10\% -> 2'8 h (Sp. 1)/ 8'4 h (Sp. 2)/ 5'6 h (Sp. 3)
+\end{itemize}
+
+Para el Sprint 4, estos serían los porcentajes estimados:
+\begin{itemize}
+	\item \textbf{Programador}: 50\% -> 28 h
+	\item \textbf{Documentalista}: 40\% -> 22'4 h
+	\item \textbf{Product Owner}: 5\% -> 2'8 h
+	\item \textbf{Scrum Master}: 5\% -> 2'8 h
+\end{itemize}
+
+Por otra parte, se han comprobado los sueldos medios anuales para los siguientes cargos. Se ha tratado de localizar estos sueldos en el entorno de Granada (el único del que no se tenía información dedicadafue para el cargo de documentalista):
+\begin{itemize}
+	\item \textbf{Programador}: 24995 € -> 12'02 €/hora
+	\item \textbf{Documentalista}: 46311,54 € -> 22'27 €/hora
+	\item \textbf{Product Owner}: 34844 € -> 16'75 €/hora
+	\item \textbf{Scrum Master}: 31682 € -> 15'23 €/hora
+\end{itemize}
+
 \begin{center}
 	\begin{table}[H]
 		\centering
@@ -190,13 +224,15 @@ Si bien este proyecto se va a acabar realizando por una persona realmente, supon
 			\hline
 			\cellcolor{lightblue}\textbf{Trabajador} & \cellcolor{lightblue}\textbf{Tiempo dedicado (horas)} & \cellcolor{lightblue}\textbf{Coste por hora (€)} & \cellcolor{lightblue}\textbf{Total (€)} \\
 			\hline
-			Programador Python & 200 & 15 & 3000\\
+			Programador Python & 173'6 & 12'02 & 2.086'68  \\
 			\hline
-			Documentalista & 50 & 15 & 3000\\
+			Documentalista & 56 & 22'27 & 1.247'12 \\
 			\hline
-			Scrum Master & 20 & 10 & 3000\\
+			Scrum Master & 22'4 & 16'75 & 375'2 \\
 			\hline
-			Product Owner & 20 & 10 & 3000\\
+			Product Owner & 28 & 15'23 & 426'44 \\
+			\hline
+			\textbf{Total} & \textbf{280} & - & \textbf{4.135'43} \\
 			\hline
 		\end{tabularx}
 		\caption{Tabla de estimación de costes por personal}
@@ -267,13 +303,17 @@ En total, nos daríamos con el siguiente presupuesto:
 			\hline
 			\cellcolor{lightblue}\textbf{Concepto} & \cellcolor{lightblue}\textbf{Total (€)}  \\
 			\hline
-			Personal & 200 \\
+			Personal & 4.135'43 \\
 			\hline
 			Productos físicos & 57'65 \\
 			\hline
 			Productos lógicos & 0\\
 			\hline
-			Total & 57'65\\
+			\textbf{\textit{Subtotal}} & \textbf{\textit{4.193'08}}\\
+			\hline
+			IVA (21\% sobre el total) & 880,55\\
+			\hline
+			\textbf{Total} & \textbf{5.073'63} \\
 			\hline
 		\end{tabularx}
 		\caption{Tabla de estimación de costes totales}
