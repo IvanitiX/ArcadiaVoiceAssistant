@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2022-05-02" view-index="1" gantt-divider-location="300" resource-divider-location="300" version="3.1.3103" locale="es_ES">
+    <description/>
+    <view zooming-state="default:4" id="gantt-chart">
+        <field id="tpd3" name="Nombre" width="167" order="0"/>
+        <field id="tpd4" name="Fecha de inicio" width="65" order="1"/>
+        <field id="tpd5" name="Fecha de fin" width="64" order="2"/>
+        <option id="color.recent">
+            <![CDATA[#ff3366 #0099ff #66ff00 #ff9933 #cc00cc]]>
+        </option>
+    </view>
+    <view id="resource-table">
+        <field id="0" name="Nombre" width="210" order="0"/>
+        <field id="1" name="Función" width="86" order="1"/>
+    </view>
+    <!-- -->
+    <calendars base-id="es">
+        <day-types>
+            <day-type id="0"/>
+            <day-type id="1"/>
+            <default-week id="1" name="default" sun="1" mon="0" tue="0" wed="0" thu="0" fri="1" sat="1"/>
+            <only-show-weekends value="false"/>
+            <overriden-day-types/>
+            <days/>
+        </day-types>
+        <date year="" month="1" date="1" type="HOLIDAY">
+            <![CDATA[New Year's Day]]>
+        </date>
+        <date year="" month="1" date="6" type="HOLIDAY">
+            <![CDATA[Epiphany]]>
+        </date>
+        <date year="" month="5" date="1" type="HOLIDAY">
+            <![CDATA[Labour Day]]>
+        </date>
+        <date year="" month="8" date="15" type="HOLIDAY">
+            <![CDATA[Assumption Day]]>
+        </date>
+        <date year="" month="10" date="12" type="HOLIDAY">
+            <![CDATA[Hispanic Day]]>
+        </date>
+        <date year="" month="11" date="1" type="HOLIDAY">
+            <![CDATA[All Saints Day]]>
+        </date>
+        <date year="" month="12" date="6" type="HOLIDAY">
+            <![CDATA[Constitution Day]]>
+        </date>
+        <date year="" month="12" date="8" type="HOLIDAY">
+            <![CDATA[Immaculate Conception Day]]>
+        </date>
+        <date year="" month="12" date="25" type="HOLIDAY">
+            <![CDATA[Christmas Day]]>
+        </date>
+        <date year="2016" month="3" date="24" type="HOLIDAY">
+            <![CDATA[Maundy Thursday]]>
+        </date>
+        <date year="2016" month="3" date="25" type="HOLIDAY">
+            <![CDATA[Good Friday]]>
+        </date>
+        <date year="2017" month="1" date="2" type="HOLIDAY">
+            <![CDATA[New Year's Holiday]]>
+        </date>
+        <date year="2017" month="4" date="13" type="HOLIDAY">
+            <![CDATA[Maundy Thursday]]>
+        </date>
+        <date year="2017" month="4" date="14" type="HOLIDAY">
+            <![CDATA[Good Friday]]>
+        </date>
+        <date year="2018" month="3" date="29" type="HOLIDAY">
+            <![CDATA[Maundy Thursday]]>
+        </date>
+        <date year="2018" month="3" date="30" type="HOLIDAY">
+            <![CDATA[Good Friday]]>
+        </date>
+        <date year="2019" month="4" date="18" type="HOLIDAY">
+            <![CDATA[Maundy Thursday]]>
+        </date>
+        <date year="2019" month="4" date="19" type="HOLIDAY">
+            <![CDATA[Good Friday]]>
+        </date>
+        <date year="2020" month="4" date="9" type="HOLIDAY">
+            <![CDATA[Maundy Thursday]]>
+        </date>
+        <date year="2020" month="4" date="10" type="HOLIDAY">
+            <![CDATA[Good Friday]]>
+        </date>
+        <date year="2020" month="11" date="2" type="HOLIDAY">
+            <![CDATA[All Saints Day (in lieu)]]>
+        </date>
+        <date year="2020" month="12" date="7" type="HOLIDAY">
+            <![CDATA[Constitution Day (in lieu)]]>
+        </date>
+        <date year="2021" month="4" date="1" type="HOLIDAY">
+            <![CDATA[Maundy Thursday]]>
+        </date>
+        <date year="2021" month="4" date="2" type="HOLIDAY">
+            <![CDATA[Good Friday]]>
+        </date>
+        <date year="2022" month="2" date="28" type="HOLIDAY">
+            <![CDATA[Días festivos en 28/2/22 0:00]]>
+        </date>
+        <date year="2022" month="4" date="14" type="HOLIDAY">
+            <![CDATA[Días festivos en 14/4/22 0:00]]>
+        </date>
+    </calendars>
+    <tasks empty-milestones="true">
+        <taskproperties>
+            <taskproperty id="tpd0" name="type" type="default" valuetype="icon"/>
+            <taskproperty id="tpd1" name="priority" type="default" valuetype="icon"/>
+            <taskproperty id="tpd2" name="info" type="default" valuetype="icon"/>
+            <taskproperty id="tpd3" name="name" type="default" valuetype="text"/>
+            <taskproperty id="tpd4" name="begindate" type="default" valuetype="date"/>
+            <taskproperty id="tpd5" name="enddate" type="default" valuetype="date"/>
+            <taskproperty id="tpd6" name="duration" type="default" valuetype="int"/>
+            <taskproperty id="tpd7" name="completion" type="default" valuetype="int"/>
+            <taskproperty id="tpd8" name="coordinator" type="default" valuetype="text"/>
+            <taskproperty id="tpd9" name="predecessorsr" type="default" valuetype="text"/>
+        </taskproperties>
+        <task id="128" name="Sprint 0" color="#cc00cc" meeting="true" start="2022-02-14" duration="0" complete="0" thirdDate="2022-02-03" thirdDate-constraint="0" expand="true">
+            <task id="153" name="Comparar las APIs de Reconocimiento de Voz" color="#cc00cc" meeting="false" start="2022-02-14" duration="4" complete="0" thirdDate="2022-02-01" thirdDate-constraint="0" priority="2" expand="true">
+                <depend id="155" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="154" name="Comparar las APIs de Síntesis de Voz" color="#cc00cc" meeting="false" start="2022-02-21" duration="4" complete="0" thirdDate="2022-02-01" thirdDate-constraint="0" priority="2" expand="true">
+                <depend id="155" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="155" name="Diseñar la arquitectura del sistema" color="#cc00cc" meeting="false" start="2022-03-01" duration="8" complete="0" thirdDate="2022-02-07" thirdDate-constraint="0" priority="2" expand="true">
+                <depend id="133" type="2" difference="0" hardness="Strong"/>
+                <depend id="156" type="2" difference="0" hardness="Strong"/>
+                <depend id="157" type="2" difference="0" hardness="Strong"/>
+            </task>
+        </task>
+        <task id="133" name="Sprint 1" color="#ff9933" meeting="true" start="2022-03-15" duration="0" complete="0" thirdDate="2022-02-03" thirdDate-constraint="0" expand="true">
+            <task id="156" name="RF-1. Hablar al Asistente" color="#ff9933" meeting="false" start="2022-03-15" duration="4" complete="0" thirdDate="2022-02-07" thirdDate-constraint="0" priority="2" expand="true">
+                <depend id="159" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="157" name="RF-2. Escuchar una respuesta del Asistente" color="#ff9933" meeting="false" start="2022-03-15" duration="4" complete="0" thirdDate="2022-02-07" thirdDate-constraint="0" priority="2" expand="true">
+                <depend id="160" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="159" name="RF-3. Sintetizar la voz de una pregunta en un texto" color="#ff9933" meeting="false" start="2022-03-22" duration="4" complete="0" thirdDate="2022-02-07" thirdDate-constraint="0" priority="2" expand="true">
+                <depend id="161" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="160" name="RF-4. Generar un audio leyendo una respuesta" color="#ff9933" meeting="false" start="2022-03-22" duration="4" complete="0" thirdDate="2022-02-07" thirdDate-constraint="0" priority="2" expand="true">
+                <depend id="129" type="2" difference="0" hardness="Strong"/>
+                <depend id="161" type="2" difference="0" hardness="Strong"/>
+            </task>
+        </task>
+        <task id="129" name="Sprint 2" color="#66ff00" meeting="true" start="2022-03-29" duration="0" complete="0" thirdDate="2022-02-03" thirdDate-constraint="0" expand="true">
+            <task id="161" name="RF-5. Relacionar una pregunta con su respuesta" color="#66ff00" meeting="false" start="2022-03-29" duration="16" complete="0" thirdDate="2022-02-07" thirdDate-constraint="0" priority="2" expand="true">
+                <depend id="164" type="1" difference="2" hardness="Strong"/>
+                <depend id="171" type="2" difference="0" hardness="Strong"/>
+                <depend id="176" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="164" name="Crear una funcionalidad para testear el comportamiento" color="#66ff00" meeting="false" start="2022-03-31" duration="14" complete="0" thirdDate="2022-02-07" thirdDate-constraint="0" priority="2" expand="true"/>
+            <task id="171" name="RF-7. Responder que se desconoce la respuesta a una pregunta" color="#66ff00" meeting="false" start="2022-04-27" duration="2" complete="0" thirdDate="2022-02-07" thirdDate-constraint="0" priority="2" expand="true">
+                <depend id="130" type="2" difference="0" hardness="Strong"/>
+                <depend id="176" type="2" difference="0" hardness="Strong"/>
+            </task>
+        </task>
+        <task id="130" name="Sprint 3" color="#0099ff" meeting="true" start="2022-05-02" duration="0" complete="0" thirdDate="2022-02-03" thirdDate-constraint="0" expand="true">
+            <task id="176" name="RF-6. Avisar de que no se puede conectar a Internet" color="#0099ff" meeting="false" start="2022-05-02" duration="1" complete="0" thirdDate="2022-02-07" thirdDate-constraint="0" expand="true">
+                <depend id="177" type="2" difference="0" hardness="Strong"/>
+                <depend id="179" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="177" name="Crear funcionalidades extra para enseñar las posibilidades del Software" color="#0099ff" meeting="false" start="2022-05-03" duration="12" complete="0" thirdDate="2022-02-07" thirdDate-constraint="0" expand="true">
+                <depend id="179" type="1" difference="0" hardness="Strong"/>
+            </task>
+            <task id="179" name="Debugging de lo implementado hasta el momento" color="#0099ff" meeting="false" start="2022-05-03" duration="16" complete="0" thirdDate="2022-02-07" thirdDate-constraint="0" expand="true">
+                <depend id="131" type="2" difference="0" hardness="Strong"/>
+            </task>
+        </task>
+        <task id="131" name="Sprint 4" color="#ff3366" meeting="true" start="2022-06-01" duration="0" complete="0" thirdDate="2022-02-03" thirdDate-constraint="0" expand="true">
+            <task id="180" name="Aplicar la Licencia al Proyecto" color="#ff3366" meeting="false" start="2022-06-01" duration="1" complete="0" thirdDate="2022-05-23" thirdDate-constraint="0" expand="true">
+                <depend id="181" type="2" difference="0" hardness="Strong"/>
+                <depend id="182" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="181" name="Crear un README para explicar cómo instalar y usar el proyecto" color="#ff3366" meeting="false" start="2022-06-02" duration="3" complete="0" thirdDate="2022-05-23" thirdDate-constraint="0" expand="true">
+                <depend id="182" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="182" name="Crear una Guía de Conducta para explicar cómo realizar contribuciones al proyecto" color="#ff3366" meeting="false" start="2022-06-08" duration="3" complete="0" thirdDate="2022-05-23" thirdDate-constraint="0" priority="0" expand="true"/>
+        </task>
+    </tasks>
+    <resources>
+        <resource id="1" name="Desarrollador Python" function="SoftwareDevelopment:2" contacts="" phone="">
+            <rate name="standard" value="1202"/>
+        </resource>
+        <resource id="2" name="Documentalista" function="SoftwareDevelopment:3" contacts="" phone="">
+            <rate name="standard" value="2227"/>
+        </resource>
+        <resource id="3" name="Product Owner" function="SoftwareDevelopment:8" contacts="" phone="">
+            <rate name="standard" value="1675"/>
+        </resource>
+        <resource id="4" name="Scrum Master" function="Default:1" contacts="" phone="">
+            <rate name="standard" value="1523"/>
+        </resource>
+    </resources>
+    <allocations>
+        <allocation task-id="153" resource-id="1" function="SoftwareDevelopment:2" responsible="false" load="50.0"/>
+        <allocation task-id="154" resource-id="1" function="SoftwareDevelopment:2" responsible="true" load="50.0"/>
+        <allocation task-id="156" resource-id="1" function="SoftwareDevelopment:2" responsible="true" load="35.0"/>
+        <allocation task-id="157" resource-id="1" function="SoftwareDevelopment:2" responsible="true" load="35.0"/>
+        <allocation task-id="160" resource-id="1" function="SoftwareDevelopment:2" responsible="true" load="35.0"/>
+        <allocation task-id="159" resource-id="1" function="SoftwareDevelopment:2" responsible="true" load="35.0"/>
+        <allocation task-id="161" resource-id="1" function="SoftwareDevelopment:2" responsible="true" load="40.0"/>
+        <allocation task-id="164" resource-id="1" function="SoftwareDevelopment:2" responsible="true" load="30.0"/>
+        <allocation task-id="171" resource-id="1" function="SoftwareDevelopment:2" responsible="true" load="70.0"/>
+        <allocation task-id="179" resource-id="1" function="SoftwareDevelopment:2" responsible="true" load="20.0"/>
+        <allocation task-id="176" resource-id="1" function="SoftwareDevelopment:2" responsible="true" load="70.0"/>
+        <allocation task-id="177" resource-id="1" function="SoftwareDevelopment:2" responsible="true" load="50.0"/>
+        <allocation task-id="131" resource-id="1" function="SoftwareDevelopment:2" responsible="true" load="50.0"/>
+        <allocation task-id="153" resource-id="2" function="SoftwareDevelopment:3" responsible="false" load="30.0"/>
+        <allocation task-id="154" resource-id="2" function="SoftwareDevelopment:3" responsible="false" load="30.0"/>
+        <allocation task-id="155" resource-id="2" function="SoftwareDevelopment:3" responsible="false" load="50.0"/>
+        <allocation task-id="156" resource-id="2" function="SoftwareDevelopment:3" responsible="false" load="10.0"/>
+        <allocation task-id="157" resource-id="2" function="SoftwareDevelopment:3" responsible="false" load="10.0"/>
+        <allocation task-id="159" resource-id="2" function="SoftwareDevelopment:3" responsible="false" load="10.0"/>
+        <allocation task-id="160" resource-id="2" function="SoftwareDevelopment:3" responsible="false" load="10.0"/>
+        <allocation task-id="161" resource-id="2" function="SoftwareDevelopment:3" responsible="false" load="10.0"/>
+        <allocation task-id="171" resource-id="2" function="SoftwareDevelopment:3" responsible="false" load="10.0"/>
+        <allocation task-id="176" resource-id="2" function="SoftwareDevelopment:3" responsible="false" load="10.0"/>
+        <allocation task-id="177" resource-id="2" function="SoftwareDevelopment:3" responsible="false" load="10.0"/>
+        <allocation task-id="181" resource-id="2" function="SoftwareDevelopment:3" responsible="true" load="40.0"/>
+        <allocation task-id="182" resource-id="2" function="SoftwareDevelopment:3" responsible="true" load="40.0"/>
+        <allocation task-id="180" resource-id="2" function="SoftwareDevelopment:3" responsible="true" load="40.0"/>
+        <allocation task-id="153" resource-id="3" function="SoftwareDevelopment:8" responsible="true" load="20.0"/>
+        <allocation task-id="154" resource-id="3" function="SoftwareDevelopment:8" responsible="false" load="20.0"/>
+        <allocation task-id="155" resource-id="3" function="SoftwareDevelopment:8" responsible="true" load="50.0"/>
+        <allocation task-id="133" resource-id="3" function="SoftwareDevelopment:8" responsible="false" load="10.0"/>
+        <allocation task-id="129" resource-id="3" function="SoftwareDevelopment:8" responsible="true" load="10.0"/>
+        <allocation task-id="130" resource-id="3" function="SoftwareDevelopment:8" responsible="false" load="10.0"/>
+        <allocation task-id="131" resource-id="3" function="SoftwareDevelopment:8" responsible="false" load="5.0"/>
+        <allocation task-id="133" resource-id="4" function="Default:1" responsible="true" load="10.0"/>
+        <allocation task-id="129" resource-id="4" function="Default:1" responsible="true" load="10.0"/>
+        <allocation task-id="130" resource-id="4" function="Default:1" responsible="true" load="10.0"/>
+        <allocation task-id="131" resource-id="4" function="Default:1" responsible="false" load="5.0"/>
+    </allocations>
+    <vacations/>
+    <previous/>
+    <roles roleset-name="Default"/>
+    <roles roleset-name="SoftwareDevelopment"/>
+</project>
