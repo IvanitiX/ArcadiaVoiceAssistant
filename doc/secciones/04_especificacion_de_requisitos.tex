@@ -40,13 +40,13 @@ Si bien estos casos pueden necesitar soluciones concretas, el objetivo con este 
 		\cline{1-2}
 		Educación    & Bachillerato Científico-Sanitario &                                   \\ [2ex] 
 		\hline
-		\multicolumn{3}{|l|}{\cellcolor{lightblue}\textbf{Contexto de uso}}               \\ 
+		\multicolumn{3}{|l|}{{\cellcolor{lightblue}}\textbf{Contexto de uso}}               \\ 
 		\hline
 		Cuándo       & \multicolumn{2}{l|}{Tras las clases, antes de ponerse a estudiar}                \\ 
 		\hline
 		Dónde        & \multicolumn{2}{l|}{Ordenador portátil}                \\ 
 		\hline
-		\multicolumn{3}{|l|}{\cellcolor{lightblue}\textbf{Misión}}                        \\ 
+		\multicolumn{3}{|l|}{{\cellcolor{lightblue}}\textbf{Misión}}                        \\ 
 		\hline
 		Objetivo     & \multicolumn{2}{l|}{Tener una ayuda en el estudio}                \\ 
 		\hline
@@ -60,7 +60,7 @@ Si bien estos casos pueden necesitar soluciones concretas, el objetivo con este 
 			\end{minipage}
 		}                \\ 
 		\hline
-		\multicolumn{3}{|l|}{\cellcolor{lightblue}\textbf{Motivación}}                   \\ 
+		\multicolumn{3}{|l|}{{\cellcolor{lightblue}}\textbf{Motivación}}                   \\ 
 		\hline
 		Urgencia     & \multicolumn{2}{l|}{
 			\begin{minipage}[t]{0.7\textwidth}
@@ -74,7 +74,7 @@ Si bien estos casos pueden necesitar soluciones concretas, el objetivo con este 
 			\end{minipage}
 		}                \\ 
 		\hline
-		\multicolumn{3}{|l|}{\cellcolor{lightblue}\textbf{Actitud ante la tecnología}}    \\ 
+		\multicolumn{3}{|l|}{{\cellcolor{lightblue}}\textbf{Actitud ante la tecnología}}    \\ 
 		\hline
 		\multicolumn{3}{|l|}{
 			\begin{minipage}[t]{\textwidth}
@@ -110,13 +110,13 @@ Si bien estos casos pueden necesitar soluciones concretas, el objetivo con este 
 			\end{minipage}
 		 &                                   \\ [2ex] 
 		\hline
-		\multicolumn{3}{|l|}{\cellcolor{lightblue}\textbf{Contexto de uso}}               \\ 
+		\multicolumn{3}{|l|}{{\cellcolor{lightblue}}\textbf{Contexto de uso}}               \\ 
 		\hline
 		Cuándo       & \multicolumn{2}{l|}{Al llegar a casa}                \\ 
 		\hline
 		Dónde        & \multicolumn{2}{l|}{Ordenador portátil y/o aparato dedicado}                \\ 
 		\hline
-		\multicolumn{3}{|l|}{\cellcolor{lightblue}\textbf{Misión}}                        \\ 
+		\multicolumn{3}{|l|}{{\cellcolor{lightblue}}\textbf{Misión}}                        \\ 
 		\hline
 		Objetivo     & \multicolumn{2}{l|}{Poder disfrutar de cierta independencia}                \\ 
 		\hline
@@ -129,7 +129,7 @@ Si bien estos casos pueden necesitar soluciones concretas, el objetivo con este 
 			\end{minipage}
 		}                \\ 
 		\hline
-		\multicolumn{3}{|l|}{\cellcolor{lightblue}\textbf{Motivación}}                   \\ 
+		\multicolumn{3}{|l|}{{\cellcolor{lightblue}}\textbf{Motivación}}                   \\ 
 		\hline
 		Urgencia     & \multicolumn{2}{l|}{
 			\begin{minipage}[t]{0.7\textwidth}
@@ -143,7 +143,7 @@ Si bien estos casos pueden necesitar soluciones concretas, el objetivo con este 
 			\end{minipage}
 		}                \\ 
 		\hline
-		\multicolumn{3}{|l|}{\cellcolor{lightblue}\textbf{Actitud ante la tecnología}}    \\ 
+		\multicolumn{3}{|l|}{{\cellcolor{lightblue}}\textbf{Actitud ante la tecnología}}    \\ 
 		\hline
 		\multicolumn{3}{|l|}{
 			\begin{minipage}[t]{\textwidth}
@@ -292,7 +292,7 @@ Nótese que en el análisis queda fuera \textbf{Apple Siri} \cite{siri} ya que p
 		\endlastfoot
 		
 		\hline
-		\textbf{\textit{Propiedad}} & \textbf{Alexa} & \textbf{Cortana} & \textbf{G-Assistant} \\
+		{\cellcolor{mintgreen}} \textbf{\textit{Propiedad}} & {\cellcolor{mintgreen}} \textbf{Alexa} & {\cellcolor{mintgreen}} \textbf{Cortana} & {\cellcolor{mintgreen}} \textbf{G-Assistant} \\
 		\hline
 		\textit{¿Dónde se puede usar?} & En dispositivos Echo y en la app Alexa & En ordenadores con Windows 10 y teléfonos Android y Apple & En teléfonos Android y en la web, además de dispositivos Google Home. \\
 		\hline
@@ -511,7 +511,7 @@ A continuación se listarán aquellos requisitos que se requerirán para realiza
 	\item \textbf{Usabilidad y legibilidad del código:} Debido a que va a ser un proyecto que luego se publicará y que además da pie a que otras personas colaboren en él, sería conveniente que el código sea lo más claro y conciso posible. Por tanto:
 	\begin{itemize}
 		\item Se realizará una \textbf{codificación modular}, de forma que los cambios estén lo más localizados posible y que no se requieran hacer muchos de ellos.
-		\item El código deberá seguir los estándares y convenios de codificación del lenguaje \textbf{Python}. Para comprobarlo, usaremos como linter \textbf{PyLint}, ya que nos aconsejará y advertirá tanto de posibles errores lógicos como de código que haya que refactorizar para seguir esos estándares.
+		\item El código deberá seguir los estándares y convenios de codificación del lenguaje \textbf{Python}. Para comprobarlo, usaremos como linter \textbf{PyLint} \cite{pylint}, ya que nos aconsejará y advertirá tanto de posibles errores lógicos como de código que haya que refactorizar para seguir esos estándares.
 	\end{itemize}
 
 	\item \textbf{Implementación:} Para realizar el proyecto, haremos uso de varias tecnologías. Principalmente, requeriremos:
