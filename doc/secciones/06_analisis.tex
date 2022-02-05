@@ -7,8 +7,59 @@
 }
 
 \section{Comparando APIs de Reconocimiento de Voz}
+Como hablamos en el Capítulo 2, hoy en día existen herramientas que reconocen la voz. Algunas son de software propietario o de Software como Servicio (por ejemplo, IBM Watson SR o Google SR), pero también hay proyectos de software de código abierto que nos permiten trabajar con ello sin tener que saber los tópicos de la Inteligencia Artificial a fondo, trabajando de forma transparente al desarrollador. 
+
+Entre estos proyectos podemos encontrar dos:
+\begin{itemize}
+	\item \textbf{Vosk API}:Desarrollado por Alpha Cephei en 2019 como wrapper de Kaldi , es un sistema de Reconocimiento de Voz offline que actualmente soporta 17 lenguajes y destaca por funcionar en dispositivos más limitados como la Raspberry Pi. Sus modelos más básicos son de 50 MB, pero se pueden adaptar a modelos más complejos, consiguiendo así una escalabilidad en el sistema. Además, soporta reconocimiento del habla. En su arquitectura se usa una red neuronal en conjunto con un Modelo Oculto de Markov. Usa una licencia Apache 2.0
+	
+	\item \textbf{Mozilla DeepSpeech}: Es una API de Reconocimiento de Voz realizado por Mozilla desde 2016, basado en un paper de Baidu sobre un sistema de Reconocimiento del Habla usando algoritmos de Deep Learning en conjunto con optimizaciones para lograr resultados más rápidos usando múltiples GPU para alimentar una Red Neuronal Recurrente que modelizara un lenguaje en base a ingentes cantidades de datos. Por tanto, acaban dando en la API una interfaz para poder usarlo en nuestros ordenadores y una serie de modelos optimizados gracias al entrenamiento que pueden realizar.
+	
+\end{itemize}
+
+Para saber cuál sería la API que más nos interesara, podríamos montar un experimento donde evaluaríamos:
+\begin{itemize}
+	\item La facilidad de implementación
+	\item La precisión de los modelos y de la API.
+\end{itemize}
+
+Este experimento se basaría en coger a varios sujetos que leyeran un mismo texto.
+Esas lecturas se pasarían por un programa que emplea la API de forma que acabamos convirtiendo la voz en texto. Tras ello, se comparan ambos textos para ver el \textbf{Word Error Rate (WER)}, una métrica que mide la precisión entre lo que se ha querido decir y lo que un Reconocedor del Habla transcribe. 
+Nos quedaríamos entonces con aquella implementación que sea más fácil de usar en conjunto con el modelo más preciso. 
+
+Otra cosa que también podemos probar, de paso, es decir varios nombres propios con tal de mirar si le podemos poner nombre al Asistente, pues hoy en día es común usar como \textit{trigger word} un nombre propio (como \textit{Alexa}, \textit{Siri} o \textit{Cortana}). También podemos probar a decir acciones que debería reconocer el asistente habitualmente para funcionalidades futuras, incluso probar a decir cosas en otros idiomas (por ejemplo, canciones con títulos en inglés) para ver cómo reacciona.
+
+Así pues, se ha redactado el siguiente texto para hacer las pruebas:
+
+\noindent\fbox{
+	\parbox{\textwidth}{
+		Lúmina y Arcadia se encuentran en un portal a medio camino entre sus casas, cerca del centro comercial. Ellas habían quedado para ver la nueva película que tanto promocionaban por la tele y buscaron un momento entre sus agendas para ir a verla. 
+		
+		Lumi comparte uno de sus auriculares con su amiga y  enciende el móvil. Entra a Spotify y reproduce un tema de Katy Perry mientras pasean hacia su destino.
+		
+		Al llegar, buscan el cine y compran las entradas y las palomitas. Al entrar a la sala ven un temporizador de 5 minutos en la pantalla, que además no paraba de poner publicidad.
+		
+		De repente, todo se para por un corte de luz. Todo estaba a oscuras y alguien enciende la luz de su teléfono, aunque no sirve de mucho hasta que vuelve el suministro a funcionar y ya puedan ver la película.
+		
+		Al terminar, miran qué tiempo hace para saber si esperar a que les recojan o volver andando. Aunque lo piensan mejor tras mirar qué hora es y deciden ir a tomar un café antes de irse.
+	}
+}
+
+Este texto ha sido enviado a X sujetos, los cuales han grabado su voz durante la lectura. Se ha comprobado previamente de forma manual que lo que se oye es exactamente lo que se lee, ya que podría ocasionar cierto ruido el hecho de que no fuera así.
+
+
+
+
 
 \section{Comparando APIs de Síntesis de Voz}
+Por la otra parte, sintetizar la voz nos permite ofrecer el feedback al usuario los resultados a lo que se piden. Al igual que en el Reconocimiento del Habla, las grandes compañías tienen su propia implementación en un formato "Software como servicio" (como Google TTS o IBM Watson TTS).
+
+En este campo tenemos también otro par de APIs que usan sistemas de Código Abierto. Estos son:
+
+\begin{itemize}
+	\item \textbf{Festival TTS}:
+	\item \textbf{eSpeak}: 
+\end{itemize}
 
 \section{Diseñando el problema}
  
