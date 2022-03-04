@@ -1,0 +1,19 @@
+#!/bin/bash
+python=$(pyenv which python)
+#for i in {1..8}
+#do
+#    $python test_deepspeech_lm.py Audios/Ivan/Lumina_Frase$i.wav Modelos/output_graph_rhasspy.pbmm Scorers/es_pocolm_d8cv.scorer Transcripciones/Lumina_Frase$i.txt 1.0 0.1 2.0 0.0 0.1 1.0 TranscripcionesHipotesis/Ivan/DeepSpeech/Rhasspy/Poco/Lumina_Frase$i.txt Resultados/DeepSpeech/Ivan/Rhasspy/Poco/Lumina_Frase$i.txt
+#    $python test_deepspeech_lm.py Audios/Ivan/Lumina_Frase$i.wav Modelos/output_graph_rhasspy.pbmm Scorers/kenlm_es_n12.scorer Transcripciones/Lumina_Frase$i.txt 1.0 0.1 2.0 0.0 0.1 1.0 TranscripcionesHipotesis/Ivan/DeepSpeech/Rhasspy/Ken/Lumina_Frase$i.txt Resultados/DeepSpeech/Ivan/Rhasspy/Ken/Lumina_Frase$i.txt
+#    $python test_deepspeech_lm.py Audios/Ivan/Arcadia_Frase$i.wav Modelos/output_graph_rhasspy.pbmm Scorers/es_pocolm_d8cv.scorer Transcripciones/Arcadia_Frase$i.txt 1.0 0.1 2.0 0.0 0.1 1.0 TranscripcionesHipotesis/Ivan/DeepSpeech/Rhasspy/Poco/Arcadia_Frase$i.txt Resultados/DeepSpeech/Ivan/Rhasspy/Poco/Arcadia_Frase$i.txt
+#    $python test_deepspeech_lm.py Audios/Ivan/Arcadia_Frase$i.wav Modelos/output_graph_rhasspy.pbmm Scorers/kenlm_es_n12.scorer Transcripciones/Arcadia_Frase$i.txt 1.0 0.1 2.0 0.0 0.1 1.0 TranscripcionesHipotesis/Ivan/DeepSpeech/Rhasspy/Ken/Arcadia_Frase$i.txt Resultados/DeepSpeech/Ivan/Rhasspy/Ken/Arcadia_Frase$i.txt
+#    $python test_deepspeech_lm.py Audios/Ivan/Lumina_Frase$i.wav Modelos/output_graph_es.pbmm Scorers/es_pocolm_d8cv.scorer Transcripciones/Lumina_Frase$i.txt 1.0 0.1 2.0 0.0 0.1 1.0 TranscripcionesHipotesis/Ivan/DeepSpeech/Polyglot/Poco/Lumina_Frase$i.txt Resultados/DeepSpeech/Ivan/Polyglot/Poco/Lumina_Frase$i.txt
+#    $python test_deepspeech_lm.py Audios/Ivan/Lumina_Frase$i.wav Modelos/output_graph_es.pbmm Scorers/kenlm_es_n12.scorer Transcripciones/Lumina_Frase$i.txt 1.0 0.1 2.0 0.0 0.1 1.0 TranscripcionesHipotesis/Ivan/DeepSpeech/Polyglot/Ken/Lumina_Frase$i.txt Resultados/DeepSpeech/Ivan/Polyglot/Ken/Lumina_Frase$i.txt
+#    $python test_deepspeech_lm.py Audios/Ivan/Arcadia_Frase$i.wav Modelos/output_graph_es.pbmm Scorers/es_pocolm_d8cv.scorer Transcripciones/Arcadia_Frase$i.txt 1.0 0.1 2.0 0.0 0.1 1.0 TranscripcionesHipotesis/Ivan/DeepSpeech/Polyglot/Poco/Arcadia_Frase$i.txt Resultados/DeepSpeech/Ivan/Polyglot/Poco/Arcadia_Frase$i.txt
+#    $python test_deepspeech_lm.py Audios/Ivan/Arcadia_Frase$i.wav Modelos/output_graph_es.pbmm Scorers/kenlm_es_n12.scorer Transcripciones/Arcadia_Frase$i.txt 1.0 0.1 2.0 0.0 0.1 1.0 TranscripcionesHipotesis/Ivan/DeepSpeech/Polyglot/Ken/Arcadia_Frase$i.txt Resultados/DeepSpeech/Ivan/Polyglot/Ken/Arcadia_Frase$i.txt
+#done
+
+    $python test_deepspeech_lm.py Audios/Ivan/TextoLargo.wav Modelos/output_graph_rhasspy.pbmm Scorers/es_pocolm_d8cv.scorer Transcripciones/TextoLargo.txt 1.0 0.1 2.0 0.0 0.1 1.0 TranscripcionesHipotesis/Ivan/DeepSpeech/Rhasspy/Poco/TextoLargo.txt Resultados/DeepSpeech/Ivan/Rhasspy/Poco/TextoLargo.txt
+    $python test_deepspeech_lm.py Audios/Ivan/TextoLargo.wav Modelos/output_graph_rhasspy.pbmm Scorers/kenlm_es_n12.scorer Transcripciones/TextoLargo.txt 1.0 0.1 2.0 0.0 0.1 1.0 TranscripcionesHipotesis/Ivan/DeepSpeech/Rhasspy/Ken/TextoLargo.txt Resultados/DeepSpeech/Ivan/Rhasspy/Ken/TextoLargo.txt
+    $python test_deepspeech_lm.py Audios/Ivan/TextoLargo.wav Modelos/output_graph_es.pbmm Scorers/es_pocolm_d8cv.scorer Transcripciones/TextoLargo.txt 1.0 0.1 2.0 0.0 0.1 1.0 TranscripcionesHipotesis/Ivan/DeepSpeech/Polyglot/Poco/TextoLargo.txt Resultados/DeepSpeech/Ivan/Polyglot/Poco/TextoLargo.txt
+    $python test_deepspeech_lm.py Audios/Ivan/TextoLargo.wav Modelos/output_graph_es.pbmm Scorers/kenlm_es_n12.scorer Transcripciones/TextoLargo.txt 1.0 0.1 2.0 0.0 0.1 1.0 TranscripcionesHipotesis/Ivan/DeepSpeech/Polyglot/Ken/TextoLargo.txt Resultados/DeepSpeech/Ivan/Polyglot/Ken/TextoLargo.txt
+

@@ -1,0 +1,37 @@
+% Please add the following required packages to your document preamble:
+\documentclass{article}
+\usepackage{lscape}
+ \usepackage{booktabs}
+ \usepackage{multirow}
+ \pagenumbering{gobble} 
+ \thispagestyle{empty}
+
+\begin{document}
+	\begin{landscape}
+		\begin{table}[]
+			\begin{tabular}{|ll|l|llll|}
+				\hline
+				\multicolumn{2}{|l|}{\multirow{3}{*}{}}                           & \multirow{3}{*}{\textbf{Vosk}} & \multicolumn{4}{c|}{\textbf{DeepSpeech}}                                                                                   \\ \cline{4-7} 
+				\multicolumn{2}{|l|}{}                                            &                                & \multicolumn{2}{c|}{Modelo Rhasspy}                                    & \multicolumn{2}{c|}{Modelo Polyglot}              \\ \cline{4-7} 
+				\multicolumn{2}{|l|}{}                                            &                                & \multicolumn{1}{l|}{Scorer PocoLG} & \multicolumn{1}{l|}{Scorer KenLM} & \multicolumn{1}{l|}{Scorer PocoLG} & Scorer KenLM \\ \hline
+				\multicolumn{1}{|l|}{\textbf{Texto Largo}}              &         &                                & \multicolumn{1}{l|}{}              & \multicolumn{1}{l|}{}             & \multicolumn{1}{l|}{}              &              \\ \hline
+				\multicolumn{1}{|l|}{\multirow{2}{*}{\textbf{Frase 1}}} & Arcadia &                                & \multicolumn{1}{l|}{}              & \multicolumn{1}{l|}{}             & \multicolumn{1}{l|}{}              &              \\ \cline{2-7} 
+				\multicolumn{1}{|l|}{}                                  & Lumina  &                                & \multicolumn{1}{l|}{}              & \multicolumn{1}{l|}{}             & \multicolumn{1}{l|}{}              &              \\ \hline
+				\multicolumn{1}{|l|}{\multirow{2}{*}{\textbf{Frase 2}}} & Arcadia &                                & \multicolumn{1}{l|}{}              & \multicolumn{1}{l|}{}             & \multicolumn{1}{l|}{}              &              \\ \cline{2-7} 
+				\multicolumn{1}{|l|}{}                                  & Lumina  &                                & \multicolumn{1}{l|}{}              & \multicolumn{1}{l|}{}             & \multicolumn{1}{l|}{}              &              \\ \hline
+				\multicolumn{1}{|l|}{\multirow{2}{*}{\textbf{Frase 3}}} & Arcadia &                                & \multicolumn{1}{l|}{}              & \multicolumn{1}{l|}{}             & \multicolumn{1}{l|}{}              &              \\ \cline{2-7} 
+				\multicolumn{1}{|l|}{}                                  & Lumina  &                                & \multicolumn{1}{l|}{}              & \multicolumn{1}{l|}{}             & \multicolumn{1}{l|}{}              &              \\ \hline
+				\multicolumn{1}{|l|}{\multirow{2}{*}{\textbf{Frase 4}}} & Arcadia &                                & \multicolumn{1}{l|}{}              & \multicolumn{1}{l|}{}             & \multicolumn{1}{l|}{}              &              \\ \cline{2-7} 
+				\multicolumn{1}{|l|}{}                                  & Lumina  &                                & \multicolumn{1}{l|}{}              & \multicolumn{1}{l|}{}             & \multicolumn{1}{l|}{}              &              \\ \hline
+				\multicolumn{1}{|l|}{\multirow{2}{*}{\textbf{Frase 5}}} & Arcadia &                                & \multicolumn{1}{l|}{}              & \multicolumn{1}{l|}{}             & \multicolumn{1}{l|}{}              &              \\ \cline{2-7} 
+				\multicolumn{1}{|l|}{}                                  & Lumina  &                                & \multicolumn{1}{l|}{}              & \multicolumn{1}{l|}{}             & \multicolumn{1}{l|}{}              &              \\ \hline
+				\multicolumn{1}{|l|}{\multirow{2}{*}{\textbf{Frase 6}}} & Arcadia &                                & \multicolumn{1}{l|}{}              & \multicolumn{1}{l|}{}             & \multicolumn{1}{l|}{}              &              \\ \cline{2-7} 
+				\multicolumn{1}{|l|}{}                                  & Lumina  &                                & \multicolumn{1}{l|}{}              & \multicolumn{1}{l|}{}             & \multicolumn{1}{l|}{}              &              \\ \hline
+				\multicolumn{1}{|l|}{\multirow{2}{*}{\textbf{Frase 7}}} & Arcadia &                                & \multicolumn{1}{l|}{}              & \multicolumn{1}{l|}{}             & \multicolumn{1}{l|}{}              &              \\ \cline{2-7} 
+				\multicolumn{1}{|l|}{}                                  & Lumina  &                                & \multicolumn{1}{l|}{}              & \multicolumn{1}{l|}{}             & \multicolumn{1}{l|}{}              &              \\ \hline
+				\multicolumn{1}{|l|}{\multirow{2}{*}{\textbf{Frase 8}}} & Arcadia &                                & \multicolumn{1}{l|}{}              & \multicolumn{1}{l|}{}             & \multicolumn{1}{l|}{}              &              \\ \cline{2-7} 
+				\multicolumn{1}{|l|}{}                                  & Lumina  &                                & \multicolumn{1}{l|}{}              & \multicolumn{1}{l|}{}             & \multicolumn{1}{l|}{}              &              \\ \hline
+			\end{tabular}
+		\end{table}
+	\end{landscape}
+\end{document}
