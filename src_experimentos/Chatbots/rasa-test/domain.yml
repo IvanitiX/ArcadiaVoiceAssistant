@@ -1,0 +1,37 @@
+version: "3.0"
+
+intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - mood_great
+  - mood_unhappy
+  - bot_challenge
+
+actions:
+  - action_tell_time
+
+responses:
+  utter_greet:
+  - text: "Hola! Cómo estás?"
+
+  utter_cheer_up:
+  - text: "Aquí tienes un animal monísimo:"
+    image: "https://i.imgur.com/nGF1K8f.jpg"
+
+  utter_did_that_help:
+  - text: "Te sirve de algo?"
+
+  utter_happy:
+  - text: "Genial, ánimo!"
+
+  utter_goodbye:
+  - text: "Adiós"
+
+  utter_iamabot:
+  - text: "Soy un bot."
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true

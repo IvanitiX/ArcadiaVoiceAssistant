@@ -267,9 +267,118 @@ Por la otra parte, sintetizar la voz nos permite ofrecer el feedback al usuario 
 En este campo tenemos también otro par de APIs que usan sistemas de Código Abierto. Estos son:
 
 \begin{itemize}
-	\item \textbf{Festival TTS}: Creada por la Universidad de Edimburgo, requiere de una versión especial del programa para poder conectarse con la API en Python y así dictar lo que se ha escrito.
-	\item \textbf{eSpeak}:  
+	\item \textbf{Festival TTS}: Creada por la Universidad de Edimburgo, usa una licencia del tipo X11/MIT. Se ofrece como un framework general para la síntesis de voz a través de varias APIs, ofreciendo así que se pueda usar embebido en un programa escrito en Java, dentro del propio shell o como librería de C++ (y a través de una interfaz, se puede usar con Python).
+	\item \textbf{eSpeakNG}: Creado por Jonathan Duddington, se trata de un sintetizador de voz que usa el método de síntesis formante, permitiendo que las voces se representen con modelos muy ligeros, pero cuyos resultados no son muy naturales. Se licencia con GPL versión 3 \cite{gplv3}.
+	Como nota aparte, se puede combinar con el sintetizador MBROLA para mejorar la voz, pero estas voces mejoradas poseen una cláusula modificada por la cual exigen que no se puede ganar beneficios con ellas en sí o embebidas en un software mayor.
+	 \item \textbf{NanoTTS}: Es una reimplementación de SVOX Pico TTS, usado en la versión Open Source de Android, de la que coge las voces y la parte libre de Pico para formar un programa propio. Emplea una licencia Apache 2.0, al igual que las voces y la parte abierta.
 \end{itemize}
 
+En este ámbito, no se puede elegir el mejor programa en base a temas objetivos, sino que va más al gusto del usuario. Para ello, se ha valorado por una parte la facilidad de uso de la API, y por la otra, cómo de humana suena esa voz (de forma subjetiva).
+
+Por la parte de facilidad de uso, he usado paquetes complementarios de pip para unir el programa con Python y así poder generar las frases desde el sistema. En ese sentido, la facilidad de uso ha sido bastante similar en el caso de \textbf{eSpeakNG} y \textbf{Festival}, ya que estas APIs requerían el uso de una librería de tratamiento de archivos .wav para hacer una copia a un archivo que tuviéramos a mano. En el caso de \textbf{NanoTTS} ha sido mucho más sencillo ya que su wrapper para Python tiene un constructor donde puedes poner cómo se llama el archivo. 
+
+Además, en el caso del wrapper de \textbf{Festival}, hablamos de un paquete obsoleto que no deja cambiar la voz a una versión española, lo que supone un riesgo, ya que habría que parchear el código del paquete para poder cambiar la voz y otros parámetros, ya que parece estar desatendido. Por lo tanto, descartaría la opción de Festival entre los candidatos.
+
+En cuanto a mi percepción personal sobre cómo suenan las otras dos voces:
+\begin{itemize}
+	\item En el caso de \textbf{eSpeak}, no se nota muy robótica y además se puede personalizar bastante, pero hay algo en el producto generado que falla, y es que sale una especie de fonema extraño que suena en cada palabra, lo que puede ser algo molesto.
+	\item Sobre \textbf{NanoTTS}, me ha parecido una voz más realista con ajustes bastante similares a los del anterior, siendo su pega más relevante unas pausas quizás un poco más largas de lo normal.
+\end{itemize}
+
+En conclusión, usaré NanoTTS para que Arcadia nos hable. Pero ahora que nos puede hablar y escuchar, sólo nos quedaría conectar ambas partes.
+
+\section{Relacionando preguntas y respuestas.}
+Una vez que podamos pasar a texto las preguntas y que además el texto que respondamos se pueda convertir a voz, falta dotar a nuestro Asistente con algo de funcionalidad y una base de conocimientos para que nos pueda decir algo coherente.
+
+En este caso, nos encontramos con algunas alternativas que responden a distintos tipos de funcionamiento:
+
+\begin{itemize}
+	\item \textbf{Pattern-matching}
+	Aquí nos podemos encontrar algunos casos como:
+	\begin{itemize}
+		\item \textbf{AIML} Ya he estado familiarizado con este lenguaje de marcado anteriormente, en la asignatura de Inteligencia Artificial. Si bien permitía hacer cierta funcionalidad, no puede usar peticiones de APIs para poder completar información en sus últimas versiones, por lo que queda descartada. Además, su sintaxis puede llegar a ser compleja de entender, ya que se necesita una estructura con muchas etiquetas para funciones más dificultosas.
+		\item \textbf{RiveScript} Es una versión un poco menos liosa de AIML, pero tiene mucha de su funcionalidad, aparte de algunas funciones extra (como más condicionales o temas que puedan ser heredados de otros temas de conversación). Sin embargo, hacer un embed de Python con un cliente de RiveScript conllevaría un tiempo considerable.
+		\item \textbf{ChatScript} En este caso hablamos de un lenguaje de script superior a los anteriores, pero cae en el mismo problema que RiveScript. Y es que su único cliente está desarrollado en C, si bien se podría adaptar a Python gracias a la librería que tiene para invocar funciones de C.
+	\end{itemize}	
+	\item \textbf{Procesamiento del lenguaje natural (NLP)}
+	Si bien hay opciones propietarias como \textbf{\underline{DialogFlow}}, al mirar opciones de Código Abierto me costó dar con uno, pero finalmente apareció la opción de usar \textbf{\underline{Rasa}}, que aunque no tenía mucha documentación en español, era bastante completa y esmerada, y con bastantes vídeos y tutoriales que me ayudaron a entender cómo usarlo.
+\end{itemize}
+
+Al comparar ChatScript y Rasa para decidir cuál usar, observé que el hecho de que Rasa esté en continuo desarrollo, la flexibilidad de sus modelos y la facilidad para entrenarlos me ha servido de punto de inflexión para elgir esta herramienta frente a la opción por patrones.
+	
 \section{Diseñando el problema}
+
+En resumen hasta ahora, hemos conseguido los tres grandes ingredientes que componen a nuestro proyecto. Ahora que los tenemos, ya nos queda preparar el problema y sus diagramas para facilitar el desarrollo.
+
+\subsection{Diagrama de casos de uso}
+En este proyecto, los casos de uso en general tienen sólo un actor humano, que sería el usuario que interactúa con el software. Pero también hemos de incluir un actor que intervendría en el desarrollo, que en este caso sería el chatbot, ya que si bien se desarrolla, al final interactúa con el software y sería capaz de funcionar independientemente.
+
+El flujo básico de Arcadia estaría definido por el siguiente diagrama de casos de uso, donde ambos actores interactúan en el transcurso entre que el usuario diga una petición y el mismo reciba la respuesta.
+
+\begin{figure}[H]
+	\includegraphics[width=\textwidth]{imagenes/DiagramaCasosUso.png}
+	\caption{Diagrama de casos de uso.}
+\end{figure}
+
+\subsection{Diagrama de clases}
+\subsubsection{Grabación y streaming de audio}
+Para la grabación del audio podemos usar FFmpeg o PyAudio indistintamente, ya que ambos sistemas de codificación del audio son bastante capaces para esta tarea. Claro, esto implicaría hacer uso del patrón Adaptador para crear una abstracción entre los métodos o ejecuciones del software existente y nuestro sistema para cada opción.
+En este caso podríamos seguir esta manera de construir software para tener varias versiones de esa funcionalidad con sistemas distintos. (Aunque en la práctica lo más probable es que lo haga con uno de ellos, pero gracias a ello podemos darle modularidad al sistema para cambiarlo en cualquier momento).
+
+\begin{figure}[H]
+	\includegraphics[width=\textwidth]{imagenes/DiagramaClases_Grabacion.png}
+	\caption{Diagrama de clases relacionadas con la grabación del sonido.}
+\end{figure}
+
+\subsubsection{Reconocimiento de voz}
+Para el reconocimiento de voz se hará uso de una clase que sirva de interfaz a las APIs que lo requieran, las cuales tendrán para poder usarse en el resto de la implementación una clase que sirva de adaptador. De esta manera, si quisiéramos usar otra API, sólo tendríamos que implementar los métodos del adaptador.
+\begin{figure}[H]
+	\includegraphics[width=\textwidth]{imagenes/DiagramaClases_SR.png}
+	\caption{Diagrama de clases relacionadas con el Reconocimiento del habla.}
+\end{figure}
+\subsubsection{Procesamiento de la petición y creación de una respuesta}
+Para procesar la petición, usaremos un adaptador como antes. En nuestro caso, además, trataremos con peticiones HTTP a través de REST entre nuestra implementación y Rasa, ya que se aloja en un puerto de nuestro PC escuchando las peticiones.
+
+En la parte de Rasa, según su documentación, para desarrollar funcionalidades más complejas, podemos implementar en su entorno, en un fichero Python, clases que heredan de Action. Al estar alojados en otro puerto donde se comunica principalmente con el puerto de Rasa, interactúan entre sí para dar la respuesta.
+
+Aquí podemos ver un detalle de las clases y sus relaciones, en este sentido:
+\begin{figure}[H]
+	\includegraphics[width=\textwidth]{imagenes/DiagramaClases_Chatbot.png}
+	\caption{Diagrama de clases relacionadas con la interacción con el Chatbot.}
+\end{figure}
+\subsubsection{Síntesis de voz}
+De forma análoga al reconocimiento de voz, la síntesis precisará de un adaptador para facilitar el funcionamiento interno del asistente. De esta manera, lo conectaremos a NanoTTS para que nos convierta el texto a Voz.
+
+\begin{figure}[H]
+	\includegraphics[width=\textwidth]{imagenes/DiagramaClases_TTS.png}
+	\caption{Diagrama de clases relacionadas con la Síntesis de Voz.}
+\end{figure}
+\subsubsection{Reproducción de las respuestas}
+Para la reproducción del audio podemos usar de nuevo FFmpeg o PyAudio indistintamente, ya que ambos sistemas pueden grabar y reproducir audio . Ya que esán importados, habría que hacer otros adaptadores sólo para el sentido de la reproducción.
+
+\begin{figure}[H]
+	\includegraphics[width=\textwidth]{imagenes/DiagramaClases_Reproduccion.png}
+	\caption{Diagrama de clases relacionadas con la reproducción del sonido.}
+\end{figure}
+
+El resultado final del diagrama de clases está en la página ... .
+\begin{landscape}
+	\begin{figure}
+		\includegraphics[width=1.5\textwidth]{imagenes/DiagramaClases_General.png}
+		\caption{Diagrama de clases general.}
+	\end{figure}
+\end{landscape}
+\subsection{Diagrama arquitectónico}
+Por lo que vemos, nos encontramos con una arquitectura que dispone de programas externos que podemos usar en nuestro software gracias a sus respectivas APIs. Por nuestra parte, primero adaptamos toda su funcionalidad a nuestro ámbito en una serie de adaptadores para simplificar la información que luego llegará o saldrá de nuestro núcleo, que define el flujo básico del proyecto.
+
+Por otra parte, tenemos una comunicación con Rasa, que a su vez tiene otra comunicación con Rasa Actions, para atender las peticiones más complejas. Desde Rasa Actions también se hará la gestión de consultas a algunas páginas de Internet.
+
+Por tanto, nos quedaríamos con la siguiente arquitectura:
+
+\begin{figure}[H]
+	\includegraphics[width=\textwidth]{imagenes/DiagramaArquitectónico.png}
+	\caption{Diagrama de la arquitectura de Arcadia.}
+\end{figure}
+
+\subsection{Diagrama de flujo general}
  

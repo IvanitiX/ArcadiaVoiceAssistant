@@ -1,0 +1,73 @@
+version: "3.0"
+
+nlu:
+- intent: greet
+  examples: |
+    - hey
+    - hola
+    - holi
+    - buenos dias
+    - buenas tardes
+    - buenas noches
+    - wenas
+
+- intent: goodbye
+  examples: |
+    - adios
+    - hasta luego
+    - nos vemos
+    - hasta ahora
+    - ten un buen dia
+
+- intent: affirm
+  examples: |
+    - si
+    - yes
+    - s
+    - por supuesto
+    - suena bien
+    - correcto
+
+- intent: deny
+  examples: |
+    - no
+    - n
+    - nunca
+    - no lo creo
+    - no me gusta
+    - no del todo
+
+- intent: mood_great
+  examples: |
+    - perfecto
+    - genial
+    - estupendo
+    - me siento bien
+    - maravilloso
+    - me siento muy bien
+    - soy un genio
+
+- intent: mood_unhappy
+  examples: |
+    - he tenido un día horrible
+    - estoy triste
+    - no me encuentro bien
+    - estoy decepcionado
+    - super triste
+    - estoy muy triste
+    - triste
+    - muy triste
+    - no estoy bien
+
+- intent: bot_challenge
+  examples: |
+    - ¿eres un bot?
+    - ¿eres un humano?
+    - ¿estoy hablando con un bot?
+    - ¿estoy hablando con un humano?
+
+- intent: tell_time
+  examples: |
+    - qué hora es
+    - dime la hora
+    - me podrías decir la hora
