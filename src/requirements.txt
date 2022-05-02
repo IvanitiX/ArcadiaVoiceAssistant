@@ -1,0 +1,5 @@
+rasa
+PyAudio
+python-ffmpeg
+nanotts
+vosk

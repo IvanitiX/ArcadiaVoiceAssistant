@@ -2,20 +2,23 @@
 
 \noindent\fbox{
 	\parbox{\textwidth}{
-		En el capítulo se usan las herramientas para preparar el diseño del proyecto de cara a su posterior codificación.
+		En el capítulo se analizan las herramientas para preparar el diseño del proyecto de cara a su posterior codificación.
 	}
 }
 
 \section{Comparando APIs de Reconocimiento de Voz}
+\subsection{Introducción}
 Como hablamos en el Capítulo 2, hoy en día existen herramientas que reconocen la voz. Algunas son de software propietario o de Software como Servicio (por ejemplo, IBM Watson SR o Google SR), pero también hay proyectos de software de código abierto que nos permiten trabajar con ello sin tener que saber los tópicos de la Inteligencia Artificial a fondo, trabajando de forma transparente al desarrollador. 
 
 Entre estos proyectos podemos encontrar dos:
 \begin{itemize}
-	\item \textbf{Vosk API}:Desarrollado por Alpha Cephei en 2019 como wrapper de Kaldi , es un sistema de Reconocimiento de Voz offline que actualmente soporta 17 lenguajes y destaca por funcionar en dispositivos más limitados como la Raspberry Pi. Sus modelos más básicos son de 50 MB, pero se pueden adaptar a modelos más complejos, consiguiendo así una escalabilidad en el sistema. Además, soporta reconocimiento del habla. En su arquitectura se usa una red neuronal en conjunto con un Modelo Oculto de Markov. Usa una licencia Apache 2.0
+	\item \textbf{Vosk API \cite{vosk}}:Desarrollado por Alpha Cephei en 2019 como wrapper de Kaldi , es un sistema de Reconocimiento de Voz offline que actualmente soporta 17 lenguajes y destaca por funcionar en dispositivos más limitados como la Raspberry Pi. Sus modelos más básicos son de 50 MB, pero se pueden adaptar a modelos más complejos, consiguiendo así una escalabilidad en el sistema. Además, soporta reconocimiento del habla. En su arquitectura se usa una red neuronal en conjunto con un Modelo Oculto de Markov. Usa una licencia Apache 2.0
 	
-	\item \textbf{Mozilla DeepSpeech}: Es una API de Reconocimiento de Voz realizado por Mozilla desde 2016, basado en un paper de Baidu sobre un sistema de Reconocimiento del Habla usando algoritmos de Deep Learning en conjunto con optimizaciones para lograr resultados más rápidos usando múltiples GPU para alimentar una Red Neuronal Recurrente que modelizara un lenguaje en base a ingentes cantidades de datos. Por tanto, acaban dando en la API una interfaz para poder usarlo en nuestros ordenadores y una serie de modelos optimizados gracias al entrenamiento que pueden realizar.
+	\item \textbf{Mozilla DeepSpeech \cite{deepspeech}}: Es una API de Reconocimiento de Voz realizado por Mozilla desde 2016, basado en un paper de Baidu sobre un sistema de Reconocimiento del Habla usando algoritmos de Deep Learning en conjunto con optimizaciones para lograr resultados más rápidos usando múltiples GPU para alimentar una Red Neuronal Recurrente que modelizara un lenguaje en base a ingentes cantidades de datos. Por tanto, acaban dando en la API una interfaz para poder usarlo en nuestros ordenadores y una serie de modelos optimizados gracias al entrenamiento que pueden realizar.
 	
 \end{itemize}
+
+\subsection{Experimentos}
 
 Para saber cuál sería la API que más nos interesara, podríamos montar un experimento donde evaluaríamos:
 \begin{itemize}
@@ -24,7 +27,7 @@ Para saber cuál sería la API que más nos interesara, podríamos montar un exp
 \end{itemize}
 
 Este experimento se basaría en coger a varios sujetos que leyeran un mismo texto.
-Esas lecturas se pasarían por un programa que emplea la API de forma que acabamos convirtiendo la voz en texto. Tras ello, se comparan ambos textos para ver el \textbf{Word Error Rate (WER)}, una métrica que mide la precisión entre lo que se ha querido decir y lo que un Reconocedor del Habla transcribe. 
+Esas lecturas se pasarían por un programa que emplea la API de forma que acabamos convirtiendo la voz en texto. Tras ello, se comparan ambos textos para ver el \textbf{Word Error Rate (WER)} \cite{wer-cer}, una métrica que mide la precisión entre lo que se ha querido decir y lo que un Reconocedor del Habla transcribe. 
 
 El algoritmo del Word Error Rate consiste en mapear dos cadenas de texto (una indica qué se quiere decir y la otra es lo que se ha detectado) para extraer las diferencias (palabras \textbf{\textit{I}}ntroducidas, \textbf{\textit{S}}ustituidas o \textbf{\textit{R}}etiradas)  y medirlas respecto al \textbf{\textit{N}}úmero total de palabras del texto. Por tanto, su fórmula sería:
 
@@ -32,7 +35,7 @@ El algoritmo del Word Error Rate consiste en mapear dos cadenas de texto (una in
 	WER = \frac{I+S+R}{N}
 \end{equation}
 
-También estaría interesante fijarnos en el CER (Character Error Rate) para ver también a nivel de caracteres qué errores se pueden encontrar en la transcripción (por ejemplo, los acentos). La fórmula sería la misma pero las inserciones, sustituciones y eliminaciones se observan letra a letra.
+También estaría interesante fijarnos en el CER (Character Error Rate) \cite{wer-cer} para ver también a nivel de caracteres qué errores se pueden encontrar en la transcripción (por ejemplo, los acentos). La fórmula sería la misma pero las inserciones, sustituciones y eliminaciones se observan letra a letra.
 
 \begin{equation}
 	CER = \frac{I_c+S_c+R_c}{N_c}
@@ -90,7 +93,7 @@ Para el caso de DeepSpeech, se ha trabajado con dos modelos ya entrenados y dos 
 
 Los modelos que se probarán son:
 \begin{itemize}
-	\item \textbf{Polyglot}: Este modelo fue entrenado por un usuario de la Comunidad de Mozilla, entrenando un set de 812 horas con GPUs de Nvidia \cite{scribosermo}. Usa una licencia LGPL versión 3.
+	\item \textbf{Polyglot} \cite{scribosermo}: Este modelo fue entrenado por un usuario de la Comunidad de Mozilla, entrenando un set de 812 horas con GPUs de Nvidia \cite{scribosermo}. Usa una licencia LGPL versión 3.
 	\item \textbf{Rhasspy}: Este modelo estaba pensado para usarse en otro sistema de asistente de voz con una Raspberry Pi, basado en una versión anterior del modelo descrito anteriormente.
 \end{itemize}
 
@@ -101,9 +104,13 @@ En el mismo modelo Polyglot, se nos daban dos scorers. Un scorer es un complemen
 	\item \textbf{Poco} : Es un scorer pesado pero más completo.
 \end{itemize} 
 
-DeepSpeech también admitía dos valores extra: Alfa y Beta. Estos parámetros definen el peso del modelo del lenguaje y cuánto se penaliza por introducir una palabra. Para tener un abanico de opciones, para cada combinación se ha tratado de buscar un valor óptimo para estos parámetros, con la precisión de una décima, en un rango de 1 a 2 para el valor Alfa y un rango de 0 a 1 para el valor Beta.
+DeepSpeech también admitía dos valores extra: Alfa y Beta. Estos parámetros definen el peso del modelo del lenguaje y cuánto se penaliza por introducir una palabra. Para tener un abanico de opciones, para cada combinación se ha tratado de buscar un valor óptimo para estos parámetros, con la precisión de una décima, en un rango de 1 a 2 para el valor Alfa (a mayor valor, más importancia le dará a seguir el modelo) y un rango de 0 a 1 para el valor Beta (a mayor valor, más penalización sufrirá por una transcripción errónea).
 
-Agrupamos todos los valores en esta tabla:
+Este experimento se repetirá 3 veces usando al mismo locutor con las mismas frases.
+
+\subsection{Resultados}
+
+Tras realizar los experimentos se ha notado que devuelven los mismos valores, agrupándolos en esta tabla:
 
 {\small\tabcolsep=2pt\setlength\LTleft{-35pt}	
 	\begin{xltabular}{\textwidth}{|ll|l|llll|}
@@ -118,30 +125,33 @@ Agrupamos todos los valores en esta tabla:
 		\multicolumn{2}{|l|}{}                                            &                                & \multicolumn{2}{c|}{Modelo Rhasspy}                                    & \multicolumn{2}{c|}{Modelo Polyglot}              \\ \cline{4-7} 
 		\multicolumn{2}{|l|}{}                                            &   
 		   & \multicolumn{1}{l|}{Scorer PocoLG} & \multicolumn{1}{l|}{Scorer KenLM} & \multicolumn{1}{l|}{Scorer PocoLG} & Scorer KenLM \\ \hline
-		\multicolumn{1}{|l|}{\textbf{Texto Largo}}              &         & \makecell{CER = 0,1189 \\ WER = 0,2944}  & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,2/ $\beta$ = 1 \\ CER Máx/Med: \\ 0,7787/0,8064 \\ WER Máx / Med: \\ 0,8556/0,8678 }}  & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,3/ $\beta$ = 0,8 \\ CER Máx/Med: \\ 0,7787/0,7991 \\ WER Máx / Med: \\ 0,8600/0,8760 }} & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,2/ $\beta$ = 1 \\ CER Máx/Med: \\ 0,7787/0,8065 \\ WER Máx / Med: \\ 0,8556/0,8756 }}  & \makecell{$\alpha$ = 1,3/ $\beta$ = 0,8 \\ CER Máx/Med: \\ 0,7787/0,7990 \\ WER Máx / Med: \\ 0,8400/0,8680 } \\ \hline
-		\multicolumn{1}{|l|}{\multirow{2}{*}{\textbf{Frase 1}}} & Arcadia &  \makecell{CER = 0,1304 \\ WER = 0,5}  & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,6/ $\beta$ = 0.7 \\ CER Máx/Med: \\0,0000/0,0855 \\ WER Máx / Med: \\ 0,0000/0,1070 }}              & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,9/ $\beta$ = 0,9 \\ CER Máx/Med: \\ 0,0000/0,0819 \\ WER Máx / Med: \\ 0,0000/0,1690 }}             & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,6/ $\beta$ = 0,7 \\ CER Máx/Med: \\ 0,0000/0,0819 \\ WER Máx / Med: \\ 0,0000/0,1070 }}              & \makecell{$\alpha$ = 1,9/ $\beta$ = 0,9 \\ CER Máx/Med: \\ 0,0000/0,0855 \\ WER Máx / Med: \\ 0,0000/0,1690 } \\ \cline{2-7} 
-		\multicolumn{1}{|l|}{}                                  & Lumina  & \makecell{CER = 0,25 \\ WER = 0,045}  & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,9 / $\beta$ = 1\\ CER Mín./Med \\0,0909/0,1292\\ WER Mín./Med \\0,25/0,285}}              & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,9/$\beta$ = 1\\ CER Mín./Med \\0,0909/0,1359\\ WER Mín./Med \\0,25/0,291}}             & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,9 / $\beta$ = 1\\ CER Mín./Med \\0,0909/0,136\\ WER Mín./Med \\0,25/0,292}}              &  \makecell{$\alpha$ = 1,9 / $\beta$ = 1\\ CER Mín./Med \\0,0909/0,129\\ WER Mín./Med \\0,25/0,29} \\ \hline
-		\multicolumn{1}{|l|}{\multirow{2}{*}{\textbf{Frase 2}}} & Arcadia & \makecell{CER = 0,1136 \\ WER = 0,375}   & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1/ $\beta$ =1\\ CER Mín./Med \\0,1590/0,1590\\ WER Mín./Med \\0,5/0,7118}}              & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,4/ $\beta$ =1\\ CER Mín./Med \\0,2272/0,3966\\ WER Mín./Med \\0,625/0,7138}}             & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1/ $\beta$ =1\\ CER Mín./Med \\0,2272/0,396\\ WER Mín./Med \\0,625/0,7138}}              &   \makecell{$\alpha$ = 1,4/ $\beta$ =1\\ CER Mín./Med \\0,1590/0,3865\\ WER Mín./Med \\0,5/0,7118}           \\ \cline{2-7} 
-		\multicolumn{1}{|l|}{}                                  & Lumina  & \makecell{CER = 0,1395 \\ WER = 0,5}  & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1/ $\beta$ =1\\ CER Mín./Med \\0,1162/0,2673\\ WER Mín./Med \\0,5/0,5155}}              & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1/ $\beta$ =1\\ CER Mín./Med \\0,1162/0,3046\\ WER Mín./Med \\0,5/0,6188}}             & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1/ $\beta$ =1\\ CER Mín./Med \\0,1162/0,305\\ WER Mín./Med \\0,5/0,619}}              &  \makecell{$\alpha$ = 1/ $\beta$ =1\\ CER Mín./Med \\0,1162/0,2673\\ WER Mín./Med \\0,5/0,5155} \\ \hline
-		\multicolumn{1}{|l|}{\multirow{2}{*}{\textbf{Frase 3}}} & Arcadia & \makecell{CER = 0 \\ WER = 0} & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,8/ $\beta$ =1\\ CER Mín./Med \\0/0,13286\\ WER Mín./Med \\0/0,183}}              & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,8/ $\beta$ =1\\ CER Mín./Med \\0/0,1077\\ WER Mín./Med \\0/0,175}}             & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,8/ $\beta$ =1\\ CER Mín./Med \\0/0,1087\\ WER Mín./Med \\0/0,177}}              &  \makecell{$\alpha$ = 1,8/ $\beta$ =1\\ CER Mín./Med \\0/0,13286\\ WER Mín./Med \\0/0,183} \\ \cline{2-7} 
-		\multicolumn{1}{|l|}{}                                  & Lumina  & \makecell{CER = 0,08 \\ WER = 0,2}  & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,1/ $\beta$ =1\\ CER Mín./Med \\0,12/0,37\\ WER Mín./Med \\0,4/0,668}}              & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,1/ $\beta$ =1\\ CER Mín./Med \\0,12/0,394\\ WER Mín./Med \\0,4/0,681}}             & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,1/ $\beta$ =1\\ CER Mín./Med \\0,12/0,396\\ WER Mín./Med \\0,4/0,683}}              & \makecell{$\alpha$ = 1,1/ $\beta$ =1\\ CER Mín./Med \\0,12/0,37\\ WER Mín./Med \\0,4/0,668} \\ \hline
-		\multicolumn{1}{|l|}{\multirow{2}{*}{\textbf{Frase 4}}} & Arcadia & \makecell{CER = 0,75 \\ WER = 1}  & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,8/ $\beta$ =1\\ CER Mín./Med \\0/0,132\\ WER Mín./Med \\0/0,264}}              & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,7/ $\beta$ =1\\ CER Mín./Med \\0/0,136\\ WER Mín./Med \\0/0,273}}             & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,8/ $\beta$ =1\\ CER Mín./Med \\0/0,138\\ WER Mín./Med \\0/0,275}}              &  \makecell{$\alpha$ = 1,7/ $\beta$ =1\\ CER Mín./Med \\0/0,132\\ WER Mín./Med \\0/0,264}\\ \cline{2-7} 
-		\multicolumn{1}{|l|}{}                                  & Lumina  & \makecell{CER = 0,1818 \\ WER = 0,5} & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,1/ $\beta$ =1\\ CER Mín./Med \\0,1818/0,4628\\ WER Mín./Med \\0,5/0,909}}              & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,1/ $\beta$ =1\\ CER Mín./Med \\0,1818/0,4628099\\ WER Mín./Med \\0,5/0,909}}             & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,1/ $\beta$ =1\\ CER Mín./Med \\0,1818/0,46515\\ WER Mín./Med \\0,5/0,913}}              & \makecell{$\alpha$ = 1,1/ $\beta$ =1\\ CER Mín./Med \\0,1818/0,4628\\ WER Mín./Med \\0,5/0,909} \\ \hline
-		\multicolumn{1}{|l|}{\multirow{2}{*}{\textbf{Frase 5}}} & Arcadia & \makecell{CER = 0 \\ WER = 0} & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,9/ $\beta$ =0,7\\ CER Mín./Med \\0,24/0,268\\ WER Mín./Med \\0,5/0,533}}              & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,9/ $\beta$ =0,6\\ CER Mín./Med \\0,24/0,296\\ WER Mín./Med \\0,5/0,579}}             & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,9/ $\beta$ =0,7\\ CER Mín./Med \\0,24/0,297\\ WER Mín./Med \\0,5/0,579}}              & \makecell{$\alpha$ = 1,9/ $\beta$ =0,6\\ CER Mín./Med \\0,24/0,268\\ WER Mín./Med \\0,5/0,533} \\ \cline{2-7} 
-		\multicolumn{1}{|l|}{}                                  & Lumina  & \makecell{CER = 0,083 \\ WER = 0,25} & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,6/ $\beta$ =1\\ CER Mín./Med \\0,3333/0,4621\\ WER Mín./Med \\0,75/0,857}}              & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,6/ $\beta$ =1\\ CER Mín./Med \\0,3333/0,4676\\ WER Mín./Med \\0,75/0,862}}             & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,6/ $\beta$ =1\\ CER Mín./Med \\0,3333/0,4687\\ WER Mín./Med \\0,75/0,86}}              & \makecell{$\alpha$ = 1,6/ $\beta$ =1\\ CER Mín./Med \\0,3333/0,4621\\ WER Mín./Med \\0,75/0,857} \\ \hline
-		\multicolumn{1}{|l|}{\multirow{2}{*}{\textbf{Frase 6}}} & Arcadia & \makecell{CER = 0 \\ WER = 0} & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1/ $\beta$ =1\\ CER Mín./Med \\0,022/0,0909\\ WER Mín./Med \\0,14286/0,175914}}              & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,9/ $\beta$ =1\\ CER Mín./Med \\0,066/0,0989\\ WER Mín./Med \\0,1428/0,1806}}             & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1/ $\beta$ =1\\ CER Mín./Med \\0,066/0,0099\\ WER Mín./Med \\0,1429/0,181}}              &\makecell{$\alpha$ = 1,9/ $\beta$ =1\\ CER Mín./Med \\0,022/0,0909\\ WER Mín./Med \\0,1428/0,1759}\\ \cline{2-7} 
-		\multicolumn{1}{|l|}{}                                  & Lumina  & \makecell{CER = 0,136 \\ WER = 0,5714} & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,4/ $\beta$ =1\\ CER Mín./Med \\0,0227/0,1590\\ WER Mín./Med \\0,1428/0,3116}}              & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,4/ $\beta$ =1\\ CER Mín./Med \\0,0227/0,1641\\ WER Mín./Med \\0,1428/0,3293}}             & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,4/ $\beta$ =1\\ CER Mín./Med \\0,0227/0,165\\ WER Mín./Med \\0,1428/0,3298}}              & \makecell{$\alpha$ = 1,4/ $\beta$ =1\\ CER Mín./Med \\0,0227/0,1590\\ WER Mín./Med \\0,1428/0,31168} \\ \hline
-		\multicolumn{1}{|l|}{\multirow{2}{*}{\textbf{Frase 7}}} & Arcadia & \makecell{CER = 0,1071 \\ WER = 0,1666} & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,1/ $\beta$ =0,7\\ CER Mín./Med \\0,3392/0,4589\\ WER Mín./Med \\0,67/0,761}}              & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1/ $\beta$ =1\\ CER Mín./Med \\0,3392/0,4579\\ WER Mín./Med \\0,75/0,7706}}             & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,1/ $\beta$ =0,7\\ CER Mín./Med \\0,3392/0,4589\\ WER Mín./Med \\0,75/0,7715}}              & \makecell{$\alpha$ = 1/ $\beta$ =1\\ CER Mín./Med \\0,3392/0,4589\\ WER Mín./Med \\0,667/0,7610} \\ \cline{2-7} 
-		\multicolumn{1}{|l|}{}                                  & Lumina  & \makecell{CER = 0,1136 \\ WER = 0,1428} & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1/ $\beta$ =0,9\\ CER Mín./Med \\0,4181/0,5359\\ WER Mín./Med \\0,75/0,86845}}              & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1/ $\beta$ =0,9\\ CER Mín./Med \\0,4181/0,5316\\ WER Mín./Med \\0,75/0,8622}}             & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1/ $\beta$ =0,9\\ CER Mín./Med \\0,4181/0,5326\\ WER Mín./Med \\0,75/0,8632}}              &  \makecell{$\alpha$ = 1/ $\beta$ =0,9\\ CER Mín./Med \\0,4181/0,5359\\ WER Mín./Med \\0,75/0,8684}   \\ \hline
-		\multicolumn{1}{|l|}{\multirow{2}{*}{\textbf{Frase 8}}} & Arcadia & \makecell{CER = 0,1272 \\ WER = 0,25} & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,4/ $\beta$ =0,8\\ CER Mín./Med \\0,1136/0,1497\\ WER Mín./Med \\0,14286/0,36953}}              & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,4/ $\beta$ =1\\ CER Mín./Med \\0,1363/0,1487\\ WER Mín./Med \\0,2857/0,3636}}             & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,4/ $\beta$ =0,8\\ CER Mín./Med \\0,1363/0,1489\\ WER Mín./Med \\0,2857/0,3643}}              & \makecell{$\alpha$ = 1,4/ $\beta$ =1\\ CER Mín./Med \\0,1136/0,1496\\ WER Mín./Med \\0,1482/0,3695} \\ \cline{2-7} 
-		\multicolumn{1}{|l|}{}                                  & Lumina  & \makecell{CER = 0,2093 \\ WER = 0,4285} & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,4/ $\beta$ =0,7\\ CER Mín./Med \\0,2093/0,3096\\ WER Mín./Med \\0,4285/0,5135}}              & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,4/ $\beta$ =0,9\\ CER Mín./Med \\0,1860/0,3117\\ WER Mín./Med \\0,4285/0,5088}}             & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,4/ $\beta$ =0,7\\ CER Mín./Med \\0,1860/0,3125\\ WER Mín./Med \\0,4286/0,5095}}              &  \makecell{$\alpha$ = 1,4/ $\beta$ =0,9\\ CER Mín./Med \\0,2093/0,3096\\ WER Mín./Med \\0,4285/0,5135} \\ \hline
+		\multicolumn{1}{|l|}{\textbf{Texto Largo}}              &         & \makecell{\textbf{CER = 0,1189} \\ \textbf{WER = 0,2944}}  & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,2/ $\beta$ = 1 \\ CER \textbf{Mín}/Med: \\ \textbf{0,7787}/0,8064 \\ WER \textbf{Mín} / Med: \\ \textbf{0,8556}/0,8678 }}  & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,3/ $\beta$ = 0,8 \\ CER \textbf{Mín}/Med: \\ \textbf{0,7787}/0,7991 \\ WER \textbf{Mín} / Med: \\ \textbf{0,8600}/0,8760 }} & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,2/ $\beta$ = 1 \\ CER \textbf{Mín}/Med: \\ \textbf{0,7787}/0,8065 \\ WER \textbf{Mín} / Med: \\ \textbf{0,8556}/0,8756 }}  & \makecell{$\alpha$ = 1,3/ $\beta$ = 0,8 \\ CER \textbf{Mín}/Med: \\ \textbf{0,7787}/0,7990 \\ WER \textbf{Mín} / Med: \\ 0,8400/0,8680 } \\ \hline
+		\multicolumn{1}{|l|}{\multirow{2}{*}{\textbf{Frase 1}}} & Arcadia &  \makecell{\textbf{CER = 0,1304} \\ \textbf{WER = 0,5}}  & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,6/ $\beta$ = 0.7 \\ CER \textbf{Mín}/Med: \\\textbf{0,0000}/0,0855 \\ WER \textbf{Mín} / Med: \\ \textbf{0,0000}/0,1070 }}              & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,9/ $\beta$ = 0,9 \\ CER \textbf{Mín}/Med: \\ \textbf{0,0000}/0,0819 \\ WER \textbf{Mín} / Med: \\\textbf{ 0,0000}/0,1690 }}             & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,6/ $\beta$ = 0,7 \\ CER \textbf{Mín}/Med: \\ \textbf{0,0000}/0,0819 \\ WER \textbf{Mín} / Med: \\ \textbf{0,0000}/0,1070 }}              & \makecell{$\alpha$ = 1,9/ $\beta$ = 0,9 \\ CER \textbf{Mín}/Med: \\ \textbf{0,0000}/0,0855 \\ WER \textbf{Mín} / Med: \\ \textbf{0,0000}/0,1690 } \\ \cline{2-7} 
+		\multicolumn{1}{|l|}{}                                  & Lumina  & \makecell{\textbf{CER = 0,25} \\ \textbf{WER = 0,045}}  & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,9 / $\beta$ = 1\\ CER \textbf{Mín.}/Med \\\textbf{0,0909}/0,1292\\ WER \textbf{Mín.}/Med \\\textbf{0,25}/0,285}}              & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,9/$\beta$ = 1\\ CER \textbf{Mín.}/Med \\\textbf{0,0909}/0,1359\\ WER \textbf{Mín.}/Med \\\textbf{0,25}/0,291}}             & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,9 / $\beta$ = 1\\ CER \textbf{Mín.}/Med \\\textbf{0,0909}/0,136\\ WER \textbf{Mín.}/Med \\\textbf{0,25}/0,292}}              &  \makecell{$\alpha$ = 1,9 / $\beta$ = 1\\ CER \textbf{Mín.}/Med \\\textbf{0,0909}/0,129\\ WER \textbf{Mín.}/Med \\ \textbf{0,25}/0,29} \\ \hline
+		\multicolumn{1}{|l|}{\multirow{2}{*}{\textbf{Frase 2}}} & Arcadia & \makecell{\textbf{CER = 0,1136} \\ \textbf{WER = 0,375}}   & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1/ $\beta$ =1\\ CER \textbf{Mín.}/Med \\ \textbf{0,1590}/0,1590\\ WER \textbf{Mín.}/Med \\ \textbf{0,5}/0,7118}}              & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,4/ $\beta$ =1\\ CER \textbf{Mín.}/Med \\\textbf{0,2272}/0,3966\\ WER \textbf{Mín.}/Med \\\textbf{0,625}/0,7138}}             & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1/ $\beta$ =1\\ CER \textbf{Mín.}/Med \\\textbf{0,2272}/0,396\\ WER \textbf{Mín.}/Med \\\textbf{0,625}/0,7138}}              &   \makecell{$\alpha$ = 1,4/ $\beta$ =1\\ CER \textbf{Mín.}/Med \\\textbf{0,1590}/0,3865\\ WER \textbf{Mín.}/Med \\\textbf{0,5}/0,7118}           \\ \cline{2-7} 
+		\multicolumn{1}{|l|}{}                                  & Lumina  & \makecell{\textbf{CER = 0,1395} \\ \textbf{WER = 0,5}}  & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1/ $\beta$ =1\\ CER \textbf{Mín.}/Med \\\textbf{0,1162}/0,2673\\ WER \textbf{Mín.}/Med \\\textbf{0,5}/0,5155}}              & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1/ $\beta$ =1\\ CER \textbf{Mín.}/Med \\\textbf{0,1162}/0,3046\\ WER \textbf{Mín.}/Med \\\textbf{0,5}/0,6188}}             & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1/ $\beta$ =1\\ CER \textbf{Mín.}/Med \\\textbf{0,1162}/0,305\\ WER \textbf{Mín.}/Med \\\textbf{0,5}/0,619}}              &  \makecell{$\alpha$ = 1/ $\beta$ =1\\ CER \textbf{Mín.}/Med \\\textbf{0,1162}/0,2673\\ WER \textbf{Mín.}/Med \\\textbf{0,5}/0,5155} \\ \hline
+		\multicolumn{1}{|l|}{\multirow{2}{*}{\textbf{Frase 3}}} & Arcadia & \makecell{\textbf{CER = 0} \\ \textbf{WER = 0}} & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,8/ $\beta$ =1\\ CER \textbf{Mín.}/Med \\\textbf{0}/0,13286\\ WER \textbf{Mín.}/Med \\\textbf{0}/0,183}}              & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,8/ $\beta$ =1\\ CER \textbf{Mín.}/Med \\\textbf{0}/0,1077\\ WER \textbf{Mín.}/Med \\\textbf{0}/0,175}}             & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,8/ $\beta$ =1\\ CER \textbf{Mín.}/Med \\\textbf{0}/0,1087\\ WER \textbf{Mín.}/Med \\\textbf{0}/0,177}}              &  \makecell{$\alpha$ = 1,8/ $\beta$ =1\\ CER \textbf{Mín.}/Med \\\textbf{0}/0,13286\\ WER \textbf{Mín.}/Med \\\textbf{0}/0,183} \\ \cline{2-7} 
+		\multicolumn{1}{|l|}{}                                  & Lumina  & \makecell{\textbf{CER = 0,08} \\ \textbf{WER = 0,2}}  & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,1/ $\beta$ =1\\ CER \textbf{Mín.}/Med \\\textbf{0,12}/0,37\\ WER \textbf{Mín.}/Med \\\textbf{0,4}/0,668}}              & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,1/ $\beta$ =1\\ CER \textbf{Mín.}/Med \\\textbf{0,12}/0,394\\ WER \textbf{Mín.}/Med \\\textbf{0,4}/0,681}}             & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,1/ $\beta$ =1\\ CER \textbf{Mín.}/Med \\\textbf{0,12}/0,396\\ WER \textbf{Mín.}/Med \\\textbf{0,4}/0,683}}              & \makecell{$\alpha$ = 1,1/ $\beta$ =1\\ CER \textbf{Mín.}/Med \\\textbf{0,12}/0,37\\ WER \textbf{Mín.}/Med \\\textbf{0,4}/0,668} \\ \hline
+		\multicolumn{1}{|l|}{\multirow{2}{*}{\textbf{Frase 4}}} & Arcadia & \makecell{\textbf{CER = 0,75} \\ \textbf{WER = 1}}  & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,8/ $\beta$ =1\\ CER \textbf{Mín.}/Med \\\textbf{0}/0,132\\ WER \textbf{Mín.}/Med \\\textbf{0}/0,264}}              & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,7/ $\beta$ =1\\ CER \textbf{Mín.}/Med \\\textbf{0}/0,136\\ WER \textbf{Mín.}/Med \\\textbf{0}/0,273}}             & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,8/ $\beta$ =1\\ CER \textbf{Mín.}/Med \\\textbf{0}/0,138\\ WER \textbf{Mín.}/Med \\\textbf{0}/0,275}}              &  \makecell{$\alpha$ = 1,7/ $\beta$ =1\\ CER \textbf{Mín.}/Med \\\textbf{0}/0,132\\ WER \textbf{Mín.}/Med \\\textbf{0}/0,264}\\ \cline{2-7} 
+		\multicolumn{1}{|l|}{}                                  & Lumina  & \makecell{\textbf{CER = 0,1818} \\ \textbf{WER = 0,5}} & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,1/ $\beta$ =1\\ CER \textbf{Mín.}/Med \\\textbf{0,1818}/0,4628\\ WER \textbf{Mín.}/Med \\\textbf{0,5}/0,909}}              & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,1/ $\beta$ =1\\ CER \textbf{Mín.}/Med \\\textbf{0,1818}/0,4628099\\ WER \textbf{Mín.}/Med \\\textbf{0,5}/0,909}}             & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,1/ $\beta$ =1\\ CER \textbf{Mín.}/Med \\\textbf{0,1818}/0,46515\\ WER \textbf{Mín.}/Med \\\textbf{0,5}/0,913}}              & \makecell{$\alpha$ = 1,1/ $\beta$ =1\\ CER \textbf{Mín.}/Med \\\textbf{0,1818}/0,4628\\ WER \textbf{Mín.}/Med \\\textbf{0,5}/0,909} \\ \hline
+		\multicolumn{1}{|l|}{\multirow{2}{*}{\textbf{Frase 5}}} & Arcadia & \makecell{\textbf{CER = 0} \\ \textbf{WER = 0}} & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,9/ $\beta$ =0,7\\ CER \textbf{Mín.}/Med \\\textbf{0,24}/0,268\\ WER \textbf{Mín.}/Med \\\textbf{0,5}/0,533}}              & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,9/ $\beta$ =0,6\\ CER \textbf{Mín.}/Med \\\textbf{0,24}/0,296\\ WER \textbf{Mín.}/Med \\\textbf{0,5}/0,579}}             & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,9/ $\beta$ =0,7\\ CER \textbf{Mín.}/Med \\\textbf{0,24}/0,297\\ WER \textbf{Mín.}/Med \\\textbf{0,5}/0,579}}              & \makecell{$\alpha$ = 1,9/ $\beta$ =0,6\\ CER \textbf{Mín.}/Med \\\textbf{0,24}/0,268\\ WER \textbf{Mín.}/Med \\\textbf{0,5}/0,533} \\ \cline{2-7} 
+		\multicolumn{1}{|l|}{}                                  & Lumina  & \makecell{\textbf{CER = 0,083} \\ \textbf{WER = 0,25}} & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,6/ $\beta$ =1\\ CER \textbf{Mín.}/Med \\\textbf{0,3333}/0,4621\\ WER \textbf{Mín.}/Med \\\textbf{0,75}/0,857}}              & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,6/ $\beta$ =1\\ CER \textbf{Mín.}/Med \\\textbf{0,3333}/0,4676\\ WER \textbf{Mín.}/Med \\\textbf{0,75}/0,862}}             & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,6/ $\beta$ =1\\ CER \textbf{Mín.}/Med \\\textbf{0,3333}/0,4687\\ WER \textbf{Mín.}/Med \\\textbf{0,75}/0,86}}              & \makecell{$\alpha$ = 1,6/ $\beta$ =1\\ CER \textbf{Mín.}/Med \\\textbf{0,3333}/0,4621\\ WER \textbf{Mín.}/Med \\\textbf{0,75}/0,857} \\ \hline
+		\multicolumn{1}{|l|}{\multirow{2}{*}{\textbf{Frase 6}}} & Arcadia & \makecell{\textbf{CER = 0} \\ \textbf{WER = 0}} & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1/ $\beta$ =1\\ CER \textbf{Mín.}/Med \\\textbf{0,022}/0,0909\\ WER \textbf{Mín.}/Med \\\textbf{0,14286}/0,175914}}              & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,9/ $\beta$ =1\\ CER \textbf{Mín.}/Med \\\textbf{0,066}/0,0989\\ WER \textbf{Mín.}/Med \\\textbf{0,1428}/0,1806}}             & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1/ $\beta$ =1\\ CER \textbf{Mín.}/Med \\\textbf{0,066}/0,0099\\ WER \textbf{Mín.}/Med \\\textbf{0,1429}/0,181}}              &\makecell{$\alpha$ = 1,9/ $\beta$ =1\\ CER \textbf{Mín.}/Med \\\textbf{0,022}/0,0909\\ WER \textbf{Mín.}/Med \\\textbf{0,1428}/0,1759}\\ \cline{2-7} 
+		\multicolumn{1}{|l|}{}                                  & Lumina  & \makecell{\textbf{CER = 0,136} \\ \textbf{WER = 0,5714}} & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,4/ $\beta$ =1\\ CER \textbf{Mín.}/Med \\\textbf{0,0227}/0,1590\\ WER \textbf{Mín.}/Med \\\textbf{0,1428}/0,3116}}              & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,4/ $\beta$ =1\\ CER \textbf{Mín.}/Med \\\textbf{0,0227}/0,1641\\ WER \textbf{Mín.}/Med \\\textbf{0,1428}/0,3293}}             & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,4/ $\beta$ =1\\ CER \textbf{Mín.}/Med \\\textbf{0,0227}/0,165\\ WER \textbf{Mín.}/Med \\\textbf{0,1428}/0,3298}}              & \makecell{$\alpha$ = 1,4/ $\beta$ =1\\ CER \textbf{Mín.}/Med \\\textbf{0,0227}/0,1590\\ WER \textbf{Mín.}/Med \\\textbf{0,1428}/0,31168} \\ \hline
+		\multicolumn{1}{|l|}{\multirow{2}{*}{\textbf{Frase 7}}} & Arcadia & \makecell{\textbf{CER = 0,1071} \\ \textbf{WER = 0,1666}} & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,1/ $\beta$ =0,7\\ CER \textbf{Mín.}/Med \\\textbf{0,3392}/0,4589\\ WER \textbf{Mín.}/Med \\\textbf{0,67}/0,761}}              & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1/ $\beta$ =1\\ CER \textbf{Mín.}/Med \\\textbf{0,3392}/0,4579\\ WER \textbf{Mín.}/Med \\\textbf{0,75}/0,7706}}             & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,1/ $\beta$ =0,7\\ CER \textbf{Mín.}/Med \\\textbf{0,3392}/0,4589\\ WER \textbf{Mín.}/Med \\\textbf{0,75}/0,7715}}              & \makecell{$\alpha$ = 1/ $\beta$ =1\\ CER \textbf{Mín.}/Med \\\textbf{0,3392}/0,4589\\ WER \textbf{Mín.}/Med \\\textbf{0,667}/0,7610} \\ \cline{2-7} 
+		\multicolumn{1}{|l|}{}                                  & Lumina  & \makecell{\textbf{CER = 0,1136} \\ \textbf{WER = 0,1428}} & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1/ $\beta$ =0,9\\ CER \textbf{Mín.}/Med \\\textbf{0,4181}/0,5359\\ WER \textbf{Mín.}/Med \\\textbf{0,75}/0,86845}}              & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1/ $\beta$ =0,9\\ CER \textbf{Mín.}/Med \\\textbf{0,4181}/0,5316\\ WER \textbf{Mín.}/Med \\\textbf{0,75}/0,8622}}             & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1/ $\beta$ =0,9\\ CER \textbf{Mín.}/Med \\\textbf{0,4181}/0,5326\\ WER \textbf{Mín.}/Med \\\textbf{0,75}/0,8632}}              &  \makecell{$\alpha$ = 1/ $\beta$ =0,9\\ CER \textbf{Mín.}/Med \\\textbf{0,4181}/0,5359\\ WER \textbf{Mín.}/Med \\\textbf{0,75}/0,8684}   \\ \hline
+		\multicolumn{1}{|l|}{\multirow{2}{*}{\textbf{Frase 8}}} & Arcadia & \makecell{\textbf{CER = 0,1272} \\ \textbf{WER = 0,25}} & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,4/ $\beta$ =0,8\\ CER \textbf{Mín.}/Med \\\textbf{0,1136}/0,1497\\ WER \textbf{Mín.}/Med \\\textbf{0,14286}/0,36953}}              & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,4/ $\beta$ =1\\ CER \textbf{Mín.}/Med \\\textbf{0,1363}/0,1487\\ WER \textbf{Mín.}/Med \\\textbf{0,2857}/0,3636}}             & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,4/ $\beta$ =0,8\\ CER \textbf{Mín.}/Med \\\textbf{0,1363}/0,1489\\ WER \textbf{Mín.}/Med \\\textbf{0,2857}/0,3643}}              & \makecell{$\alpha$ = 1,4/ $\beta$ =1\\ CER \textbf{Mín.}/Med \\\textbf{0,1136}/0,1496\\ WER \textbf{Mín.}/Med \\\textbf{0,1482}/0,3695} \\ \cline{2-7} 
+		\multicolumn{1}{|l|}{}                                  & Lumina  & \makecell{\textbf{CER = 0,2093} \\ \textbf{WER = 0,4285}} & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,4/ $\beta$ =0,7\\ CER \textbf{Mín.}/Med \\\textbf{0,2093}/0,3096\\ WER \textbf{Mín.}/Med \\\textbf{0,4285}/0,5135}}              & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,4/ $\beta$ =0,9\\ CER \textbf{Mín.}/Med \\\textbf{0,1860}/0,3117\\ WER \textbf{Mín.}/Med \\\textbf{0,4285}/0,5088}}             & \multicolumn{1}{l|}{\makecell{$\alpha$ = 1,4/ $\beta$ =0,7\\ CER \textbf{Mín.}/Med \\\textbf{0,1860}/0,3125\\ WER \textbf{Mín.}/Med \\\textbf{0,4286}/0,5095}}              &  \makecell{$\alpha$ = 1,4/ $\beta$ =0,9\\ CER \textbf{Mín.}/Med \\\textbf{0,2093}/0,3096\\ WER \textbf{Mín.}/Med \\\textbf{0,4285}/0,5135} \\ \hline
 	\end{xltabular}
 }
 
-También se han producido gráficas con los resultados, que comentaremos a continuación:
+También, para verlo en perspectivas más aisladas, se han producido gráficas con los resultados, que comentaremos a continuación:
+
+\subsubsection{VOSK}
 
 \begin{figure}[H]
 	\includegraphics[width=\textwidth]{imagenes/WERCER_VoskIvan.png}
+	\caption[Diagramas de WER y CER - Vosk]{Diagrama de los resultados al usar VOSK con el modelo que ofrecen en la web. Elaboración propia.}
 \end{figure}
 
 \begin{table}
@@ -166,41 +176,56 @@ También se han producido gráficas con los resultados, que comentaremos a conti
 	 Frase 8 (Lúmina)& nómina preparado un temporizador de cinco minutos \\ \hline
 
 \end{tabularx}
+\caption{Transcripciones de Vosk para las frases analizadas.}
 \end{table}
 
 En el caso de Vosk, se aprecia que el Ratio de Error de Palabra es bastante difuso en las Frases cuando se usa Arcadia como \textit{trigger word} (de hecho, en una de las frases no ha acertado ni una palabra). Cuando vemos las frases donde se usa Lúmina como trigger word, el ratio es más alto pero menos difuso, encontrándose entre el 20 y casi el 60\%. En cuanto al texto más largo, ha captado una muy buena parte del mensaje. 
 Si se tiene en cuenta que es un modelo de 55 MB una vez descomprimido, ofrece resultados bastante completos.
 
+\newpage
+
+\subsubsection{DeepSpeech con Modelo Rhasspy y Scorer Poco}
+
 \begin{figure}[H]
 	\includegraphics[width=\textwidth]{imagenes/MejoresResultados_DeepSpeechIvanPocoRhasspy.png} \\
 	\includegraphics[width=0.5\textwidth]{imagenes/CER_DeepSpeechIvanPocoRhasspy.png} \hfill \includegraphics[width=0.5\textwidth]{imagenes/WER_DeepspeechIvanPocoRhasspy.png}
+	\caption[Diagramas de Alfa, Beta, WER y CER - Rhasspy y Ken]{Diagrama de los resultados al usar Deepspeech con el modelo Rhasspy y el scorer Poco. Elaboración propia.}
 \end{figure}
 
 Empezando en las combinaciones con DeepSpeech, donde se usa el Modelo Rhasspy y el Scorer más completo, podemos ver que los valores más óptimos de Beta se encuentran entre el 0.7 y el 1, pero los valores de Alfa son más dispares. 
 
 Podemos apreciar también que la mayor disparidad entre lo que la red neuronal predice y lo que realmente se quería decir es del 85\% en el texto más largo. Las frases que comienzan en Arcadia parecen reconocerlas mejor que las que comienzan por Lúmina.
 
+\subsubsection{DeepSpeech con Modelo Rhasspy y Scorer Ken}
+
 \begin{figure}[H]
 	\includegraphics[width=\textwidth]{imagenes/MejoresResultados_DeepSpeechIvanKenRhasspy.png} \\
 	\includegraphics[width=0.5\textwidth]{imagenes/CER_DeepSpeechIvanKenRhasspy.png} \hfill \includegraphics[width=0.5\textwidth]{imagenes/WER_DeepspeechIvanKenRhasspy.png}
+	\caption[Diagramas de Alfa, Beta, WER y CER - Rhasspy y Ken]{Diagrama de los resultados al usar Deepspeech con el modelo Rhasspy y el scorer Ken. Elaboración propia.}
 \end{figure}
 
 En esta combinación se usa el Modelo Rhasspy y el Scorer Ken, y podemos ver que los valores más óptimos de Beta se encuentran casi siempre en el 1, pero los valores de Alfa son bastante altos cuando se trata de reconocer una frase llamando a la primera opción como trigger word, generalmente entre 1,7 y 1,9. En cuanto a la segunda opción, los resultados o están muy bajos (cerca del 1,1) o altos (1,4 al 1,6 salvo la primera frase que usa un valor de 1,9).
 
 La tónica se repite con esta combinación,donde el ratio de error en el texto largo es altísimo y reconoce muy bien el nombre de Arcadia frente al de Lúmina. En cuanto al ratio de error a nivel de caracteres, podemos ver que es muy similar al anterior.
 
+\subsubsection{DeepSpeech con Modelo Polyglot y Scorer Poco}
+
 \begin{figure}[H]
 	\includegraphics[width=\textwidth]{imagenes/MejoresResultados_DeepSpeechIvanPocoPolyglot.png} \\
 	\includegraphics[width=0.5\textwidth]{imagenes/CER_DeepSpeechIvanPocoPolyglot.png} \hfill \includegraphics[width=0.5\textwidth]{imagenes/WER_DeepspeechIvanPocoPolyglot.png}
+	\caption[Diagramas de Alfa, Beta, WER y CER - Polyglot y Poco]{Diagrama de los resultados al usar Deepspeech con el modelo Polyglot y el scorer Poco. Elaboración propia.}
 \end{figure}
 
 En este caso se usa el modelo Polyglot con el Scorer Poco. Los valores de Beta casi siempre están a 1, o al menos más allá de 0,7. En cuanto al Alfa, hay una tendencia a valores más altos en el caso de Arcadia, y a valores más bajos en el caso de Lúmina.
 
 El valor del WER y del CER es muy parecido a los dos anteriores. Se sigue manteniendo la tendencia de que los textos largos tienen un valor alto. De hecho, si vemos esa opción, observamos que reconoce unos cuantos segundos y encima con muchos errores.
 
+\subsubsection{DeepSpeech con Modelo Polyglot y Scorer Ken}
+
 \begin{figure}[H]
 	\includegraphics[width=\textwidth]{imagenes/MejoresResultados_DeepSpeechIvanKenPolyglot.png} \\
 	\includegraphics[width=0.5\textwidth]{imagenes/CER_DeepSpeechIvanKenPolyglot.png} \hfill \includegraphics[width=0.5\textwidth]{imagenes/WER_DeepspeechIvanKenPolyglot.png}
+	\caption[Diagramas de Alfa, Beta, WER y CER - Polyglot y Ken]{Diagramas de los resultados al usar Deepspeech con el modelo Polyglot y el scorer Ken. Elaboración propia.}
 \end{figure}
 
 En la combinación del modelo Polyglot con el Scorer más liviano, los valores de Beta casi siempre están a 1, es decir, viene mejor cuanta más penalización se da por fallar. En cuanto al Alfa, hay una tendencia a valores más altos en el caso de Arcadia, y a valores más bajos en el caso de Lúmina, como en la anterior ocasión.
@@ -221,16 +246,20 @@ El valor del WER y del CER es muy parecido a los dos anteriores. Se sigue manten
 	\label{tab:predicts}
 \end{table}
 
-Si bien hemos hablado de los datos en su propio contexto, ¿qué pasa si comparamos los resultados entre sí? Para ello se ha exportado las respuestas finales en gráficas para comparar su rendimiento ante las mismas pruebas y sacar algunas conclusiones.
+\subsection{Conclusiones}
+
+Si bien hemos hablado de los datos en su propio contexto, ¿qué pasa si comparamos los resultados entre sí? Para poder sacar conclusiones, se ha exportado las respuestas finales en gráficas para comparar su rendimiento ante las mismas pruebas.
 
 \begin{figure}[H]
-	\includegraphics[width=0.5\textwidth]{imagenes/Alfas.png} \hfill \includegraphics[width=0.5\textwidth]{imagenes/Betas.png}
+	\includegraphics[width=0.9\textwidth]{imagenes/Alfas.png} \hfill \includegraphics[width=0.9\textwidth]{imagenes/Betas.png}
+	\caption{Gráficas comparativas de los valores de Alfa y Beta con los mejores resultados, según la frase y la combinación de Modelo y Scorer. Elaboración propia}
 \end{figure}
 
 En el caso de DeepSpeech, los ajustes de Alfa y Beta son iguales en el caso de los modelos, por lo que usar uno u otro no nos daría ninguna ventaja. Por otro lado, los scorers sí alteran los parámetros, observando que en el Scorer Poco se da el mismo o menos peso al modelo del lenguaje en general que en Scorer Ken (como excepción podemos ver en la Frase 7 con Arcadia que el peso es menor). También se le da menos castigo en el predictor más completo (salvo en el Texto Largo y la Variante con Arcadia de la Frase 5).
 
 \begin{figure}[H]
-	\includegraphics[width=0.5\textwidth]{imagenes/CERMedios.png} \hfill \includegraphics[width=0.5\textwidth]{imagenes/WERMedios.png}
+	\includegraphics[width=\textwidth]{imagenes/CERMedios.png} \hfill \includegraphics[width=\textwidth]{imagenes/WERMedios.png}
+	\caption{Gráficas comparativas de los valores medios de WER y CER, según la frase y la combinación de Sistema, Modelo y Scorer (donde proceda). Elaboración propia}
 \end{figure}
 
 Por el Character Error Rate, vemos que al comparar letra a letra Vosk mantiene unos niveles bastante bajos salvo por su pico del 75\%. En cuanto al Ratio de Error a nivel de palabra, la cifra sube a valores de hasta un 50\% salvo en la misma frase del pico anterior, donde falla toda la predicción.
@@ -238,7 +267,8 @@ En el caso de DeepSpeech, hay muy pocas diferencias en sus valores medios entre 
 \% en el caso del CER y del casi 90\% en el caso del WER
 
 \begin{figure}[H]
-	\includegraphics[width=0.5\textwidth]{imagenes/CERMejores.png} \hfill \includegraphics[width=0.5\textwidth]{imagenes/WERMejores.png}
+	\includegraphics[width=0.9\textwidth]{imagenes/CERMejores.png} \hfill \includegraphics[width=0.9\textwidth]{imagenes/WERMejores.png}
+	\caption{Gráficas comparativas de los mejores valores de WER y CER, según la frase y la combinación de Sistema, Modelo y Scorer (donde proceda). Elaboración propia}
 \end{figure}
 
 En cuanto a los resultados arrojados en las mejores generaciones, vemos que en el frente de DeepSpeech sigue siendo bastante homogéneo, si bien la combinación del Modelo Polyglot con el Scorer Ken es algo mejor en algunas ocasiones. Sin embargo, hay muchos casos donde Vosk es mejor que las 4 combinaciones, aunque podemos ver puntos aislados sorprendentes, como ver que DeepSpeech ha sido capaz de descifrar perfectamente qué se estaba hablando, cuando la alternativa falló completamente.
@@ -250,16 +280,16 @@ Por lo visto sobre los nombres, en este estado podemos darle nombre a nuestro As
 \begin{xltabular}{\textwidth}{|X|X|X|X|X|}
 	\hline
 	Método & CER Promedio & Desv. Típica de CER & WER Promedio & Desv. Típica de WER \\ \hline
-	DeepSpeech + Rhasspy + Ken (Mínimo/Medio) & 0,1916/0,3115 & 0,1968/0,1966 & 0,4047/0,5349 & 0,2855/0,2763 \\ \hline
-	DeepSpeech + Rhasspy + Poco (Mínimo/Medio) & 0,1850/0,2929 & 0,1993/0,1990 & 0,3845/0,5277 & 0,2814/0,2705 \\ \hline
-	DeepSpeech + Polyglot + Ken (Mínimo/Medio) & 0,1850/0,3063 & 0,1993/0,1971 & 0,3844/0,5280 & 0,2805/0,2702 \\ \hline
-	DeepSpeech + Polyglot + Poco (Mínimo/Medio) & 0,1916/0,3070 & 0,1968/0,2038 & 0,4038/0,5357 & 0,2840/0,2763 \\ \hline
-	Vosk & 0,1375 & 0,1689 & 0,3194 & 0,2537 \\ \hline
+	DeepSpeech + Rhasspy + Ken (\textbf{Mín.}/Medio) & \textbf{0,1916}/0,3115 & \textbf{0,1968}/0,1966 & \textbf{0,4047}/0,5349 & \textbf{0,2855}/0,2763 \\ \hline
+	DeepSpeech + Rhasspy + Poco (\textbf{Mín.}/Medio) & \textbf{0,1850}/0,2929 & \textbf{0,1993}/0,1990 & \textbf{0,3845}/0,5277 & \textbf{0,2814}/0,2705 \\ \hline
+	DeepSpeech + Polyglot + Ken (\textbf{Mín.}/Medio) & \textbf{0,1850}/0,3063 & \textbf{0,1993}/0,1971 & \textbf{0,3844}/0,5280 & \textbf{0,2805}/0,2702 \\ \hline
+	DeepSpeech + Polyglot + Poco (\textbf{Mín.}/Medio) & \textbf{0,1916}/0,3070 & \textbf{0,1968}/0,2038 & \textbf{0,4038}/0,5357 & \textbf{0,2840}/0,2763 \\ \hline
+	Vosk & \textbf{0,1375} & \textbf{0,1689} & \textbf{0,3194} & \textbf{0,2537} \\ \hline
 \end{xltabular} 
 
 Por los datos arrojados, la API que más nos convendría usar es Vosk, ya que tiende a acertar más lo que se quiere decir. 
 
-También tenemos un nombre para nuestro asistente, pudiendo añadir algo de personalidad al producto resultante. \textit{Así que, con todos ustedes, ¡os presento a Arcadia!}
+También tenemos un nombre para nuestro asistente, pudiendo añadir algo de personalidad al producto resultante, siendo este \textit{Arcadia}.
 
 \section{Eligiendo una API de Síntesis de Voz}
 Por la otra parte, sintetizar la voz nos permite ofrecer el feedback al usuario los resultados a lo que se piden. Al igual que en el Reconocimiento del Habla, las grandes compañías tienen su propia implementación en un formato "Software como servicio" (como Google TTS o IBM Watson TTS).
@@ -267,10 +297,10 @@ Por la otra parte, sintetizar la voz nos permite ofrecer el feedback al usuario 
 En este campo tenemos también otro par de APIs que usan sistemas de Código Abierto. Estos son:
 
 \begin{itemize}
-	\item \textbf{Festival TTS}: Creada por la Universidad de Edimburgo, usa una licencia del tipo X11/MIT. Se ofrece como un framework general para la síntesis de voz a través de varias APIs, ofreciendo así que se pueda usar embebido en un programa escrito en Java, dentro del propio shell o como librería de C++ (y a través de una interfaz, se puede usar con Python).
-	\item \textbf{eSpeakNG}: Creado por Jonathan Duddington, se trata de un sintetizador de voz que usa el método de síntesis formante, permitiendo que las voces se representen con modelos muy ligeros, pero cuyos resultados no son muy naturales. Se licencia con GPL versión 3 \cite{gplv3}.
+	\item \textbf{Festival TTS} \cite{festival}: Creada por la Universidad de Edimburgo, usa una licencia del tipo X11/MIT. Se ofrece como un framework general para la síntesis de voz a través de varias APIs, ofreciendo así que se pueda usar embebido en un programa escrito en Java, dentro del propio shell o como librería de C++ (y a través de una interfaz, se puede usar con Python).
+	\item \textbf{eSpeakNG} \cite{espeak} \cite{espeak-ng}: Creado por Jonathan Duddington, se trata de un sintetizador de voz que usa el método de síntesis formante, permitiendo que las voces se representen con modelos muy ligeros, pero cuyos resultados no son muy naturales. Se licencia con GPL versión 3 \cite{gplv3}.
 	Como nota aparte, se puede combinar con el sintetizador MBROLA para mejorar la voz, pero estas voces mejoradas poseen una cláusula modificada por la cual exigen que no se puede ganar beneficios con ellas en sí o embebidas en un software mayor.
-	 \item \textbf{NanoTTS}: Es una reimplementación de SVOX Pico TTS, usado en la versión Open Source de Android, de la que coge las voces y la parte libre de Pico para formar un programa propio. Emplea una licencia Apache 2.0, al igual que las voces y la parte abierta.
+	 \item \textbf{NanoTTS} \cite{nanotts}: Es una reimplementación de SVOX Pico TTS, usado en la versión Open Source de Android, de la que coge las voces y la parte libre de Pico para formar un programa propio. Emplea una licencia Apache 2.0, al igual que las voces y la parte abierta.
 \end{itemize}
 
 En este ámbito, no se puede elegir el mejor programa en base a temas objetivos, sino que va más al gusto del usuario. Para ello, se ha valorado por una parte la facilidad de uso de la API, y por la otra, cómo de humana suena esa voz (de forma subjetiva).
@@ -296,15 +326,15 @@ En este caso, nos encontramos con algunas alternativas que responden a distintos
 	\item \textbf{Pattern-matching}
 	Aquí nos podemos encontrar algunos casos como:
 	\begin{itemize}
-		\item \textbf{AIML} Ya he estado familiarizado con este lenguaje de marcado anteriormente, en la asignatura de Inteligencia Artificial. Si bien permitía hacer cierta funcionalidad, no puede usar peticiones de APIs para poder completar información en sus últimas versiones, por lo que queda descartada. Además, su sintaxis puede llegar a ser compleja de entender, ya que se necesita una estructura con muchas etiquetas para funciones más dificultosas.
-		\item \textbf{RiveScript} Es una versión un poco menos liosa de AIML, pero tiene mucha de su funcionalidad, aparte de algunas funciones extra (como más condicionales o temas que puedan ser heredados de otros temas de conversación). Sin embargo, hacer un embed de Python con un cliente de RiveScript conllevaría un tiempo considerable.
-		\item \textbf{ChatScript} En este caso hablamos de un lenguaje de script superior a los anteriores, pero cae en el mismo problema que RiveScript. Y es que su único cliente está desarrollado en C, si bien se podría adaptar a Python gracias a la librería que tiene para invocar funciones de C.
+		\item \textbf{AIML} \cite{aiml} En el paso por la carrera los estudiantes están familiarizados con este lenguaje de marcado anteriormente, en la asignatura de Inteligencia Artificial. Si bien permitía hacer cierta funcionalidad, no puede usar peticiones de APIs para poder completar información en sus últimas versiones, por lo que queda descartada. Además, su sintaxis puede llegar a ser compleja de entender, ya que se necesita una estructura con muchas etiquetas para funciones más dificultosas.
+		\item \textbf{RiveScript} \cite{rivescript} Es una versión de AIML más simplificada y clara, pero tiene mucha de su funcionalidad, aparte de algunas funciones extra (como más condicionales o temas que puedan ser heredados de otros temas de conversación). Sin embargo, hacer un embed de Python con un cliente de RiveScript conllevaría un tiempo considerable.
+		\item \textbf{ChatScript} \cite{chatscript} En este caso hablamos de un lenguaje de script superior a los anteriores, pero cae en el mismo problema que RiveScript. Y es que su único cliente está desarrollado en C, si bien se podría adaptar a Python gracias a la librería que tiene para invocar funciones de C.
 	\end{itemize}	
 	\item \textbf{Procesamiento del lenguaje natural (NLP)}
-	Si bien hay opciones propietarias como \textbf{\underline{DialogFlow}}, al mirar opciones de Código Abierto me costó dar con uno, pero finalmente apareció la opción de usar \textbf{\underline{Rasa}}, que aunque no tenía mucha documentación en español, era bastante completa y esmerada, y con bastantes vídeos y tutoriales que me ayudaron a entender cómo usarlo.
+	Si bien hay opciones propietarias como \textbf{\underline{DialogFlow}} \cite{dialogflow}, al mirar opciones de Código Abierto costó dar con uno, pero finalmente apareció la opción de usar \textbf{\underline{Rasa}} \cite{rasa}, que aunque no tenía mucha documentación en español, era bastante completa y esmerada, y con bastantes vídeos y tutoriales que me ayudaron a entender cómo usarlo.
 \end{itemize}
 
-Al comparar ChatScript y Rasa para decidir cuál usar, observé que el hecho de que Rasa esté en continuo desarrollo, la flexibilidad de sus modelos y la facilidad para entrenarlos me ha servido de punto de inflexión para elgir esta herramienta frente a la opción por patrones.
+Al comparar ChatScript y Rasa para decidir cuál usar, se ha observado que el hecho de que Rasa esté en continuo desarrollo, la flexibilidad de sus modelos y la facilidad para entrenarlos me ha servido de punto de inflexión para elgir esta herramienta frente a la opción por patrones.
 	
 \section{Diseñando el problema}
 
@@ -316,25 +346,25 @@ En este proyecto, los casos de uso en general tienen sólo un actor humano, que 
 El flujo básico de Arcadia estaría definido por el siguiente diagrama de casos de uso, donde ambos actores interactúan en el transcurso entre que el usuario diga una petición y el mismo reciba la respuesta.
 
 \begin{figure}[H]
-	\includegraphics[width=\textwidth]{imagenes/DiagramaCasosUso.png}
-	\caption{Diagrama de casos de uso.}
+	\includegraphics[width=0.75\textwidth]{imagenes/DiagramaCasosUso.png}
+	\caption{Diagrama de casos de uso. Elaboración propia.}
 \end{figure}
 
 \subsection{Diagrama de clases}
 \subsubsection{Grabación y streaming de audio}
-Para la grabación del audio podemos usar FFmpeg o PyAudio indistintamente, ya que ambos sistemas de codificación del audio son bastante capaces para esta tarea. Claro, esto implicaría hacer uso del patrón Adaptador para crear una abstracción entre los métodos o ejecuciones del software existente y nuestro sistema para cada opción.
+Para la grabación del audio podemos usar FFmpeg \cite{ffmpeg} o PyAudio \cite{pyaudio} indistintamente, ya que ambos sistemas de codificación del audio son bastante capaces para esta tarea. Esto implicaría hacer uso del patrón Adaptador para crear una abstracción entre los métodos o ejecuciones del software existente y nuestro sistema para cada opción.
 En este caso podríamos seguir esta manera de construir software para tener varias versiones de esa funcionalidad con sistemas distintos. (Aunque en la práctica lo más probable es que lo haga con uno de ellos, pero gracias a ello podemos darle modularidad al sistema para cambiarlo en cualquier momento).
 
 \begin{figure}[H]
 	\includegraphics[width=\textwidth]{imagenes/DiagramaClases_Grabacion.png}
-	\caption{Diagrama de clases relacionadas con la grabación del sonido.}
+	\caption{Diagrama de clases relacionadas con la grabación del sonido. Elaboración propia.}
 \end{figure}
 
 \subsubsection{Reconocimiento de voz}
 Para el reconocimiento de voz se hará uso de una clase que sirva de interfaz a las APIs que lo requieran, las cuales tendrán para poder usarse en el resto de la implementación una clase que sirva de adaptador. De esta manera, si quisiéramos usar otra API, sólo tendríamos que implementar los métodos del adaptador.
 \begin{figure}[H]
 	\includegraphics[width=\textwidth]{imagenes/DiagramaClases_SR.png}
-	\caption{Diagrama de clases relacionadas con el Reconocimiento del habla.}
+	\caption{Diagrama de clases relacionadas con el Reconocimiento del habla. Elaboración propia.}
 \end{figure}
 \subsubsection{Procesamiento de la petición y creación de una respuesta}
 Para procesar la petición, usaremos un adaptador como antes. En nuestro caso, además, trataremos con peticiones HTTP a través de REST entre nuestra implementación y Rasa, ya que se aloja en un puerto de nuestro PC escuchando las peticiones.
@@ -344,41 +374,94 @@ En la parte de Rasa, según su documentación, para desarrollar funcionalidades 
 Aquí podemos ver un detalle de las clases y sus relaciones, en este sentido:
 \begin{figure}[H]
 	\includegraphics[width=\textwidth]{imagenes/DiagramaClases_Chatbot.png}
-	\caption{Diagrama de clases relacionadas con la interacción con el Chatbot.}
+	\caption{Diagrama de clases relacionadas con la interacción con el Chatbot. Elaboración propia.}
 \end{figure}
 \subsubsection{Síntesis de voz}
 De forma análoga al reconocimiento de voz, la síntesis precisará de un adaptador para facilitar el funcionamiento interno del asistente. De esta manera, lo conectaremos a NanoTTS para que nos convierta el texto a Voz.
 
 \begin{figure}[H]
 	\includegraphics[width=\textwidth]{imagenes/DiagramaClases_TTS.png}
-	\caption{Diagrama de clases relacionadas con la Síntesis de Voz.}
+	\caption{Diagrama de clases relacionadas con la Síntesis de Voz. Elaboración propia.}
 \end{figure}
 \subsubsection{Reproducción de las respuestas}
 Para la reproducción del audio podemos usar de nuevo FFmpeg o PyAudio indistintamente, ya que ambos sistemas pueden grabar y reproducir audio . Ya que esán importados, habría que hacer otros adaptadores sólo para el sentido de la reproducción.
 
 \begin{figure}[H]
 	\includegraphics[width=\textwidth]{imagenes/DiagramaClases_Reproduccion.png}
-	\caption{Diagrama de clases relacionadas con la reproducción del sonido.}
+	\caption{Diagrama de clases relacionadas con la reproducción del sonido. Elaboración propia.}
 \end{figure}
 
-El resultado final del diagrama de clases está en la página ... .
+El resultado final del diagrama de clases está en la página \pageref{fig:diagramaclases}, figura \ref{fig:diagramaclases} .
 \begin{landscape}
 	\begin{figure}
 		\includegraphics[width=1.5\textwidth]{imagenes/DiagramaClases_General.png}
 		\caption{Diagrama de clases general.}
+		\label{fig:diagramaclases}
 	\end{figure}
 \end{landscape}
+
+\begin{table}[H]
+	\centering
+	\begin{tabularx}{\textwidth}{|>{\columncolor{mintgreen}}c>{\columncolor{mintgreen}}X|}
+		\hline
+		\includegraphics[width=30pt]{imagenes/Tarea_completada.png} & Con ello, cumplimos los Objetivos \textbf{O-IA 4.} (Sintetizar los posibles componentes que conforman un Asistente de Voz y la escalabilidad de cada uno de ellos), \textbf{O-DD 2.} (Diseñar las clases que albergarán los componentes de un Asistente de Voz, su interacción con los periféricos de Entrada/Salida y con aquellas APIs externas que se requieran para el funcionamiento básico del programa) y \textbf{O-DD 3.} (Idear una vía para escalar el número de posibles frases e interacciones que pueda reconocer el proyecto) \\
+		\hline
+	\end{tabularx}
+\end{table}
+
 \subsection{Diagrama arquitectónico}
 Por lo que vemos, nos encontramos con una arquitectura que dispone de programas externos que podemos usar en nuestro software gracias a sus respectivas APIs. Por nuestra parte, primero adaptamos toda su funcionalidad a nuestro ámbito en una serie de adaptadores para simplificar la información que luego llegará o saldrá de nuestro núcleo, que define el flujo básico del proyecto.
 
 Por otra parte, tenemos una comunicación con Rasa, que a su vez tiene otra comunicación con Rasa Actions, para atender las peticiones más complejas. Desde Rasa Actions también se hará la gestión de consultas a algunas páginas de Internet.
 
-Por tanto, nos quedaríamos con la siguiente arquitectura:
+\begin{center}
+	\begin{figure}[H]
+		\includegraphics[width=0.8\textwidth]{imagenes/DiagramaArquitectónico.png}
+		\caption{Diagrama de la arquitectura de Arcadia. Elaboración propia.}
+	\end{figure}
+\end{center}
 
-\begin{figure}[H]
-	\includegraphics[width=\textwidth]{imagenes/DiagramaArquitectónico.png}
-	\caption{Diagrama de la arquitectura de Arcadia.}
-\end{figure}
+Por tanto, nos quedaríamos con la siguiente arquitectura, que parece derivado de una arquitectura en pizarra, pues poseemos varios agentes externos (Grabadores, Reproductores, TTS, Reconocedores y el Chatbot) que anotan o cogen en el programa principal la información (rutas de audios, transcripciones y resultados a peticiones). 
+
+Además, cada parte del software tiene uno o dos objetivos en el sistema, lo que hace que sus funciones estén bien definidas y sepamos a dónde dirigirnos en caso de error.
+
+Una diferencia de nuestra arquitectura con respecto a la idea general de una pizarra, sin embargo, viene por dos cuestiones:
+
+\begin{itemize}
+	\item La pizarra en sí está rodeada de clases adaptadoras para poder dar toda la información de forma más simple
+	\item Hay dos fuentes de conocimiento que influyen en la arquitectura: las respuestas que nos ofrece el modelo en Rasa, y el estado del flujo principal en nuestra aplicación.
+\end{itemize}
+
+
+\begin{table}[H]
+	\centering
+	\begin{tabularx}{\textwidth}{|>{\columncolor{mintgreen}}c>{\columncolor{mintgreen}}X|}
+		\hline
+		\includegraphics[width=30pt]{imagenes/Tarea_completada.png} & Con ello, cumplimos el Objetivo \textbf{O-DD 4.} (Planear la arquitectura del proyecto resultante, siguiendo las buenas prácticas del Desarrollo de Software) \\
+		\hline
+	\end{tabularx}
+\end{table}
+
 
 \subsection{Diagrama de flujo general}
+ 
+ Una vez visto las piezas de este rompecabezas, toca ver el flujo que seguiría nuestro proyecto.
+ 
+ Para ello, se ha representado en el diagrama todas sus funcionalidades de una forma más general.
+ 
+ Para representarlo de forma más visual, y podamos ver qué acciones realiza cada elemento en su ámbito dentro del programa, se han coloreado las acciones según la parte que interviene en él:
+ 
+ \begin{itemize}
+ 	\item En \textbf{\textcolor{red}{rojo}}, las acciones que requieran de controlar audios y grabaciones (como hemos dicho anteriormente, podemos usar librerías como PyAudio o FFMpeg)
+ 	\item En \textbf{\textcolor{yellow}{amarillo}}, aquellas de las que se encargue el Reconocedor de Habla (como Vosk)
+ 	\item En \textbf{\textcolor{violet}{violeta}}, las partes donde entra en juego el chatbot (Rasa), además de sus acciones vinculadas (en nuestro caso, Rasa Actions)
+ 	\item En \textbf{\textcolor{cyan}{azul}}, las acciones y decisiones que nuestra implementación debe controlar.
+ \end{itemize}
+ 
+ 
+ \begin{figure}[H]
+ 	\includegraphics[width=\textwidth]{imagenes/DiagramaFlujo.png}
+ 	\caption{Diagrama del flujo general del sistema. Elaboración propia.}
+ \end{figure}
+
  
