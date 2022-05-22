@@ -1,33 +1,39 @@
-version: "3.1"
-
+version: '3.1'
 intents:
-  - greet
-  - goodbye
-  - affirm
-  - deny
-  - mood_great
-  - mood_unhappy
-  - bot_challenge
+- affirm
+- deny
+- goodbye
+- greet
+- mood_great
+- mood_unhappy
+- nlu_fallback
+- talk_about_me
+- opinion_siri
+- about_fernando_alonso
+- tell_time
+
+actions:
+  - action_tell_time
 
 responses:
   utter_greet:
-  - text: "Hey! How are you?"
-
+  - text: ¡Hey, hola! ¿Qué tal?
+  utter_out_of_scope:
+  - text: Lo siento, pero no creo que pueda ayudarte con eso.
   utter_cheer_up:
-  - text: "Here is something to cheer you up:"
-    image: "https://i.imgur.com/nGF1K8f.jpg"
-
+  - text: ¡Ánimo! Todo se puede arreglar y sacar adelante
   utter_did_that_help:
-  - text: "Did that help you?"
-
+  - text: ¿Te ha ayudado en algo?
   utter_happy:
-  - text: "Great, carry on!"
-
+  - text: ¡Genial, sigue así!
   utter_goodbye:
-  - text: "Bye"
-
-  utter_iamabot:
-  - text: "I am a bot, powered by Rasa."
+  - text: ¡Adiós!
+  utter_siri_opinion:
+  - text: Creo que Siri es una gran compañera, además de que es la más veterana del cuerpo. Aunque fuera de Apple no se le ve mucho.
+  utter_about_me:
+  - text: Pues soy un Asistente Virtual como los demás, pero aunque no sé mucho, voy aprendiendo cosas poco a poco. Puede que sea la becaria del grupo.
+  utter_trust_the_plan:
+  - text: Si bien los resultados dejan a Alonso en media tabla, hay que seguir confiando en el Plan.
 
 session_config:
   session_expiration_time: 60

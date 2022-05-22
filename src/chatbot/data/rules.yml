@@ -7,7 +7,17 @@ rules:
   - intent: goodbye
   - action: utter_goodbye
 
-- rule: Say 'I am a bot' anytime the user challenges
+- rule: Respuesta por defecto si no se sabe qué decir
   steps:
-  - intent: bot_challenge
-  - action: utter_iamabot
+  - intent: nlu_fallback
+  - action: utter_out_of_scope
+
+- rule: Dar la opinión sobre Siri si se le pide
+  steps:
+  - intent: opinion_siri
+  - action: utter_siri_opinion
+
+- rule: Decir de confiar en el plan si se pregunta por Fernando Alonso
+  steps:
+  - intent: about_fernando_alonso
+  - action: utter_trust_the_plan

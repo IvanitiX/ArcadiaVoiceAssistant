@@ -1,91 +1,105 @@
 version: "3.1"
-
 nlu:
 - intent: greet
   examples: |
     - hey
-    - hello
-    - hi
-    - hello there
-    - good morning
-    - good evening
-    - moin
-    - hey there
-    - let's go
-    - hey dude
-    - goodmorning
-    - goodevening
-    - good afternoon
-
+    - hola
+    - hola que tal
+    - buenos dias
+    - buenas tardes
+    - buenas noches
+    - holi
+    - buenas
 - intent: goodbye
   examples: |
-    - cu
-    - good by
-    - cee you later
-    - good night
-    - bye
-    - goodbye
-    - have a nice day
-    - see you around
-    - bye bye
-    - see you later
-
+    - adiós
+    - nos vemos
+    - hasta luego
+    - hasta la próxima
+    - nos vemos pronto
+    - hasta pronto
+    - ya nos veremos
+    - ta luego
 - intent: affirm
   examples: |
+    - sí
     - yes
     - y
-    - indeed
-    - of course
-    - that sounds good
-    - correct
-
+    - s
+    - claro
+    - por supuesto
+    - parece que va bien
+    - correcto
+    - afirmativo
+    - me parece genial
 - intent: deny
   examples: |
     - no
     - n
-    - never
-    - I don't think so
-    - don't like that
-    - no way
-    - not really
-
+    - nunca
+    - no creo
+    - no me parece bien
+    - ni de broma
+    - a decir verdad no
 - intent: mood_great
   examples: |
-    - perfect
-    - great
-    - amazing
-    - feeling like a king
-    - wonderful
-    - I am feeling very good
-    - I am great
-    - I am amazing
-    - I am going to save the world
-    - super stoked
-    - extremely good
-    - so so perfect
-    - so good
-    - so perfect
-
+    - bien
+    - muy bien
+    - perfectamente
+    - genial
+    - estupendo
+    - de locos
+    - maravilloso
+    - me siento muy bien
+    - me siento genial
 - intent: mood_unhappy
   examples: |
-    - my day was horrible
-    - I am sad
-    - I don't feel very well
-    - I am disappointed
-    - super sad
-    - I'm so sad
-    - sad
-    - very sad
-    - unhappy
-    - not good
-    - not very good
-    - extremly sad
-    - so saad
-    - so sad
-
-- intent: bot_challenge
+    - ha sido un día horrible
+    - estoy triste
+    - no me encuentro muy bien
+    - estoy decepcionado
+    - super triste
+    - estoy muy triste
+    - mal
+    - muy mal
+    - no muy contento
+    - nada contento
+- intent: opinion_siri
   examples: |
-    - are you a bot?
-    - are you a human?
-    - am I talking to a bot?
-    - am I talking to a human?
+    - qué piensas de siri
+    - te crees mejor que siri
+    - qué opinas de siri
+    - qué tal siri
+- intent: talk_about_me
+  examples: |
+    - háblame sobre ti
+    - háblame de ti
+    - qué me puedes decir sobre ti
+    - qué eres
+    - cuéntame sobre ti
+    - cómo te describirías
+    - y tú quién eres
+- intent: about_fernando_alonso
+  examples: |
+    - qué opinas de fernando alonso
+    - cómo crees que va fernando alonso en la fórmula uno
+    - qué piensas de fernando alonso en la fórmula uno
+    - qué piensas del plan
+    - cómo ves el plan de fernando alonso
+- intent: tell_time
+  examples: |
+    - qué hora es
+    - dime la hora
+    - me podrías decir la hora
+    - a qué hora estamos
+
+- intent: nlu_fallback
+  examples: |
+    - amo a ver que dise
+    - mefovjsfocjsobjdsvo
+    - vkoskvpskvsspvpskvjisvhsihvsihvsiaa
+    - aclmacm
+    - asmadajcipadpdvaj
+    - vsdpdkvpsdkvpskpvks
+    - papapapapapapapappapapa
+    - mamamamamam

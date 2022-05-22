@@ -3,9 +3,10 @@
 """
 import os
 import pyaudio
+from sr.vosk_adapter import PyAudioStreamOnVosk
 
 #Configuraciones para el grabador de PyAudio
-THRESHOLD = 1500 
+THRESHOLD = 10000
 CHUNK_SIZE = 1024
 RATE = 16000
 SILENT_CHUNKS = 1 * RATE / CHUNK_SIZE  # about 3sec
@@ -17,6 +18,20 @@ TRIM_APPEND = RATE / 4
 
 # Configuraciones para el reproductor en PyAudio
 PLAYER_CHUNK_SIZE = 1024
+
+#Configuraciones para Vosk
+VOSK_MODEL_PATH = os.path.abspath('model_files/model/')
+VOSK_RATE = 16000
+RECORDER_ADAPTER = PyAudioStreamOnVosk()
+
+#Configuraciones para el chatbot
+BOT_NAME_VARIANTS = ['arcadia', 'arabia',]
+NO_CONNECTION_TO_CHATBOT_MESSAGE = '¡Uh, oh! No puedo atenderte en este momento porque no puedo acceder a mis conocimientos, lo siento.'
+
+#Configuraciones de NanoTTS
+VOICE_TTS = 'es-ES'
+SPEED_TTS = 1.25
+PITCH_TTS = 1.1
 
 # Configuraciones para testing
 TESTING_FILES = os.path.abspath('test_files')

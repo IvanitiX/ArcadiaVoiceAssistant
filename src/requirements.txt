@@ -1,5 +1,5 @@
 rasa
 PyAudio
-python-ffmpeg
+ffmpeg-python
 nanotts
 vosk

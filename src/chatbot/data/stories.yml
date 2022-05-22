@@ -28,3 +28,40 @@ stories:
   - action: utter_did_that_help
   - intent: deny
   - action: utter_goodbye
+
+- story: talking about me
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: talk_about_me
+  - action: utter_about_me
+  - intent: opinion_siri
+  - action: utter_siri_opinion
+
+- story: asking time path
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: tell_time
+  - action: action_tell_time
+
+- story: interactive_story_1
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: nlu_fallback
+  - action: utter_out_of_scope
+  - intent: nlu_fallback
+  - action: utter_out_of_scope
+  - intent: out_of_scope
+  - action: utter_out_of_scope
+  - intent: out_of_scope
+  - action: utter_out_of_scope
+  - intent: nlu_fallback
+  - action: utter_out_of_scope
+  - intent: nlu_fallback
+  - action: utter_out_of_scope
+  - intent: nlu_fallback
+  - action: utter_out_of_scope
+  - intent: nlu_fallback
+  - action: utter_out_of_scope

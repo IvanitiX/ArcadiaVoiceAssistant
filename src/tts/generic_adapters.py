@@ -1,3 +1,3 @@
 class TTSGenericAdapter():
-    def generate_voice(text):
+    def generate_voice(self,text):
         pass
