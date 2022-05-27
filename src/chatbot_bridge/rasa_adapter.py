@@ -4,7 +4,7 @@ from .generic_adapters import ChatbotGenericAdapter
 
 class RasaChatbotAdapter(ChatbotGenericAdapter):
     def __init__(self):
-        self.last_result = ''
+        self.last_result = []
 
     def no_connection_to_knowledge_server(self):
         """
@@ -19,7 +19,7 @@ class RasaChatbotAdapter(ChatbotGenericAdapter):
             @param query Texto para consultar.
             @return last_result Respuesta de Rasa a la petición solicitada.
         """
-        self.last_result = ''
+        self.last_result = []
         r = None
         try:
             r = requests.post('http://localhost:5005/webhooks/rest/webhook', json={"sender": '', "message": query})
@@ -27,12 +27,18 @@ class RasaChatbotAdapter(ChatbotGenericAdapter):
             self.last_result = self.no_connection_to_knowledge_server()
 
         if r is not None:
-            print("Bot says, ")
+            print(f"Bot says, {r.json()}")
             for i in r.json():
                 try:
-                    self.last_result += i['text']
+                    self.last_result.append(i['text'])
                 except KeyError:
-                    self.last_result += ''
+                    try:
+                        if i['custom']['text']:
+                            self.last_result.append(u'{}'.format(i['custom']['text']))
+                        source = str(i['custom']['audio'])
+                        self.last_result.append(f'[>] {source}')
+                    except:
+                        pass
         print(f"{self.last_result}")
 
         return self.get_last_result()

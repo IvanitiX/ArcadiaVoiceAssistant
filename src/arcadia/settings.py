@@ -2,7 +2,7 @@
     Archivo de parámetros y configuraciones del Asistente.
 """
 import os
-import pyaudio
+from pyaudio import paInt16
 from sr.vosk_adapter import PyAudioStreamOnVosk
 
 #Configuraciones para el grabador de PyAudio
@@ -10,7 +10,7 @@ THRESHOLD = 10000
 CHUNK_SIZE = 1024
 RATE = 16000
 SILENT_CHUNKS = 1 * RATE / CHUNK_SIZE  # about 3sec
-FORMAT = pyaudio.paInt16
+FORMAT = paInt16
 FRAME_MAX_VALUE = 2 ** 15 - 1
 NORMALIZE_MINUS_ONE_dB = 10 ** (-1.0 / 20)
 CHANNELS = 1

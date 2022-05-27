@@ -1,20 +1,37 @@
 version: '3.1'
 intents:
+- about_fernando_alonso
 - affirm
+- city_weather
 - deny
 - goodbye
 - greet
+- light_price
 - mood_great
 - mood_unhappy
 - nlu_fallback
-- talk_about_me
 - opinion_siri
-- about_fernando_alonso
+- play_radio
+- talk_about_me
 - tell_time
-
+- throw_dice
+entities:
+- city
+slots:
+  city:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: custom
 actions:
-  - action_tell_time
-
+- action_light_price
+- action_tell_time
+- action_tell_weather
+- action_throw_dice
+- utter_goodbye
+- utter_greet
+- utter_out_of_scope
+- utter_trust_the_plan
 responses:
   utter_greet:
   - text: ¡Hey, hola! ¿Qué tal?
@@ -34,7 +51,10 @@ responses:
   - text: Pues soy un Asistente Virtual como los demás, pero aunque no sé mucho, voy aprendiendo cosas poco a poco. Puede que sea la becaria del grupo.
   utter_trust_the_plan:
   - text: Si bien los resultados dejan a Alonso en media tabla, hay que seguir confiando en el Plan.
-
+  utter_play_radio:
+  - custom:
+      text: De acuerdo, te pongo los cuarenta.
+      audio: http://21313.live.streamtheworld.com/LOS40.mp3
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true

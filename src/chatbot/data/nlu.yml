@@ -10,6 +10,7 @@ nlu:
     - buenas noches
     - holi
     - buenas
+    - hoola
 - intent: goodbye
   examples: |
     - adiós
@@ -86,13 +87,50 @@ nlu:
     - qué piensas de fernando alonso en la fórmula uno
     - qué piensas del plan
     - cómo ves el plan de fernando alonso
+    - que piensas de fernando alonso
 - intent: tell_time
   examples: |
     - qué hora es
     - dime la hora
     - me podrías decir la hora
     - a qué hora estamos
-
+- intent: throw_dice
+  examples: |
+    - tira un dado
+    - lanza un dado
+    - tira el dado
+    - lanza el dado
+- intent: light_price
+  examples: |
+    - a cómo está el precio de la luz
+    - cuánto cuesta la luz hoy
+    - cuánto vale la luz
+    - dime el precio de la luz hoy
+- intent: play_radio
+  examples: |
+    - pon los cuarenta
+    - pon los 40
+    - ponme la radio
+    - enciende la radio
+    - pon la radio
+    - reproduce los cuarenta
+    - reproduce los 40
+- intent: city_weather
+  examples: |
+    - qué tiempo hace en [granada](city)
+    - cómo está el tiempo en [Málaga](city)
+    - cómo está el clima en [madrid](city)
+    - cómo está [Londres](city) hoy
+    - dime qué tiempo hace en [parís](city)
+    - dime el tiempo que hace en [Nueva York](city)
+    - que tiempo hace en [granada](city)
+    - dime el tiempo que hace en [sevilla](city)
+    - dime como esta el clima en [malaga](city)
+    - que tiempo hara en [barcelona](city)
+    - que tiempo hara en [sevilla](city)
+    - como esta el tiempo en [denia](city)
+    - que clima hace en [granada](city)
+    - que tiempo hara en [huelva](city)
 - intent: nlu_fallback
   examples: |
     - amo a ver que dise
@@ -103,3 +141,4 @@ nlu:
     - vsdpdkvpsdkvpskpvks
     - papapapapapapapappapapa
     - mamamamamam
+    - adios

@@ -45,6 +45,20 @@ stories:
   - intent: tell_time
   - action: action_tell_time
 
+- story: roll the dice
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: throw_dice
+  - action: action_throw_dice
+
+- story: tell light price
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: light_price
+  - action: action_light_price
+
 - story: interactive_story_1
   steps:
   - intent: greet
@@ -65,3 +79,24 @@ stories:
   - action: utter_out_of_scope
   - intent: nlu_fallback
   - action: utter_out_of_scope
+
+- story: interactive_story_2
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: city_weather
+    entities:
+    - city: granada
+  - action: action_tell_weather
+  - intent: city_weather
+    entities:
+    - city: sevilla
+  - action: action_tell_weather
+  - intent: city_weather
+    entities:
+    - city: malaga
+  - action: action_tell_weather
+  - intent: city_weather
+    entities:
+    - city: barcelona
+  - action: action_tell_weather

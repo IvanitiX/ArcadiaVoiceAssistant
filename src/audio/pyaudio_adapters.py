@@ -1,4 +1,4 @@
-from .generic_adapters import AudioRecorderAdapter, AudioPlayerAdapter
+from audio.generic_adapters import AudioRecorderAdapter, AudioPlayerAdapter
 from arcadia import settings
 
 from array import array

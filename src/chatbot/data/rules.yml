@@ -21,3 +21,8 @@ rules:
   steps:
   - intent: about_fernando_alonso
   - action: utter_trust_the_plan
+
+- rule: Pon los 40 si piden que se encienda la radio
+  steps:
+  - intent: play_radio
+  - action: utter_play_radio
