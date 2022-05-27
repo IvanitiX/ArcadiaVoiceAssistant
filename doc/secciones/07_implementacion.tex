@@ -126,6 +126,7 @@ Por otro lado, en Python, podemos usar la librería \texttt{requests} para hacer
 	columns=flexible,
 	commentstyle=\color{green},
 	stringstyle=\color{blue},
+	keywordstyle=\color{magenta},
 	basicstyle={\small\ttfamily},
 	numbers=none,
 	breaklines=true,
@@ -180,22 +181,40 @@ Como ejemplo, podríamos hacer que si preguntamos sobre el Asistente nos hable u
 \begin{enumerate}
 	\item Vamos primero a declarar una intención en \texttt{data/nlu.yml} llamado \texttt{about\_me} donde podemos poner de ejemplos algunas frases como \textit{Háblame de ti} o \textit{¿Cómo te describirías?}:
 	\begin{lstlisting}
-		
+		- intent: talk_about_me
+		examples: |
+		- hablame sobre ti
+		- hablame de ti
+		- que me puedes decir sobre ti
+		- que eres
+		- cuentame sobre ti
+		- como te describirias
+		- y tu quien eres
 	\end{lstlisting}
 
 	\item También tendríamos que darle una declaración en \texttt{domain.yml}
 	\begin{lstlisting}
-		
+		responses:
+		utter_about_me:
+		- text: Pues soy un Asistente Virtual como los demas, pero aunque no se mucho, voy aprendiendo cosas poco a poco. Puede que sea la becaria del grupo
 	\end{lstlisting}
 
 	\item Tenemos que declarar las intenciones también en \texttt{domain.yml}
 	\begin{lstlisting}
-		
+		intents:
+		- affirm
+		- deny
+		- goodbye
+		- greet
+		- mood_great
+		- mood_unhappy
+		- nlu_fallback
+		- talk_about_me
 	\end{lstlisting}
 
 	\item Finalmente , hay que poner a entrenar el modelo y probarlo:
 	\begin{lstlisting}
-		
+		.
 	\end{lstlisting}
 \end{enumerate}
 
@@ -208,16 +227,179 @@ Esto nos genera un problema debido a que no está entrenado para estos casos, au
 De esta forma, al poner cualquier otra frase al que no se le pueda asociar ninguna acción (por ejemplo, si decimos \textit{¿Cuál es la raíz cuadrada de una sardina?}, una frase que no tiene mucho sentido, o si no se van a implementar funciones de cálculo, no tendría respuesta), se le puede aplicar una regla que diga que si la intención es el \textit{fallback}, nos llame a la declaración que hemos mencionado antes.
 
 \subsection{Programando funciones más complejas con Rasa Actions}
+Lo que hemos comentado en los puntos anteriores sólo sirven para dar respuestas fijas, de forma que siempre se dirá lo mismo. ¿Qué pasaría entonces si necesitamos hacer acciones dinámicas, como dar la hora? En esencia, sólo cambiaríamos como hemos dicho anteriormente de devolver una declaración a a llamar a una acción. ¿Cómo se haría?
+
+\begin{enumerate}
+	\item Vamos primero a declarar una intención en \texttt{data/nlu.yml} llamado \texttt{tell\_time} donde podemos poner de ejemplos algunas frases como \textit{¿Qué hora es?} o \textit{Dime la hora}:
+	\begin{lstlisting}
+		- intent: tell_time
+		examples: |
+		- que hora es
+		- dime la hora
+		- me podrias decir la hora
+		- a que hora estamos
+	\end{lstlisting}
+	
+	\item Tenemos que declarar las intenciones en \texttt{domain.yml}
+	\begin{lstlisting}
+		intents:
+		- affirm
+		- deny
+		- goodbye
+		- greet
+		- mood_great
+		- mood_unhappy
+		- nlu_fallback
+		- talk_about_me
+		- tell_time
+	\end{lstlisting}
+
+	\item A diferencia de las declaraciones, ahora debemos programar nuestras acciones en el fichero \texttt{actions/actions.py}. Esta sería la estructura de la clase que implementaría la acción, con los respectivos comentarios:
+
+	\begin{lstlisting}[language=Python]
+		class ActionTellTime(Action):
+		
+		def name(self) -> Text:
+		return "action_tell_time"
+		
+		def run(self, dispatcher: CollectingDispatcher,
+		tracker: Tracker,
+		domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+		
+		dispatcher.utter_message(text=u"Son las {0}".format(datetime.datetime.now().strftime('%H horas y %M minutos')))
+		
+		return []
+	\end{lstlisting}
+
+	\item Debemos listar también la acción en \texttt{domain.yml}, en la sección \texttt{actions}:
+	\begin{lstlisting}
+		actions:
+		- action_tell_time
+	\end{lstlisting}
+	
+	\item Finalmente , hay que poner a entrenar el modelo y probarlo usando \texttt{rasa train}
+\end{enumerate}
+
+\subsection{Conectarse a otros lugares de Internet}
+Al igual que para conectarnos desde Arcadia hasta la fuente de conocimientos de Rasa, podemos también usar la librería \texttt{requests} para poder conectarnos a una API que nos dé la información. De esta forma, y decodificando el JSON que nos den de resultado, podemos conectarnos a Internet, sacar el JSON, y poder tratar la información de este en nuestro caso.
+
+Como ejemplo en esta parte, podríamos consultar el precio de la luz usando la API de preciodelaluz.com, donde podemos ver los valores máximos, mínimos y medios de su valor en el día, además de ofrecernos el precio para esa hora.
+
+Por ello, usando los endpoints que nos ofrecen, con la siguiente estructura (que según el endpoint tiene más o menos):
+\begin{lstlisting}
+	{
+		"date": "27-05-2022",
+		"hour": "19-20",
+		"is-cheap": false,
+		"is-under-avg": false,
+		"market": "PVPC",
+		"price": 289.87,
+		"units": "EUR/Mwh"
+	}
+\end{lstlisting}
+
+Podemos coger los valores de \texttt{hour} y \texttt{price} para crear una frase que el sistema pueda leer.
+\begin{lstlisting}[language=Python]
+	class ActionLightPrice(Action):
+	def name(self) -> Text:
+	return "action_light_price"
+	
+	def run(self, dispatcher: CollectingDispatcher,
+	tracker: Tracker,
+	domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+	
+	try:
+	request = requests.get('https://api.preciodelaluz.org/v1/prices/now?zone=PCB')
+	if request is not None:
+	price_now = u'{0} euros el megavatio hora'.format(request.json()['price'])
+	# Lo mismo para obtener el precio medio (avg_price), el maximo (max_price) y el minimo (min_price)
+	
+	dispatcher.utter_message(text=u"En Espana, a esta hora, el precio es de {0}. De media, hoy pagaremos {1}, siendo la hora mas barata {2}; y la mas cara {3}".format(price_now,avg_price,min_price,max_price))
+	except requests.exceptions.ConnectionError as e:
+	dispatcher.utter_message(ActionsSettings.NO_CONNECTION_TO_INTERNET)
+	
+	return []
+\end{lstlisting}
+
+También podríamos aprovechar que tenemos conexión a Internet para tener audios que se pueden reproducir en el Asistente, incluso fuentes de audio en directo como las radios en Internet.
+
+En este caso, el sistema es más sencillo, ya que como se ha discutido en la sección ... podemos usar valores personalizados que nos permitan poner URLs que podamos tratar de forma independiente en el flujo.
+
+Para ello podemos hacer uso de campos \textit{custom} que nos permitan poner valores personalizados, y hacer un parsing de esos bloques (aunque en este caso solo ha sido probado con una emisora):
+
+\begin{lstlisting}
+	utter_play_radio:
+		- custom:
+			text: De acuerdo, te pongo /*Nombre de emisora*/.
+			audio: /*URL*/
+\end{lstlisting}
 
 \subsection{Funciones contextuales}
 
-\subsection{Conectarse a otros lugares de Internet}
+Un último caso que sería interesante de analizar sería poder tratar las frases en un contexto, del que sacar un valor que trataremos para sacar otra información. Para ello, un caso de uso que pueda aplicar Arcadia en este sentido podría ser preguntar por el tiempo en una ciudad.
+
+Podemos sacar provecho en las funcionalidades de Rasa de las entidades, una unidad dentro de la frase que varía el sentido de lo que se ha dicho parcialmente y que se debe tener en cuenta para procesar la respuesta.
+
+Por ello, no es lo mismo preguntar por el tiempo en Granada que preguntarlo en Barcelona, teniendo en cuenta las diferencias entre dónde están situadas, si están pasando por fenómenos en ese momento que no cubren ambas zonas, y otras condiciones meteorológicas. Por tanto, las respuestas van a cambiar, pero lo único que cambiará al preguntar será la ciudad donde preguntemos.
+
+Para poder extraer esa entidad, usando el ejemplo del tiempo en esa ciudad, podemos seguir los siguientes pasos:
+\begin{enumerate}
+	\item Declarar la entidad en el archivo \texttt{domain.yml}:
+	\begin{lstlisting}
+		entities:
+			- city /*Nombre de la entidad. Es la ciudad*/
+		slots:
+			city:
+				type: text
+				influence_conversation: true /*Esta variable indica si este campo es importante para entender lo que se quiere pedir*/
+				mappings:
+				- type: custom
+	\end{lstlisting}
+	\item Poner unos ejemplos en el archivo \texttt{data/nlu.yml}:
+	\begin{lstlisting}
+		- intent: city_weather
+		examples: |
+		- que tiempo hace en [granada](city)
+		- como esta el tiempo en [Malaga](city)
+		- como esta el clima en [madrid](city)
+		- como esta [Londres](city) hoy
+		- dime que tiempo hace en [paris](city)
+	\end{lstlisting}
+	\item Declarar una historia de usuario con algunos ejemplos de la entidad (o sea, ciudades) en los archivos  \texttt{data/stories.yml} y  \texttt{test/test\_stories.yml}:
+	\begin{lstlisting}
+		- story: interactive_story_2
+		steps:
+		- intent: greet
+		- action: utter_greet
+		
+		- intent: city_weather
+		entities:
+		- city: granada /*En este tipo de historias debemos indicar la entidad relacionada con la intencion. Como en este caso exigimos que la ciudad aparezca, en el ejemplo ponemos una*/
+		- action: action_tell_weather
+		
+		- intent: city_weather
+		entities:
+		- city: sevilla
+		- action: action_tell_weather
+		
+	\end{lstlisting}
+
+	Para que sirva de ayuda a la hora de crear historias se puede emplear el comando \texttt{rasa interactive}, de forma que podemos probar en una \textit{shell} si las intenciones y acciones se ejecutan correctamente, si se extraen bien las entidades, y de no ser así, podemos cambiar la ejecución. Al terminar una sesión interactiva, se puede guardar estos tests en los archivos de Rasa que se requieran.
+	
+	\item Entrenamos el modelo usando \texttt{rasa train}.
+\end{enumerate}
 
 \subsection{Últimos ajustes}
 
+Un cambio de última hora, debido a la posibilidad de poner audios usando lo que se ha comentado en la sección ... , necesitamos hacer un pequeño cambio en el flujo básico para tratar ese caso, y de ser así,  activar el reproductor con la URL.
+
+Además se ha pasado el proyecto por el linter ... y se han hecho los cambios pertinentes para que esté en concordancia con las guías de este.
+
 \section{Sprint 4}
 \subsection{Terminando la documentación del proyecto}
+Para realizar la documentación se ha hecho uso de \textit{PyDoc}, compilando toda la información que se ha escrito en los métodos en varios archivos web.
 
+Además se ha descrito la manera de ejecutar el programa y probarlo.
 \subsection{La licencia}
 
 \subsection{Limpieza del Repositorio}
