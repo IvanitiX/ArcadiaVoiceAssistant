@@ -4,3 +4,222 @@ La implementación del software se ha dividido en los anteriores sprints. Estos,
 y cada uno de ellos contiene un grupo de \textit{issues} que se corresponden con las distintas
 mejoras que se han ido incorporando al software a lo largo de su desarrollo.\\
 
+\section{Sprint 1}
+\subsection{Implementación de la reproducción de audio}
+Para esta parte se hizo un adaptador genérico con el único método que necesitaríamos
+de los reproductores: Reproducir un archivo con el método \texttt{play()}
+
+Tras ello se implementaron dos versiones del reproductor con base en ese adaptador,
+usando PyAudio y FFMpeg. En ambas plataformas se pudo implementar fácilmente, aunque PyAudio es más sencillo de integrar pero enfocado en archivos \texttt{.wav}, mientras que para usar FFMpeg había que usar el comando \texttt{ffplay} con las opciones, aunque este nos permite usar cualquier archivo de audio, incluso streamings de audio, como puede ser la radio por Internet.
+
+\subsection{Implementación de la grabación de audio}
+Para esta parte se hizo un adaptador genérico con el método que necesitaríamos
+de los reproductores: Reproducir un archivo con el método \texttt{record\_audio()}. De cara al futuro, también deberíamos permitir encauzar los datos que salen del micrófono para tratarlos posteriormente con el método \texttt{stream\_audio()}
+
+En este caso se ha querido realizar algo similar con respecto al punto anterior, pero la grabación del audio desde FFMpeg daba una señal con muchas interferencias, debido a que se debe apuntar a una interfaz hardware concreta, a diferencia de PyAudio, que usa el dispositivo por defecto. Así, al coger el audio del micrófono interno, se generaba mucho ruido de lo que captaba alrededor de este.
+
+\subsection{Adaptación de la API de Speech Recognition}
+Tal como se discutió en el anterior capítulo, se acabó eligiendo Vosk, el cual tiene una librería en Python a través de pip que nos permitía usarla.
+Para permitir el desarrollo de futuros adaptadores para otros sistemas de Reconocimiento del Habla, se ha optado por hacer otra Interfaz que sirva de marco para definir los métodos que se usarán en nuestro sistema.
+De esta interfaz se implementará la clase \texttt{VoskAdapter} del cual podemos sacar la transcripción de un audio.
+
+\subsection{Implementación del streaming de audio}
+A la hora de hacer las pruebas surgía una inquietud. Habría que perder un tiempo en grabar y pasarlo al sistema de reconocimiento del habla, de un audio que luego se borraría y puede ocupar espacio en memoria. Si realmente lo único que necesitamos es la transcripción, ¿podemos encauzar directamente la grabación del audio con el Speech Recognizer para obtenerlo? 
+
+Para ello había que implicar tanto el Grabador de Audio como el Software que nos transcriba el audio. Para ello haremos uso en la interfaz de \texttt{GenericAudioRecorder} del método \texttt{stream\_audio()}, que nos devolvería la referencia a los datos del audio en directo, para poder usarlos luego en otro lado.
+
+\subsection{Conectando el streaming con el Speech Recognition}
+Por otra parte, nuestro adaptador de SR nos debería permitir coger esos datos e ir procesando esa transcripción conforme va leyéndolos.
+
+Esta parte se ha conseguido realizar con PyAudio y Vosk, siguiendo esta aproximación:
+
+\begin{enumerate}
+	\item Abrimos el streaming de audio y lo pasamos como referencia
+	\item Mientras que no esté en silencio un número S de bloques (que podemos parametrizar):
+	\begin{enumerate}
+		\item Cogemos un bloque de N bytes (N se puede parametrizar) para leer.
+		\item Comprobamos que no esté en silencio. Si está en silencio (es decir, está en un volumen más bajo de un límite que podemos parametrizar), sumará el contador de S
+		\item Si no lo está, añadirá a la cadena de texto la transcripción de ese bloque
+	\end{enumerate}
+	\item Una vez se salga del bucle, cerramos el stream y devolvemos la cadena de la transcripción.
+\end{enumerate}
+
+En FFMpeg, debido a los problemas con la grabación, se ha optado por no hacer tampoco el streaming. Además, habría un problema con respecto al encauzamiento, puesto que espera un subproceso en vez de más código, por lo que sería más complicado de trabajar.
+
+\subsection{Adaptación del API de Text-to-Speech}
+Como lo que queremos es generar la voz, en nuestra Interfaz para adaptadores
+
+Para el Text-to-Speech hay que usar un repositorio externo llamado NanoTTS, tal como comentamos en el apartado del Análisis. sólo crearemos un método llamado \texttt{generate\_voice()}
+
+Para poder usar este programa, hay que descargarlo del repositorio y ejecutar su \texttt{Makefile} (aunque todo está bien explicado en el README del proyecto en GitHub \cite{nanotts}).
+
+A diferencia de los programas instalados por \textit{Aptitude}, hay que exportar el \texttt{PATH} de este Text-to-Speech, cosa que deberemos hacer cada vez que vayamos a usarlo (o integrarlo como parte de nuestra configuración de \textit{Bash}).
+
+La librería que nos permite implementar NanoTTS en Arcadia también hace otra suposición sobre el sitio donde están los archivos para los idiomas (según el código, deberían estar en \texttt{/usr/bin/lang/}), por lo que hay que copiar esos archivos en el lugar.
+
+Una vez cumplimentados los requisitos, sólo habría que poner un sitio donde guardar el audio y usar el método \texttt{speaks()} que generará el audio y lo guardará donde lo indiquemos. Además, a la hora de crear la instancia, nos permite parametrizar la velocidad de lectura y el tono.
+
+Nos da como resultado un archivo \texttt{.wav} que podemos reproducir con los adaptadores que hemos hecho anteriormente.
+
+
+\section{Sprint 2}
+\subsection{Creación del bot en RASA}
+Usar Rasa \cite{rasa} como un módulo de Python es bastante cómodo ya que puede comportarse como un CLI, facilitando gran parte de la creación de chatbots.
+
+Además, nos dan un proyecto de prueba donde explican cómo funcionan los archivos y cómo entrenar nuestro modelo, usando el comando \texttt{rasa init} o \texttt{python -m rasa init}.
+
+Dentro de la carpeta que nos crea, nos encontramos con el siguiente directorio:
+
+
+\dirtree{%
+	.1 chatbot.
+	.2 .rasa.
+	.3 cache.
+	.4 (Incluye todos los archivos temporales de entrenamiento de Rasa).
+	.2 actions.
+	.3 actions.py.
+	.3 \_\_init\_\_.py.
+	.2 data.
+	.3 nlu.yml.
+	.3 rules.yml.
+	.3 stories.yml.
+	.2 models.
+	.3 (Incluye los modelos en formato .tar.gz).
+	.2 tests.
+	.3 test\_stories.yml.
+	.2 config.yml.
+	.2 credentials.yml.
+	.2 domain.yml.
+	.2 endpoints.yml.
+}
+
+Rasa tiene como unidades básicas para entender la pregunta las intenciones (o \textit{intents}), que son las ideas que se quieren transmitir. Así, cuando alguien saluda, lo puede decir de varias formas (\textit{Hola, Buenos días, Hey} ...). Podremos controlar los ejemplos de las intenciones (y crear las nuestras propias) en \texttt{data/nlu.yml}
+
+Para dar las respuestas, Rasa usa dos conceptos \cite{rasa-respuestas}:
+\begin{itemize}
+	\item \textbf{Declaraciones (o \textit{utterances}):} Son aquellas respuestas que sólo precisan de una serie de textos (Por ejemplo, si pedimos que salude, podemos decir que siempre responda con un \textit{Muy buenas, ¿qué tal?}). Estas respuestas se declaran en la sección \texttt{responses} de \texttt{domain.yml}.
+	\item \textbf{Acciones (o \textit{actions}):} Son aquellas respuestas más complejas que necesitan de información dinámica (como poner frases aleatorias o decir la hora). Estas respuestas se declaran en la sección \texttt{actions} de \texttt{domain.yml}, y se deben programar en \texttt{actions/actions.py} (se explicará cómo hacerlo en secciones posteriores).
+\end{itemize}
+
+Para poder saber cómo relacionar las preguntas y las respuestas, tenemos dos maneras. Por una parte, podemos hacer que sigan reglas \cite{rasa-rules} de forma que cada vez que se manifieste una intención, debemos siempre relacionarlo con una respuesta. Estas reglas se pueden establecer en el archivo \texttt{data/rules.yml}
+
+Por otra parte, si queremos que sigan un flujo de conversación, podemos hacer historias de usuario \cite{rasa-stories}, donde representamos una serie de intenciones y sus respuestas en forma de acción o declaración, que podrán usarse para entrenar el modelo a base de ejemplos. Estas historias de usuario podemos tenerlas como parte del entrenamiento o como parte de la validación (que quedan aparte del entrenamiento para comprobar que lo aprendido se puede exportar a otros casos parecidos). Los casos de uso de entrenamiento se podrán introducir en \texttt{data/stories.yml}, y los de validación, en \texttt{tests/test\_stories.yml}
+
+Cuando se hagan cambios en el modelo, hay que volverlo a entrenar. Desde el archivo de configuración (\texttt{config.yml}) podemos hacer ajustes en las políticas de entrenamiento.
+Para entrenar desde Rasa se ejecuta \texttt{rasa train}, quien usando los casos de uso de entrenamiento como de validación, podrá aprender a entender las intenciones y dar así una respuesta.
+Para poner en marcha nuestro bot podemos ejecutar \texttt{rasa run}, iniciando así el servidor con la instancia.
+
+
+
+\subsection{Conexión del chatbot con scripts externos de Python}
+El servidor del chatbot se puede comunicar a través de una petición HTTP a localhost con un puerto que podemos especificar, de forma que podríamos enviar las peticiones y recibir sus respuestas, que podemos tratar posteriormente (por ejemplo, se pueden leer usando Text-to-Speech).
+
+Para ello, desde el archivo \texttt{credentials.yml} se puede activar la opción \texttt{rest} para dejar el puerto abierto y poder hacer peticiones en otro lado.
+
+Por otro lado, en Python, podemos usar la librería \texttt{requests} para hacer una petición POST en formato JSON en el que pasamos como entrada la siguiente estructura:
+
+\lstset{frame=tb,
+	language=Java,
+	aboveskip=3mm,
+	belowskip=3mm,
+	showstringspaces=false,
+	columns=flexible,
+	commentstyle=\color{green},
+	stringstyle=\color{blue},
+	basicstyle={\small\ttfamily},
+	numbers=none,
+	breaklines=true,
+	breakatwhitespace=true,
+	tabsize=3
+}
+
+\begin{lstlisting}
+	{
+		"sender": /*Nombre o ID del emisor*/,
+		"message": /*El texto a procesar*/
+	}
+\end{lstlisting}
+
+Como resultado nos devuelve otro JSON con esta otra estructura:
+
+\begin{lstlisting}
+	[ /*Lista de JSON de la misma estructura, para cada respuesta que se deba devolver*/
+	{
+	 "recipient_id": /*ID o nombre del receptor*/,
+	 "text": /*Texto con la respuesta*/
+ 	}, 
+	/*...*/
+	]
+\end{lstlisting}
+
+Alternativamente, se pueden devolver otras etiquetas como \textit{image} o \textit{custom}, donde podemos personalizar la respuesta.
+
+De aquí, lo que necesitaríamos es el texto o referencia de cada respuesta (indicado como \texttt{text}), lo cual podemos recopilar en un string para posteriormente devolverlo, o el campo custom que podemos tratar como sea necesario.
+
+\subsection{Implementando el flujo básico del chatbot}
+Una vez que se ha logrado hacer la conexión, tendríamos que implementar el flujo de nuestro Asistente, como hemos visto en la Figura \ref{fig:diagramaflujo}. Para ello, nuestra primera versión del programa realiza estos pasos en el bucle principal:
+\begin{enumerate}
+	\item Hace el reconocimiento del habla en streaming para obtener su transcripción:
+	\item Busca el \textit{trigger word} en la cadena y se queda con lo que hay después si es así. Si no, vuelve al paso 1.
+	\item Envía la petición de esa transcripción recortada al chatbot para que nos devuelva su respuesta
+	\item Genera la voz con la respuesta
+	\item Reproduce la voz con la respuesta. 
+\end{enumerate}
+
+
+
+\subsection{Controlando algunos fallos de conexión}
+Es posible que en algún momento pueda fallar la conexión entre Rasa y nuestro asistente, así que tendremos que tenerlo en cuenta. Una opción que podemos implementar es capturar las excepciones que digan que no puedan establecer la conexión (como \texttt{requests.exceptions.ConnectionError}), y hacer que nos diga que no puede conectarse con la Base de Conocimientos.
+
+\section{Sprint 3}
+\subsection{Haciendo funciones con solo texto}
+Este tipo de funciones son bastante simples ya que sólo hay que crear una intención, una declaración y unir ambas partes usando una regla o historia.
+
+Como ejemplo, podríamos hacer que si preguntamos sobre el Asistente nos hable un poquito de él. Para ello:
+
+\begin{enumerate}
+	\item Vamos primero a declarar una intención en \texttt{data/nlu.yml} llamado \texttt{about\_me} donde podemos poner de ejemplos algunas frases como \textit{Háblame de ti} o \textit{¿Cómo te describirías?}:
+	\begin{lstlisting}
+		
+	\end{lstlisting}
+
+	\item También tendríamos que darle una declaración en \texttt{domain.yml}
+	\begin{lstlisting}
+		
+	\end{lstlisting}
+
+	\item Tenemos que declarar las intenciones también en \texttt{domain.yml}
+	\begin{lstlisting}
+		
+	\end{lstlisting}
+
+	\item Finalmente , hay que poner a entrenar el modelo y probarlo:
+	\begin{lstlisting}
+		
+	\end{lstlisting}
+\end{enumerate}
+
+\subsection{¿Y si preguntan algo que no sabe?}
+
+En la documentación de Rasa se explica que hay una función de fallback \cite{rasa-fallback} donde caerían las respuestas que no tienen parecido con ninguna. En ese caso, nos dirige a \texttt{nlu\_fallback}, donde podemos definir como \textit{utterance} una respuesta por defecto.
+
+Esto nos genera un problema debido a que no está entrenado para estos casos, aunque podemos entrenarlo de forma interactiva usando \texttt{rasa interactive}, donde podremos escribir nuestras peticiones, controlar cuál intención debe lanzarse, y qué respuesta debería devolverse. 
+
+De esta forma, al poner cualquier otra frase al que no se le pueda asociar ninguna acción (por ejemplo, si decimos \textit{¿Cuál es la raíz cuadrada de una sardina?}, una frase que no tiene mucho sentido, o si no se van a implementar funciones de cálculo, no tendría respuesta), se le puede aplicar una regla que diga que si la intención es el \textit{fallback}, nos llame a la declaración que hemos mencionado antes.
+
+\subsection{Programando funciones más complejas con Rasa Actions}
+
+\subsection{Funciones contextuales}
+
+\subsection{Conectarse a otros lugares de Internet}
+
+\subsection{Últimos ajustes}
+
+\section{Sprint 4}
+\subsection{Terminando la documentación del proyecto}
+
+\subsection{La licencia}
+
+\subsection{Limpieza del Repositorio}
+
+
