@@ -100,3 +100,26 @@ stories:
     entities:
     - city: barcelona
   - action: action_tell_weather
+
+- story: interactive_story_3
+  steps:
+  - intent: city_weather
+    entities:
+    - city: baza
+  - action: action_tell_weather
+  - intent: city_weather
+    entities:
+    - city: vigo
+  - action: action_tell_weather
+  - intent: city_weather
+    entities:
+    - city: torremolinos
+  - action: action_tell_weather
+  - intent: city_weather
+    entities:
+    - city: jijona
+  - action: action_tell_weather
+  - intent: city_weather
+    entities:
+    - city: reus
+  - action: action_tell_weather

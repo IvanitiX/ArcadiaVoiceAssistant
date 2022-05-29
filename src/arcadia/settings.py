@@ -12,7 +12,7 @@ RATE = 16000
 SILENT_CHUNKS = 1 * RATE / CHUNK_SIZE  # about 3sec
 FORMAT = paInt16
 FRAME_MAX_VALUE = 2 ** 15 - 1
-NORMALIZE_MINUS_ONE_dB = 10 ** (-1.0 / 20)
+NORMALIZE_MINUS_ONE_DB = 10 ** (-1.0 / 20)
 CHANNELS = 1
 TRIM_APPEND = RATE / 4
 
@@ -26,7 +26,7 @@ RECORDER_ADAPTER = PyAudioStreamOnVosk()
 
 #Configuraciones para el chatbot
 BOT_NAME_VARIANTS = ['arcadia', 'arabia',]
-NO_CONNECTION_TO_CHATBOT_MESSAGE = '¡Uh, oh! No puedo atenderte en este momento porque no puedo acceder a mis conocimientos, lo siento.'
+NO_CONNECTION_TO_CHATBOT_MESSAGE = '¡Oh, no! No puedo atenderte en este momento porque no puedo acceder a mis conocimientos, lo siento.'
 
 #Configuraciones de NanoTTS
 VOICE_TTS = 'es-ES'

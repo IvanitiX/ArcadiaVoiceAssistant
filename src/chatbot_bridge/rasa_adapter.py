@@ -1,11 +1,18 @@
+"""
+Archivo para adaptar la comunicación de chatbots usando Rasa.
+@author Iván Valero Rodríguez
+"""
 import requests
 from arcadia import settings
 from .generic_adapters import ChatbotGenericAdapter
 
 class RasaChatbotAdapter(ChatbotGenericAdapter):
+    """
+        Interfaz genérica de comunicación de chatbots con Rasa.
+    """
     def __init__(self):
         self.last_result = []
-
+    
     def no_connection_to_knowledge_server(self):
         """
             Retorna el mensaje para avisar que no puede conectarse a Rasa.
@@ -20,24 +27,26 @@ class RasaChatbotAdapter(ChatbotGenericAdapter):
             @return last_result Respuesta de Rasa a la petición solicitada.
         """
         self.last_result = []
-        r = None
+        request = None
         try:
-            r = requests.post('http://localhost:5005/webhooks/rest/webhook', json={"sender": '', "message": query})
-        except requests.exceptions.ConnectionError as e:
-            self.last_result = self.no_connection_to_knowledge_server()
+            request = requests.post('http://localhost:5005/webhooks/rest/webhook', \
+            json={"sender": '', "message": query})
+        except requests.exceptions.ConnectionError:
+            self.last_result = [self.no_connection_to_knowledge_server(),]
 
-        if r is not None:
-            print(f"Bot says, {r.json()}")
-            for i in r.json():
+        if request is not None:
+            print(f"Bot says, {request.json()}")
+            for i in request.json():
                 try:
                     self.last_result.append(i['text'])
                 except KeyError:
                     try:
                         if i['custom']['text']:
-                            self.last_result.append(u'{}'.format(i['custom']['text']))
+                            text = i['custom']['text']
+                            self.last_result.append(f'{text}')
                         source = str(i['custom']['audio'])
                         self.last_result.append(f'[>] {source}')
-                    except:
+                    except KeyError:
                         pass
         print(f"{self.last_result}")
 
@@ -45,8 +54,7 @@ class RasaChatbotAdapter(ChatbotGenericAdapter):
 
     def get_last_result(self):
         """
-            Envía un texto a Rasa para analizarlo, devolviendo una respuesta.
-            @param query Texto para consultar.
-            @return last_result Respuesta de Rasa a la petición solicitada.
+            Devuelve la respuesta de la última petición.
+            @return last_result Ultima respuesta de Rasa a la petición solicitada.
         """
         return self.last_result

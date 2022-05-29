@@ -1,85 +1,135 @@
-# This files contains your custom actions which can be used to run
-# custom Python code.
-#
-# See this guide on how to implement these action:
-# https://rasa.com/docs/rasa/custom-actions
+"""
+Archivo de acciones en Rasa
+This files contains your custom actions which can be used to run
+custom Python code.
+@author Iván Valero Rodriguez
+@generated_by Rasa
+@docs https://rasa.com/docs/rasa/custom-actions
+"""
 
 import datetime
+from math import ceil
 import random
 from typing import Any, Text, Dict, List
 
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
-from requests import request
 import requests
 
 class ActionsSettings():
-    NO_CONNECTION_TO_INTERNET = 'No me puedo conectar a Internet ahora mismo, lo siento. Comprueba por si acaso la conexión.'
+    """
+    Clase para la configuración de variables necesarias en las acciones
+    """
+    NO_CONNECTION_TO_INTERNET = 'No me puedo conectar a Internet ahora mismo, lo siento.\
+         Comprueba por si acaso la conexión.'
     OPENWEATHERMAP_API_KEY = '831587653e5df6adadd7d236ea88f6d6'
 
 
 class ActionTellTime(Action):
+    """
+    Clase para la acción de decir la hora
+    """
 
     def name(self) -> Text:
+        """
+        Declaración de la acción
+        @return string Nombre de la acción
+        """
         return "action_tell_time"
 
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-
-        dispatcher.utter_message(text=u"Son las {0}".format(datetime.datetime.now().strftime('%H horas y %M minutos')))
+        """
+        Ejecución de la acción.
+        Extrae el datetime de este instante y extrae la hora
+        @utter_message Devuelve la hora en formato HH y MM (15:30 -> Son las 15 horas y 30 minutos)
+        """
+        dispatcher.utter_message(text=f"Son las \
+            {datetime.datetime.now().strftime('%H horas y %M minutos')}")
 
         return []
 
 class ActionThrowDice(Action):
+    """
+    Clase para la acción de tirar el dado
+    """
 
     def name(self) -> Text:
+        """
+        Declaración de la acción
+        @return string Nombre de la acción
+        """
         return "action_throw_dice"
 
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-
+        """
+        Ejecución de la acción.
+        Genera un número aleatorio entre 1 y 6
+        @utter_message Devuelve una cadena con el valor generado entre 1 y 6
+        """
         value = random.Random().randint(1,6)
-
-        dispatcher.utter_message(text=u"Acabo de tirar un dado y ha salido el {0}".format(value))
+        dispatcher.utter_message(text=f"Acabo de tirar un dado y ha salido el {value}")
 
         return []
 
 
 class ActionLightPrice(Action):
+    """
+    Clase para la acción de decir el precio de la luz
+    """
     def name(self) -> Text:
+        """
+        Declaración de la acción
+        @return string Nombre de la acción
+        """
         return "action_light_price"
 
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        """
+        Ejecución de la acción.
+        Extrae de Internet, de la API de preciodelaluz.com, los valores máximos, mínimos
+        y actuales del precio de la luz.
+        @utter_message Devuelve la cadena explicando los valores anteriormente descritos.
+        """
 
         try:
             request = requests.get('https://api.preciodelaluz.org/v1/prices/now?zone=PCB')
             if request is not None:
-                price_now = u'{0} euros el megavatio hora'.format(request.json()['price'])
+                price = request.json()['price']
+                price_now = f'{price} euros el megavatio hora'
             request = requests.get('https://api.preciodelaluz.org/v1/prices/avg?zone=PCB')
             if request is not None:
-                avg_price = u'{0} euros el megavatio hora'.format(request.json()['price'])
+                price = request.json()['price']
+                avg_price = f'{price} euros el megavatio hora'
             request = requests.get('https://api.preciodelaluz.org/v1/prices/max?zone=PCB')
             if request is not None:
+                price = request.json()['price']
                 range_hours = str(request.json()['hour']).replace('-', ' a ')
-                max_price = u'a {0} euros el megavatio hora de {1}'.format(request.json()['price'], range_hours)
+                max_price = f'a {price} euros el megavatio hora de {range_hours}'
             request = requests.get('https://api.preciodelaluz.org/v1/prices/min?zone=PCB')
             if request is not None:
+                price = request.json()['price']
                 range_hours = str(request.json()['hour']).replace('-', ' a ')
-                min_price = u'a {0} euros el megavatio hora de {1}'.format(request.json()['price'], range_hours)
+                min_price = f'a {price} euros el megavatio hora de {range_hours}'
 
-            dispatcher.utter_message(text=u"En España, a esta hora, el precio es de {0}. De media, hoy pagaremos \
-            {1}, siendo la hora más barata {2}; y la más cara {3}".format(price_now,avg_price,min_price,max_price))
-        except requests.exceptions.ConnectionError as e:
+            dispatcher.utter_message(text=f"En España, a esta hora, el precio es de {price_now}.\
+                 De media, hoy pagaremos {avg_price}, siendo la hora más barata {min_price};\
+                 y la más cara {max_price}")
+        except requests.exceptions.ConnectionError:
             dispatcher.utter_message(ActionsSettings.NO_CONNECTION_TO_INTERNET)
 
         return []
 
 class ActionTellWeather(Action):
-
+    """
+    Clase para la acción de decir el tiempo en una localidad
+    """
+    #Códigos de fenómenos meteorológicos, con la respuesta que debería dar.
     CODES = {
         "200" : ", está habiendo una tormenta con algo de lluvia.",
         "201" : ", está en medio de una tormenta, y además lloviendo",
@@ -145,9 +195,17 @@ class ActionTellWeather(Action):
     }
 
     def name(self) -> Text:
+        """
+        Declaración de la acción
+        @return string Nombre de la acción
+        """
         return "action_tell_weather"
 
     def weather_report_sky(self,code):
+        """
+        Método que asocia el código con el mensaje que debería añadir
+        @return weather_report Mensaje a añadir al reporte
+        """
         weather_report = self.CODES[str(code)]
         print(weather_report)
         return weather_report
@@ -155,33 +213,39 @@ class ActionTellWeather(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        """
+        Ejecución de la acción.
+        Extrae de la API de OpenWeatherMap a través de Internet
+        y fabrica el reporte del tiempo en la ciudad pasada como entidad.
+        @utter_message Devuelve el reporte del tiempo para la ciudad.
+        """
 
         city = next(tracker.get_latest_entity_values('city'),None)
-        url = f'https://api.openweathermap.org/data/2.5/weather?q={city}&appid={ActionsSettings().OPENWEATHERMAP_API_KEY}&units=metric&lang=es'
-        print(url)
+        uri = f'https://api.openweathermap.org/data/2.5/weather?q={city}'
+        app_id = f'&appid={ActionsSettings().OPENWEATHERMAP_API_KEY}'
+        units = '&units=metric'
+        lang = '&lang=es'
+        url = f'{uri}{app_id}{units}{lang}'
         try:
             request = requests.get(url)
             if request is not None:
                 req_json = request.json()
+                print(req_json)
                 city_name = req_json.get('name')
-                
-                max_temp = req_json['main']['temp_max']
-                min_temp = req_json['main']['temp_min']
-                current_temp = req_json['main']['temp']
-
-                print(req_json['weather'][0]['id'])
+                max_temp = ceil(req_json['main']['temp_max'])
+                min_temp = ceil(req_json['main']['temp_min'])
+                current_temp = ceil(req_json['main']['temp'])
                 pronostic = self.weather_report_sky(req_json['weather'][0]['id'])
-                print(pronostic)
 
-                sky = u'En {0} {1}.'.format(city_name, pronostic)
-                print(sky)
-                temp = f'Ahora mismo se está a {current_temp} grados, com máximas de {max_temp} y mínimas de {min_temp}.'
+                sky = f'En {city_name} {pronostic}.'
+                temp = f'Ahora mismo se está a {current_temp} grados,\
+                     con máximas de {max_temp} y mínimas de {min_temp}.'
 
                 dispatcher.utter_message(text=f'{sky} {temp}')
 
-        except requests.exceptions.ConnectionError as e:
-            dispatcher.utter_message(text=f'Ahora mismo no te puedo decir mucho del tiempo que hace en {city}. Consulta a tu meteorólogo.')
-            print(e)
+        except requests.exceptions.ConnectionError as error:
+            dispatcher.utter_message(text=f'Ahora mismo no te puedo decir mucho del tiempo\
+                 que hace en {city}. Consulta a tu meteorólogo.')
+            print(error)
 
         return []
-

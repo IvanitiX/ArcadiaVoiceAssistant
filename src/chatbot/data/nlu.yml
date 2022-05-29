@@ -131,6 +131,7 @@ nlu:
     - como esta el tiempo en [denia](city)
     - que clima hace en [granada](city)
     - que tiempo hara en [huelva](city)
+    - arcadia, que tiempo hace en [baza](city)
 - intent: nlu_fallback
   examples: |
     - amo a ver que dise

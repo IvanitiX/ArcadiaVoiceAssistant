@@ -1,28 +1,35 @@
-from audio.generic_adapters import AudioRecorderAdapter, AudioPlayerAdapter
-from arcadia import settings
-
+"""
+Archivo con las interfaz de PyAudio para adaptar al programa la comunicación del audio a E/S.
+@author Iván Valero Rodríguez
+"""
 from array import array
 from sys import byteorder
-from pyaudio import PyAudio
 import wave
+from pyaudio import PyAudio
+
+from arcadia import settings
+from audio.generic_adapters import AudioRecorderAdapter, AudioPlayerAdapter
 
 class PyAudioRecordingAdapter(AudioRecorderAdapter):
+    """
+        Interfaz de grabación de audio a través de PyAudio
+    """
     def __init__(self):
         self.recorder = PyAudio()
         self.silenced_chunks = 0
         self.audio_started = False
         self.audio_finished = False
-
-        self.THRESHOLD = settings.THRESHOLD 
-        self.CHUNK_SIZE = settings.CHUNK_SIZE
-        self.RATE = settings.RATE
-        self.SILENT_CHUNKS = 1 * self.RATE / self.CHUNK_SIZE  # about 3sec
-        self.FORMAT = settings.FORMAT
-        self.FRAME_MAX_VALUE = settings.FRAME_MAX_VALUE
-        self.NORMALIZE_MINUS_ONE_dB = settings.NORMALIZE_MINUS_ONE_dB
-        self.CHANNELS = settings.CHANNELS
-        self.TRIM_APPEND = settings.TRIM_APPEND
-        self.AUDIO_FOLDER_PATH = settings.AUDIO_FOLDER_PATH
+        self.last_stream = array('h')
+        self.threshold = settings.THRESHOLD
+        self.chunk_size = settings.CHUNK_SIZE
+        self.rate = settings.RATE
+        self.silent_chunks = 1 * self.rate / self.chunk_size  # about 3sec
+        self.format = settings.FORMAT
+        self.frame_max_value = settings.FRAME_MAX_VALUE
+        self.normalize_minus_one_db = settings.NORMALIZE_MINUS_ONE_DB
+        self.channels = settings.CHANNELS
+        self.trim_append = settings.TRIM_APPEND
+        self.audio_folder_path = settings.AUDIO_FOLDER_PATH
 
     def is_silent(self, audio_data_chunk):
         """
@@ -31,7 +38,7 @@ class PyAudioRecordingAdapter(AudioRecorderAdapter):
             @return Devuelve un booleano en función de si sobrepasa el THRESHOLD
         """
         print(max(audio_data_chunk))
-        return max(audio_data_chunk) < self.THRESHOLD
+        return max(audio_data_chunk) < self.threshold
 
     def check_silence(self, stream_data):
         """
@@ -46,17 +53,16 @@ class PyAudioRecordingAdapter(AudioRecorderAdapter):
         silent = self.is_silent(data_chunk)
 
         if self.audio_started:
-                if silent:
-                    self.silenced_chunks += 1
-                    if self.silenced_chunks > self.SILENT_CHUNKS:
-                        self.audio_started = False
-                        self.last_stream = array('h')
-                        return True
-                else: 
-                    self.silenced_chunks = 0
+            if silent:
+                self.silenced_chunks += 1
+                if self.silenced_chunks > self.silent_chunks:
+                    self.audio_started = False
+                    self.last_stream = array('h')
+                    return True
+            else:
+                self.silenced_chunks = 0
         elif not silent:
             self.audio_started = True
-        
         return False
 
     def record_voice(self):
@@ -66,26 +72,26 @@ class PyAudioRecordingAdapter(AudioRecorderAdapter):
             @return data_all La grabación del micrófono en formato binario.
         """
         stream = self.recorder.open(
-            format=self.FORMAT,
-            channels=self.CHANNELS, 
-            rate=self.RATE, 
-            input=True, 
+            format=self.format,
+            channels=self.channels,
+            rate=self.rate,
+            input=True,
             output=True,
-            frames_per_buffer=self.CHUNK_SIZE
+            frames_per_buffer=self.chunk_size
         )
 
         data_all = array('h')
 
         while True:
-            data_chunk = array('h', stream.read(self.CHUNK_SIZE))
+            data_chunk = array('h', stream.read(self.chunk_size))
             if byteorder == 'big':
                 data_chunk.byteswap()
             data_all.extend(data_chunk)
 
             if self.check_silence(data_chunk):
-                break            
+                break
 
-        sample_width = self.recorder.get_sample_size(self.FORMAT)
+        sample_width = self.recorder.get_sample_size(self.format)
         stream.stop_stream()
         stream.close()
         self.audio_started = False
@@ -100,11 +106,11 @@ class PyAudioRecordingAdapter(AudioRecorderAdapter):
             @return stream Comunicación de lo que recibe el micrófono en el dispositivo.
         """
         stream = self.recorder.open(
-            format=self.FORMAT,
-            channels=self.CHANNELS, 
-            rate=self.RATE, 
-            input=True, 
-            frames_per_buffer=self.CHUNK_SIZE
+            format=self.format,
+            channels=self.channels,
+            rate=self.rate,
+            input=True,
+            frames_per_buffer=self.chunk_size
         )
 
         stream.start_stream()
@@ -113,13 +119,17 @@ class PyAudioRecordingAdapter(AudioRecorderAdapter):
 
 
 class PyAudioPlayerAdapter(AudioPlayerAdapter):
+    """
+        Interfaz de reproducción de audio a través de PyAudio
+    """
     def __init__(self):
         self.player = PyAudio()
-        self.CHUNK_SIZE = settings.PLAYER_CHUNK_SIZE
+        self.chunk_size = settings.PLAYER_CHUNK_SIZE
 
     def play(self,audio):
         """
             Reproduce un archivo en .WAV
+            :param: audio Archivo de audio en formato .wav
         """
         audio_binary = wave.open(audio,'rb')
 
@@ -130,10 +140,10 @@ class PyAudioPlayerAdapter(AudioPlayerAdapter):
             output=True
         )
 
-        audio_chunk_data = audio_binary.readframes(self.CHUNK_SIZE)
-        while (len(audio_chunk_data) > 0) :
+        audio_chunk_data = audio_binary.readframes(self.chunk_size)
+        while len(audio_chunk_data) > 0 :
             audio_stream.write(audio_chunk_data)
-            audio_chunk_data = audio_binary.readframes(self.CHUNK_SIZE)
+            audio_chunk_data = audio_binary.readframes(self.chunk_size)
 
         self.player.close(audio_stream)
         audio_binary.close()

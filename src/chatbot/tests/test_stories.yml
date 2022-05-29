@@ -114,4 +114,20 @@ stories:
     entities:
     - city: huelva
   - action: action_tell_weather
+  - intent: city_weather
+    entities:
+    - city: baza
+  - action: action_tell_weather
+  - intent: city_weather
+    entities:
+    - city: oviedo
+  - action: action_tell_weather
+  - intent: city_weather
+    entities:
+    - city: córdoba
+  - action: action_tell_weather
+  - intent: city_weather
+    entities:
+    - city: murcia
+  - action: action_tell_weather
 
