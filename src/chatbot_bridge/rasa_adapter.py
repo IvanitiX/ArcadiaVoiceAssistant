@@ -4,7 +4,7 @@ Archivo para adaptar la comunicación de chatbots usando Rasa.
 """
 import requests
 from arcadia import settings
-from .generic_adapters import ChatbotGenericAdapter
+from chatbot_bridge.generic_adapters import ChatbotGenericAdapter
 
 class RasaChatbotAdapter(ChatbotGenericAdapter):
     """

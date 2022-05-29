@@ -1,0 +1,243 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module actions</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>actions</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/ivan/Escritorio/TFG/TFG_AsistenteVozModular/src/chatbot/actions/actions.py">/home/ivan/Escritorio/TFG/TFG_AsistenteVozModular/src/chatbot/actions/actions.py</a></font></td></tr></table>
+    <p><tt>Archivo&nbsp;de&nbsp;acciones&nbsp;en&nbsp;Rasa<br>
+This&nbsp;files&nbsp;contains&nbsp;your&nbsp;custom&nbsp;actions&nbsp;which&nbsp;can&nbsp;be&nbsp;used&nbsp;to&nbsp;run<br>
+custom&nbsp;Python&nbsp;code.<br>
+@author&nbsp;Iván&nbsp;Valero&nbsp;Rodriguez<br>
+@generated_by&nbsp;Rasa<br>
+@docs&nbsp;<a href="https://rasa.com/docs/rasa/custom-actions">https://rasa.com/docs/rasa/custom-actions</a></tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="datetime.html">datetime</a><br>
+</td><td width="25%" valign=top><a href="random.html">random</a><br>
+</td><td width="25%" valign=top><a href="requests.html">requests</a><br>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="builtins.html#object">builtins.object</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="actions.html#ActionsSettings">ActionsSettings</a>
+</font></dt></dl>
+</dd>
+<dt><font face="helvetica, arial"><a href="rasa_sdk.interfaces.html#Action">rasa_sdk.interfaces.Action</a>(<a href="builtins.html#object">builtins.object</a>)
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="actions.html#ActionLightPrice">ActionLightPrice</a>
+</font></dt><dt><font face="helvetica, arial"><a href="actions.html#ActionTellTime">ActionTellTime</a>
+</font></dt><dt><font face="helvetica, arial"><a href="actions.html#ActionTellWeather">ActionTellWeather</a>
+</font></dt><dt><font face="helvetica, arial"><a href="actions.html#ActionThrowDice">ActionThrowDice</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="ActionLightPrice">class <strong>ActionLightPrice</strong></a>(<a href="rasa_sdk.interfaces.html#Action">rasa_sdk.interfaces.Action</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Clase&nbsp;para&nbsp;la&nbsp;acción&nbsp;de&nbsp;decir&nbsp;el&nbsp;precio&nbsp;de&nbsp;la&nbsp;luz<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="actions.html#ActionLightPrice">ActionLightPrice</a></dd>
+<dd><a href="rasa_sdk.interfaces.html#Action">rasa_sdk.interfaces.Action</a></dd>
+<dd><a href="builtins.html#object">builtins.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="ActionLightPrice-name"><strong>name</strong></a>(self) -&gt; str</dt><dd><tt>Declaración&nbsp;de&nbsp;la&nbsp;acción<br>
+@return&nbsp;string&nbsp;Nombre&nbsp;de&nbsp;la&nbsp;acción</tt></dd></dl>
+
+<dl><dt><a name="ActionLightPrice-run"><strong>run</strong></a>(self, dispatcher: rasa_sdk.executor.CollectingDispatcher, tracker: rasa_sdk.interfaces.Tracker, domain: Dict[str, Any]) -&gt; List[Dict[str, Any]]</dt><dd><tt>Ejecución&nbsp;de&nbsp;la&nbsp;acción.<br>
+Extrae&nbsp;de&nbsp;Internet,&nbsp;de&nbsp;la&nbsp;API&nbsp;de&nbsp;preciodelaluz.com,&nbsp;los&nbsp;valores&nbsp;máximos,&nbsp;mínimos<br>
+y&nbsp;actuales&nbsp;del&nbsp;precio&nbsp;de&nbsp;la&nbsp;luz.<br>
+@utter_message&nbsp;Devuelve&nbsp;la&nbsp;cadena&nbsp;explicando&nbsp;los&nbsp;valores&nbsp;anteriormente&nbsp;descritos.</tt></dd></dl>
+
+<hr>
+Methods inherited from <a href="rasa_sdk.interfaces.html#Action">rasa_sdk.interfaces.Action</a>:<br>
+<dl><dt><a name="ActionLightPrice-__str__"><strong>__str__</strong></a>(self) -&gt; str</dt><dd><tt>Return&nbsp;str(self).</tt></dd></dl>
+
+<hr>
+Data descriptors inherited from <a href="rasa_sdk.interfaces.html#Action">rasa_sdk.interfaces.Action</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="ActionTellTime">class <strong>ActionTellTime</strong></a>(<a href="rasa_sdk.interfaces.html#Action">rasa_sdk.interfaces.Action</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Clase&nbsp;para&nbsp;la&nbsp;acción&nbsp;de&nbsp;decir&nbsp;la&nbsp;hora<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="actions.html#ActionTellTime">ActionTellTime</a></dd>
+<dd><a href="rasa_sdk.interfaces.html#Action">rasa_sdk.interfaces.Action</a></dd>
+<dd><a href="builtins.html#object">builtins.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="ActionTellTime-name"><strong>name</strong></a>(self) -&gt; str</dt><dd><tt>Declaración&nbsp;de&nbsp;la&nbsp;acción<br>
+@return&nbsp;string&nbsp;Nombre&nbsp;de&nbsp;la&nbsp;acción</tt></dd></dl>
+
+<dl><dt><a name="ActionTellTime-run"><strong>run</strong></a>(self, dispatcher: rasa_sdk.executor.CollectingDispatcher, tracker: rasa_sdk.interfaces.Tracker, domain: Dict[str, Any]) -&gt; List[Dict[str, Any]]</dt><dd><tt>Ejecución&nbsp;de&nbsp;la&nbsp;acción.<br>
+Extrae&nbsp;el&nbsp;datetime&nbsp;de&nbsp;este&nbsp;instante&nbsp;y&nbsp;extrae&nbsp;la&nbsp;hora<br>
+@utter_message&nbsp;Devuelve&nbsp;la&nbsp;hora&nbsp;en&nbsp;formato&nbsp;HH&nbsp;y&nbsp;MM&nbsp;(15:30&nbsp;-&gt;&nbsp;Son&nbsp;las&nbsp;15&nbsp;horas&nbsp;y&nbsp;30&nbsp;minutos)</tt></dd></dl>
+
+<hr>
+Methods inherited from <a href="rasa_sdk.interfaces.html#Action">rasa_sdk.interfaces.Action</a>:<br>
+<dl><dt><a name="ActionTellTime-__str__"><strong>__str__</strong></a>(self) -&gt; str</dt><dd><tt>Return&nbsp;str(self).</tt></dd></dl>
+
+<hr>
+Data descriptors inherited from <a href="rasa_sdk.interfaces.html#Action">rasa_sdk.interfaces.Action</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="ActionTellWeather">class <strong>ActionTellWeather</strong></a>(<a href="rasa_sdk.interfaces.html#Action">rasa_sdk.interfaces.Action</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Clase&nbsp;para&nbsp;la&nbsp;acción&nbsp;de&nbsp;decir&nbsp;el&nbsp;tiempo&nbsp;en&nbsp;una&nbsp;localidad<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="actions.html#ActionTellWeather">ActionTellWeather</a></dd>
+<dd><a href="rasa_sdk.interfaces.html#Action">rasa_sdk.interfaces.Action</a></dd>
+<dd><a href="builtins.html#object">builtins.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="ActionTellWeather-name"><strong>name</strong></a>(self) -&gt; str</dt><dd><tt>Declaración&nbsp;de&nbsp;la&nbsp;acción<br>
+@return&nbsp;string&nbsp;Nombre&nbsp;de&nbsp;la&nbsp;acción</tt></dd></dl>
+
+<dl><dt><a name="ActionTellWeather-run"><strong>run</strong></a>(self, dispatcher: rasa_sdk.executor.CollectingDispatcher, tracker: rasa_sdk.interfaces.Tracker, domain: Dict[str, Any]) -&gt; List[Dict[str, Any]]</dt><dd><tt>Ejecución&nbsp;de&nbsp;la&nbsp;acción.<br>
+Extrae&nbsp;de&nbsp;la&nbsp;API&nbsp;de&nbsp;OpenWeatherMap&nbsp;a&nbsp;través&nbsp;de&nbsp;Internet<br>
+y&nbsp;fabrica&nbsp;el&nbsp;reporte&nbsp;del&nbsp;tiempo&nbsp;en&nbsp;la&nbsp;ciudad&nbsp;pasada&nbsp;como&nbsp;entidad.<br>
+@utter_message&nbsp;Devuelve&nbsp;el&nbsp;reporte&nbsp;del&nbsp;tiempo&nbsp;para&nbsp;la&nbsp;ciudad.</tt></dd></dl>
+
+<dl><dt><a name="ActionTellWeather-weather_report_sky"><strong>weather_report_sky</strong></a>(self, code)</dt><dd><tt>Método&nbsp;que&nbsp;asocia&nbsp;el&nbsp;código&nbsp;con&nbsp;el&nbsp;mensaje&nbsp;que&nbsp;debería&nbsp;añadir<br>
+@return&nbsp;weather_report&nbsp;Mensaje&nbsp;a&nbsp;añadir&nbsp;al&nbsp;reporte</tt></dd></dl>
+
+<hr>
+Data and other attributes defined here:<br>
+<dl><dt><strong>CODES</strong> = {'200': ', está habiendo una tormenta con algo de lluvia.', '201': ', está en medio de una tormenta, y además lloviendo', '202': ', está en medio de una tormenta lloviendo a cántaros', '210': ', se avecina una pequeña tormenta', '211': ', está en medio de una tormenta', '212': ', está en medio de una fuerte tormenta', '221': ', hay una tormenta con nubes y claros', '230': ', está en medio de una tormenta con algo de llovizna', '231': ', está en medio de una tormenta y además llovizneando', '232': ', está en medio de una tormenta con una llovizna fuerte', ...}</dl>
+
+<hr>
+Methods inherited from <a href="rasa_sdk.interfaces.html#Action">rasa_sdk.interfaces.Action</a>:<br>
+<dl><dt><a name="ActionTellWeather-__str__"><strong>__str__</strong></a>(self) -&gt; str</dt><dd><tt>Return&nbsp;str(self).</tt></dd></dl>
+
+<hr>
+Data descriptors inherited from <a href="rasa_sdk.interfaces.html#Action">rasa_sdk.interfaces.Action</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="ActionThrowDice">class <strong>ActionThrowDice</strong></a>(<a href="rasa_sdk.interfaces.html#Action">rasa_sdk.interfaces.Action</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Clase&nbsp;para&nbsp;la&nbsp;acción&nbsp;de&nbsp;tirar&nbsp;el&nbsp;dado<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="actions.html#ActionThrowDice">ActionThrowDice</a></dd>
+<dd><a href="rasa_sdk.interfaces.html#Action">rasa_sdk.interfaces.Action</a></dd>
+<dd><a href="builtins.html#object">builtins.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="ActionThrowDice-name"><strong>name</strong></a>(self) -&gt; str</dt><dd><tt>Declaración&nbsp;de&nbsp;la&nbsp;acción<br>
+@return&nbsp;string&nbsp;Nombre&nbsp;de&nbsp;la&nbsp;acción</tt></dd></dl>
+
+<dl><dt><a name="ActionThrowDice-run"><strong>run</strong></a>(self, dispatcher: rasa_sdk.executor.CollectingDispatcher, tracker: rasa_sdk.interfaces.Tracker, domain: Dict[str, Any]) -&gt; List[Dict[str, Any]]</dt><dd><tt>Ejecución&nbsp;de&nbsp;la&nbsp;acción.<br>
+Genera&nbsp;un&nbsp;número&nbsp;aleatorio&nbsp;entre&nbsp;1&nbsp;y&nbsp;6<br>
+@utter_message&nbsp;Devuelve&nbsp;una&nbsp;cadena&nbsp;con&nbsp;el&nbsp;valor&nbsp;generado&nbsp;entre&nbsp;1&nbsp;y&nbsp;6</tt></dd></dl>
+
+<hr>
+Methods inherited from <a href="rasa_sdk.interfaces.html#Action">rasa_sdk.interfaces.Action</a>:<br>
+<dl><dt><a name="ActionThrowDice-__str__"><strong>__str__</strong></a>(self) -&gt; str</dt><dd><tt>Return&nbsp;str(self).</tt></dd></dl>
+
+<hr>
+Data descriptors inherited from <a href="rasa_sdk.interfaces.html#Action">rasa_sdk.interfaces.Action</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="ActionsSettings">class <strong>ActionsSettings</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Clase&nbsp;para&nbsp;la&nbsp;configuración&nbsp;de&nbsp;variables&nbsp;necesarias&nbsp;en&nbsp;las&nbsp;acciones<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<hr>
+Data and other attributes defined here:<br>
+<dl><dt><strong>NO_CONNECTION_TO_INTERNET</strong> = 'No me puedo conectar a Internet ahora mismo, lo siento.         Comprueba por si acaso la conexión.'</dl>
+
+<dl><dt><strong>OPENWEATHERMAP_API_KEY</strong> = '831587653e5df6adadd7d236ea88f6d6'</dl>
+
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-ceil"><strong>ceil</strong></a>(x, /)</dt><dd><tt>Return&nbsp;the&nbsp;ceiling&nbsp;of&nbsp;x&nbsp;as&nbsp;an&nbsp;Integral.<br>
+&nbsp;<br>
+This&nbsp;is&nbsp;the&nbsp;smallest&nbsp;integer&nbsp;&gt;=&nbsp;x.</tt></dd></dl>
+</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>Any</strong> = typing.Any<br>
+<strong>Dict</strong> = typing.Dict<br>
+<strong>List</strong> = typing.List</td></tr></table>
+</body></html>
