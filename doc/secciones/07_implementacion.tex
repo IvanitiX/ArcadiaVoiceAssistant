@@ -212,10 +212,7 @@ Como ejemplo, podríamos hacer que si preguntamos sobre el Asistente nos hable u
 		- talk_about_me
 	\end{lstlisting}
 
-	\item Finalmente , hay que poner a entrenar el modelo y probarlo:
-	\begin{lstlisting}
-		.
-	\end{lstlisting}
+	\item Finalmente , hay que poner a entrenar el modelo y probarlo usando \texttt{rasa train}
 \end{enumerate}
 
 \subsection{¿Y si preguntan algo que no sabe?}
@@ -281,6 +278,7 @@ Lo que hemos comentado en los puntos anteriores sólo sirven para dar respuestas
 \end{enumerate}
 
 \subsection{Conectarse a otros lugares de Internet}
+\label{subsection:7-3-4}
 Al igual que para conectarnos desde Arcadia hasta la fuente de conocimientos de Rasa, podemos también usar la librería \texttt{requests} para poder conectarnos a una API que nos dé la información. De esta forma, y decodificando el JSON que nos den de resultado, podemos conectarnos a Internet, sacar el JSON, y poder tratar la información de este en nuestro caso.
 
 Como ejemplo en esta parte, podríamos consultar el precio de la luz usando la API de preciodelaluz.com, donde podemos ver los valores máximos, mínimos y medios de su valor en el día, además de ofrecernos el precio para esa hora.
@@ -391,17 +389,82 @@ Para poder extraer esa entidad, usando el ejemplo del tiempo en esa ciudad, pode
 
 \subsection{Últimos ajustes}
 
-Un cambio de última hora, debido a la posibilidad de poner audios usando lo que se ha comentado en la sección ... , necesitamos hacer un pequeño cambio en el flujo básico para tratar ese caso, y de ser así,  activar el reproductor con la URL.
+Un cambio de última hora, debido a la posibilidad de poner audios usando lo que se ha comentado en la sección \ref{subsection:7-3-4} , necesitamos hacer un pequeño cambio en el flujo básico para tratar ese caso, y de ser así,  activar el reproductor con la URL.
 
-Además se ha pasado el proyecto por el linter ... y se han hecho los cambios pertinentes para que esté en concordancia con las guías de este.
+Además se ha pasado el proyecto por el linter \textit{PyLint} \cite{pylint}. Un linter nos permite ver aquellos fallos lógicos y/o de estilo en conformidad con las reglas del estándar PEP-8 \cite{pep8}. Si bien se han podido corregir muchas de ellas, hay un par de advertencias que he decidido saltar en la evaluación del código del proyecto:
+\begin{itemize}
+	\item \textbf{R0903: \textit{Too few public methods (x/2)}} Esta advertencia viene debida a que hay clases que apenas tienen un sólo método, pero para mantener cierta integridad con respecto a lo descrito en el capítulo anterior, se ha preferido continuar con la arquitectura de clases.
+	\item \textbf{W0236: \textit{Method \texttt{r} was expected to be \texttt{r}, found it instead as \texttt{r'}}} Al parecer, esta advertencia sucedía en Rasa debido a que el método \texttt{run()} suele estar asociado a funciones asíncronas, si bien esto está estandarizado en el sistema de Rasa. Por tanto se ha decidido ignorar este tipo de advertencia.
+\end{itemize}
 
 \section{Sprint 4}
 \subsection{Terminando la documentación del proyecto}
-Para realizar la documentación se ha hecho uso de \textit{PyDoc}, compilando toda la información que se ha escrito en los métodos en varios archivos web.
+Para realizar la documentación se ha hecho uso de \textit{PyDoc}, compilando toda la información que se ha escrito en los métodos en varios archivos web. Si bien puede servir como punto de inicio, lo ideal sería pasarlo en el formato de Markdown.
 
 Además se ha descrito la manera de ejecutar el programa y probarlo.
-\subsection{La licencia}
+
+También se ha decidido, de cara a la futura muestra del código a los repositorios públicos, añadir un archivo de Código de Conducta y un archivo de Contribuciones.
+
+\begin{itemize}
+	\item Un \textbf{código de conducta} (o \textit{code of conduct}) es una serie de normas que debería seguir la comunidad para evitar ofensas entre colaboradores del repositorio, o a cualquier otro usuario que vaya a usar el programa derivado de este proyecto.
+	Para ello usaremos la traducción en español del Contributor Covenant \cite{contributor-covenant}, uno de los dos formatos estándar de este tipo de fichero, usado para proyectos de cualquier tamaño, con una fuerte presencia de la defensa de la equidad, diversidad y justicia.
+	\item Un \textbf{archivo de contribución} (o \textit{contributing} \cite{contributing}) es un fichero que explica a quienes quieran colaborar en el repositorio cómo hacerlo.
+	
+	Esto incluye:
+	\begin{itemize}
+		\item Tecnologías que se han usado
+		\item Estándares de código, y herramientas que faciliten la comprobación de su calidad.
+		\item Estándares y procedimientos para informar los cambios y problemas surgidos en la ejecución del proyecto, como los commits, las incidencias y los cambios.
+	\end{itemize}
+\end{itemize}
+
+\subsection{Aplicación de la licencia al proyecto}
+Ya llegados a la recta final de la implementación, se debería tener en cuenta qué licencia podríamos insertar en el Asistente. Para que sea lo más compatible posible con nuestras dependencias, vamos a listar estas dependencias y las licencias a las que están ceñidas:
+
+\begin{center}
+	\begin{table}[H]
+		\centering
+		\begin{tabularx}{\textwidth}{|l|X|X|}
+			\hline
+			{\cellcolor{lightblue}}\textbf{Dependencia} & {\cellcolor{lightblue}}\textbf{Descripción} & {\cellcolor{lightblue}}\textbf{Licencia} \\
+			\hline
+			VOSK & Reconocedor de Voz & Apache License 2.0 \\ \hline
+			NanoTTS & Sintetizador de Voz & Apache License 2.0  \\ \hline
+			PyAudio & Biblioteca de grabación y reproducción de audio & MIT License \\ \hline
+			FFMpeg & Biblioteca de grabación y reproducción de Audio & GNU Lesser General Public License (LGPL) version 2.1 or later \\  \hline
+			Rasa & Chatbot & Apache License 2.0 \\ \hline
+		\end{tabularx}
+		\caption{Tabla de licencias que aplican en los proyectos que dependen de Arcadia.}
+	\end{table}
+\end{center}
+
+Con ello, podemos usar la matriz de compatibilidades de Licencias de Software Libre \cite{matriz-licencias}, donde tendremos en cuenta qué licencia puede compatibilizar LGPL, MIT y Apache (si se puede, claro está). Para ello descargaremos el archivo de hoja de cálculo y buscaremos una licencia cuya columna abarque un Sí en las tres licencias que la componen.
+
+\begin{center}
+	\begin{figure}[H]
+		\includegraphics[width=\textwidth]{imagenes/MatrizCompatibilidadDinamica.png}
+		\includegraphics[width=\textwidth]{imagenes/MatrizCompatibilidadEstatica.png}
+		\caption{Matriz de compatibilidad de licencias de Software Libre con respecto a licencias Apache 2.0 (ASL2), LGPL 2.1 o superior (LGPL2.1+), y MIT. Matriz extraída de \cite{matriz-licencias}.}
+	\end{figure}
+\end{center}
+
+A raíz de observar las matrices , tanto la dinámica como la estática, nos quedaríamos con el siguiente listado de candidatos, los cuales listamos anteriormente en la sección \ref{gpl-license-types}:
+\begin{itemize}
+	\item Lesser GNU Public License 2.1 (con posibilidad de permitir actualizarse a versiones posteriores)
+	\item Lesser GNU Public License 3 (con posibilidad de permitir actualizarse a versiones posteriores)
+	\item European Union Public License
+	\item GNU Public License 3
+	\item Affero GNU Public License 3
+\end{itemize}
+
+Teniendo en cuenta que las posibilidades de Arcadia se pueden extender a la red gracias a las acciones de Rasa y su posible extensión a un servicio cliente-servidor donde la fuente de conocimiento residiera en un ordenador remoto y el resto de la implementación se quedaría del lado de nuestro ordenador, se opta finalmente por aplicar una licencia AGPL3, la cual se añade al repositorio junto al resto de la documentación.
 
 \subsection{Limpieza del Repositorio}
 
+\subsection{Otros desarrollos que no se han podido completar}
+Aparte de lo que se ha realizado para resolver los hitos del proyecto, se han intentado hacer algunas mejoras para facilitar el desarrollo o introducir nuevas funcionalidades, pero han quedado sin éxito tras buscar e investigar sin pdoer conseguir hacer arreglos. Pasamos a listar algunos de ellos:
+\begin{itemize}
+	\item \textbf{Docker para desarrollo:} Se ha intentado desarrollar un sistema de dos contenedores que hagan ejecutar una instancia de Rasa y otra de nuestro asistente, conectados por una red entre ambos contenedores, con el objetivo de simplificar la ejecución. Al intentar realizarlo, nos hemos encontrado con que al usar las imágenes oficiales del sistema de Chatbot, nos da un error de permisos que no tiene documentada la solución. Tras intentar hacer cambios para que lo aceptara sin éxito, se ha optado por desistir.
+	\item \textbf{Segundo hilo para algunas ejecuciones:} Hay cuestiones que precisarían una tarea que se ejecute a la vez que nuestro hilo principal, como puede ser escuchar la radio. Sin embargo, en este momento no se ha conseguido ejecutar un nuevo hilo para estas cuestiones. Se tratará de realizar en un posterior trabajo, permitiendo así la concurrencia y/o paralelismo de las tareas que influyen en Arcadia.
+\end{itemize}
 
