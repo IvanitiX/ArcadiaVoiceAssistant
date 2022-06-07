@@ -1,5 +1,12 @@
 \chapter{Implementación}
 
+\noindent\fbox{
+	\parbox{\textwidth}{
+		Tras lo previsto en el anterior capítulo, aquí se comentará cómo se ha realizado el sistema resultante, en base a la planificación y los diseños, de forma que se acabe con, al menos, un Producto Mínimo Viable.
+	}
+}
+\newline
+
 La implementación del software se ha dividido en los anteriores sprints. Estos, han sido definidos en Github
 y cada uno de ellos contiene un grupo de \textit{issues} que se corresponden con las distintas
 mejoras que se han ido incorporando al software a lo largo de su desarrollo.\\
@@ -10,23 +17,23 @@ Para esta parte se hizo un adaptador genérico con el único método que necesit
 de los reproductores: Reproducir un archivo con el método \texttt{play()}
 
 Tras ello se implementaron dos versiones del reproductor con base en ese adaptador,
-usando PyAudio y FFMpeg. En ambas plataformas se pudo implementar fácilmente, aunque PyAudio es más sencillo de integrar pero enfocado en archivos \texttt{.wav}, mientras que para usar FFMpeg había que usar el comando \texttt{ffplay} con las opciones, aunque este nos permite usar cualquier archivo de audio, incluso streamings de audio, como puede ser la radio por Internet.
+usando PyAudio \cite{pyaudio} y FFMpeg \cite{ffmpeg}. En ambas plataformas se pudo implementar fácilmente, aunque PyAudio es más sencillo de integrar pero enfocado en archivos \texttt{.wav}, mientras que para usar FFMpeg había que usar el comando \texttt{ffplay} con las opciones, aunque este nos permite usar cualquier archivo de audio, incluso streamings de audio, como puede ser la radio por Internet.
 
 \subsection{Implementación de la grabación de audio}
 Para esta parte se hizo un adaptador genérico con el método que necesitaríamos
-de los reproductores: Reproducir un archivo con el método \texttt{record\_audio()}. De cara al futuro, también deberíamos permitir encauzar los datos que salen del micrófono para tratarlos posteriormente con el método \texttt{stream\_audio()}
+de los reproductores: Reproducir un archivo con el método \\ \texttt{record\_audio()}. De cara al futuro, también deberíamos permitir encauzar los datos que salen del micrófono para tratarlos posteriormente con el método \texttt{stream\_audio()}
 
 En este caso se ha querido realizar algo similar con respecto al punto anterior, pero la grabación del audio desde FFMpeg daba una señal con muchas interferencias, debido a que se debe apuntar a una interfaz hardware concreta, a diferencia de PyAudio, que usa el dispositivo por defecto. Así, al coger el audio del micrófono interno, se generaba mucho ruido de lo que captaba alrededor de este.
 
 \subsection{Adaptación de la API de Speech Recognition}
-Tal como se discutió en el anterior capítulo, se acabó eligiendo Vosk, el cual tiene una librería en Python a través de pip que nos permitía usarla.
+Tal como se discutió en el anterior capítulo, se acabó eligiendo Vosk\cite{vosk}, el cual tiene una librería en Python a través de pip que nos permitía usarla.
 Para permitir el desarrollo de futuros adaptadores para otros sistemas de Reconocimiento del Habla, se ha optado por hacer otra Interfaz que sirva de marco para definir los métodos que se usarán en nuestro sistema.
 De esta interfaz se implementará la clase \texttt{VoskAdapter} del cual podemos sacar la transcripción de un audio.
 
 \subsection{Implementación del streaming de audio}
 A la hora de hacer las pruebas surgía una inquietud. Habría que perder un tiempo en grabar y pasarlo al sistema de reconocimiento del habla, de un audio que luego se borraría y puede ocupar espacio en memoria. Si realmente lo único que necesitamos es la transcripción, ¿podemos encauzar directamente la grabación del audio con el Speech Recognizer para obtenerlo? 
 
-Para ello había que implicar tanto el Grabador de Audio como el Software que nos transcriba el audio. Para ello haremos uso en la interfaz de \texttt{GenericAudioRecorder} del método \texttt{stream\_audio()}, que nos devolvería la referencia a los datos del audio en directo, para poder usarlos luego en otro lado.
+Para ello había que implicar tanto el Grabador de Audio como el Software que nos transcriba el audio. Para ello haremos uso en la interfaz de \\ \texttt{GenericAudioRecorder} del método \texttt{stream\_audio()}, que nos devolvería la referencia a los datos del audio en directo, para poder usarlos luego en otro lado.
 
 \subsection{Conectando el streaming con el Speech Recognition}
 Por otra parte, nuestro adaptador de SR nos debería permitir coger esos datos e ir procesando esa transcripción conforme va leyéndolos.
@@ -47,9 +54,9 @@ Esta parte se ha conseguido realizar con PyAudio y Vosk, siguiendo esta aproxima
 En FFMpeg, debido a los problemas con la grabación, se ha optado por no hacer tampoco el streaming. Además, habría un problema con respecto al encauzamiento, puesto que espera un subproceso en vez de más código, por lo que sería más complicado de trabajar.
 
 \subsection{Adaptación del API de Text-to-Speech}
-Como lo que queremos es generar la voz, en nuestra Interfaz para adaptadores
+Como lo que queremos es generar la voz, en nuestra Interfaz para adaptadores crearemos un método para generar la voz. Esta voz se podría reproducir directamente o guardarse para después ser reproducido. En este caso, aplicaremos la segunda opción por si se necesitara repetir lo último que se ha dicho.
 
-Para el Text-to-Speech hay que usar un repositorio externo llamado NanoTTS, tal como comentamos en el apartado del Análisis. sólo crearemos un método llamado \texttt{generate\_voice()}
+Para el Text-to-Speech hay que usar un repositorio externo llamado NanoTTS \cite{nanotts}, tal como comentamos en el apartado del Análisis. sólo crearemos un método llamado \texttt{generate\_voice()}.
 
 Para poder usar este programa, hay que descargarlo del repositorio y ejecutar su \texttt{Makefile} (aunque todo está bien explicado en el README del proyecto en GitHub \cite{nanotts}).
 
@@ -179,7 +186,7 @@ Este tipo de funciones son bastante simples ya que sólo hay que crear una inten
 Como ejemplo, podríamos hacer que si preguntamos sobre el Asistente nos hable un poquito de él. Para ello:
 
 \begin{enumerate}
-	\item Vamos primero a declarar una intención en \texttt{data/nlu.yml} llamado \texttt{about\_me} donde podemos poner de ejemplos algunas frases como \textit{Háblame de ti} o \textit{¿Cómo te describirías?}:
+	\item Vamos primero a declarar una intención en \texttt{data/nlu.yml} llamado \\ \texttt{about\_me} donde podemos poner de ejemplos algunas frases como \textit{Háblame de ti} o \textit{¿Cómo te describirías?}:
 	\begin{lstlisting}
 		- intent: talk_about_me
 		examples: |
@@ -219,7 +226,7 @@ Como ejemplo, podríamos hacer que si preguntamos sobre el Asistente nos hable u
 
 En la documentación de Rasa se explica que hay una función de fallback \cite{rasa-fallback} donde caerían las respuestas que no tienen parecido con ninguna. En ese caso, nos dirige a \texttt{nlu\_fallback}, donde podemos definir como \textit{utterance} una respuesta por defecto.
 
-Esto nos genera un problema debido a que no está entrenado para estos casos, aunque podemos entrenarlo de forma interactiva usando \texttt{rasa interactive}, donde podremos escribir nuestras peticiones, controlar cuál intención debe lanzarse, y qué respuesta debería devolverse. 
+Esto nos genera un problema debido a que no está entrenado para estos casos, aunque podemos entrenarlo de forma interactiva usando \texttt{rasa \\ interactive}, donde podremos escribir nuestras peticiones, controlar cuál intención debe lanzarse, y qué respuesta debería devolverse. 
 
 De esta forma, al poner cualquier otra frase al que no se le pueda asociar ninguna acción (por ejemplo, si decimos \textit{¿Cuál es la raíz cuadrada de una sardina?}, una frase que no tiene mucho sentido, o si no se van a implementar funciones de cálculo, no tendría respuesta), se le puede aplicar una regla que diga que si la intención es el \textit{fallback}, nos llame a la declaración que hemos mencionado antes.
 
@@ -227,7 +234,7 @@ De esta forma, al poner cualquier otra frase al que no se le pueda asociar ningu
 Lo que hemos comentado en los puntos anteriores sólo sirven para dar respuestas fijas, de forma que siempre se dirá lo mismo. ¿Qué pasaría entonces si necesitamos hacer acciones dinámicas, como dar la hora? En esencia, sólo cambiaríamos como hemos dicho anteriormente de devolver una declaración a a llamar a una acción. ¿Cómo se haría?
 
 \begin{enumerate}
-	\item Vamos primero a declarar una intención en \texttt{data/nlu.yml} llamado \texttt{tell\_time} donde podemos poner de ejemplos algunas frases como \textit{¿Qué hora es?} o \textit{Dime la hora}:
+	\item Vamos primero a declarar una intención en \texttt{data/nlu.yml} llamado \\ \texttt{tell\_time} donde podemos poner de ejemplos algunas frases como \textit{¿Qué hora es?} o \textit{Dime la hora}:
 	\begin{lstlisting}
 		- intent: tell_time
 		examples: |
@@ -397,6 +404,15 @@ Además se ha pasado el proyecto por el linter \textit{PyLint} \cite{pylint}. Un
 	\item \textbf{W0236: \textit{Method \texttt{r} was expected to be \texttt{r}, found it instead as \texttt{r'}}} Al parecer, esta advertencia sucedía en Rasa debido a que el método \texttt{run()} suele estar asociado a funciones asíncronas, si bien esto está estandarizado en el sistema de Rasa. Por tanto se ha decidido ignorar este tipo de advertencia.
 \end{itemize}
 
+\begin{table}[H]
+	\centering
+	\begin{tabularx}{\textwidth}{|>{\columncolor{mintgreen}}c>{\columncolor{mintgreen}}X|}
+		\hline
+		\includegraphics[width=30pt]{imagenes/Tarea_completada.png} & Con ello, cumplimos los Objetivos \textbf{O-DD 5.} (Con base a la arquitectura, codificar lo necesario para la implementación de la aplicación.) \\
+		\hline
+	\end{tabularx}
+\end{table}
+
 \section{Sprint 4}
 \subsection{Terminando la documentación del proyecto}
 Para realizar la documentación se ha hecho uso de \textit{PyDoc}, compilando toda la información que se ha escrito en los métodos en varios archivos web. Si bien puede servir como punto de inicio, lo ideal sería pasarlo en el formato de Markdown.
@@ -417,6 +433,17 @@ También se ha decidido, de cara a la futura muestra del código a los repositor
 		\item Estándares y procedimientos para informar los cambios y problemas surgidos en la ejecución del proyecto, como los commits, las incidencias y los cambios.
 	\end{itemize}
 \end{itemize}
+
+Junto a ello, se ha esclarecido el repositorio en busca de archivos que no deberían estar en el repositorio, y se han etiquetado las carpetas para que se pueda entender fácilmente qué se puede encontrar en el directorio.
+
+\begin{table}[H]
+	\centering
+	\begin{tabularx}{\textwidth}{|>{\columncolor{mintgreen}}c>{\columncolor{mintgreen}}X|}
+		\hline
+		\includegraphics[width=30pt]{imagenes/Tarea_completada.png} & Con ello, cumplimos los Objetivos \textbf{O-IA 7.} (Leer sobre aquellos estándares y convenciones para facilitar la compartición y liberación del proyecto (por ejemplo. Códigos de conducta, Guías de contribución)) y \textbf{O-DD 6.} (Redactar documentación referida a la arquitectura del proyecto para su posterior mantenimiento y escalabilidad)) \\
+		\hline
+	\end{tabularx}
+\end{table}
 
 \subsection{Aplicación de la licencia al proyecto}
 Ya llegados a la recta final de la implementación, se debería tener en cuenta qué licencia podríamos insertar en el Asistente. Para que sea lo más compatible posible con nuestras dependencias, vamos a listar estas dependencias y las licencias a las que están ceñidas:
@@ -441,14 +468,15 @@ Ya llegados a la recta final de la implementación, se debería tener en cuenta 
 Con ello, podemos usar la matriz de compatibilidades de Licencias de Software Libre \cite{matriz-licencias}, donde tendremos en cuenta qué licencia puede compatibilizar LGPL, MIT y Apache (si se puede, claro está). Para ello descargaremos el archivo de hoja de cálculo y buscaremos una licencia cuya columna abarque un Sí en las tres licencias que la componen.
 
 \begin{center}
-	\begin{figure}[H]
+	\begin{figure}[h]
 		\includegraphics[width=\textwidth]{imagenes/MatrizCompatibilidadDinamica.png}
 		\includegraphics[width=\textwidth]{imagenes/MatrizCompatibilidadEstatica.png}
 		\caption{Matriz de compatibilidad de licencias de Software Libre con respecto a licencias Apache 2.0 (ASL2), LGPL 2.1 o superior (LGPL2.1+), y MIT. Matriz extraída de \cite{matriz-licencias}.}
+		\label{fig:matrices-comp}
 	\end{figure}
 \end{center}
 
-A raíz de observar las matrices , tanto la dinámica como la estática, nos quedaríamos con el siguiente listado de candidatos, los cuales listamos anteriormente en la sección \ref{gpl-license-types}:
+A raíz de observar las matrices en la figura \ref{fig:matrices-comp} , tanto la dinámica como la estática, nos quedaríamos con el siguiente listado de candidatos, los cuales listamos anteriormente en la sección \ref{gpl-license-types}:
 \begin{itemize}
 	\item Lesser GNU Public License 2.1 (con posibilidad de permitir actualizarse a versiones posteriores)
 	\item Lesser GNU Public License 3 (con posibilidad de permitir actualizarse a versiones posteriores)
@@ -459,7 +487,14 @@ A raíz de observar las matrices , tanto la dinámica como la estática, nos que
 
 Teniendo en cuenta que las posibilidades de Arcadia se pueden extender a la red gracias a las acciones de Rasa y su posible extensión a un servicio cliente-servidor donde la fuente de conocimiento residiera en un ordenador remoto y el resto de la implementación se quedaría del lado de nuestro ordenador, se opta finalmente por aplicar una licencia AGPL3, la cual se añade al repositorio junto al resto de la documentación.
 
-\subsection{Limpieza del Repositorio}
+\begin{table}[H]
+	\centering
+	\begin{tabularx}{\textwidth}{|>{\columncolor{mintgreen}}c>{\columncolor{mintgreen}}X|}
+		\hline
+		\includegraphics[width=30pt]{imagenes/Tarea_completada.png} & Con ello, cumplimos los Objetivos \textbf{O-IA 6.} (Analizar las distintas licencias que se ofrecen y las compatibilidades entre éstas para elegir la idónea para la aplicación resultante.) \\
+		\hline
+	\end{tabularx}
+\end{table}
 
 \subsection{Otros desarrollos que no se han podido completar}
 Aparte de lo que se ha realizado para resolver los hitos del proyecto, se han intentado hacer algunas mejoras para facilitar el desarrollo o introducir nuevas funcionalidades, pero han quedado sin éxito tras buscar e investigar sin pdoer conseguir hacer arreglos. Pasamos a listar algunos de ellos:
