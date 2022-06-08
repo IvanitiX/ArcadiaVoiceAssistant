@@ -7,11 +7,32 @@
 }
 \newline
 
-La implementación del software se ha dividido en los anteriores sprints. Estos, han sido definidos en Github
-y cada uno de ellos contiene un grupo de \textit{issues} que se corresponden con las distintas
-mejoras que se han ido incorporando al software a lo largo de su desarrollo.\\
+La implementación del software se ha dividido en los anteriores sprints. Estos, han sido definidos anteriormente en el Backlog, al que iremos haciendo referencia durante los sprints.
+
+Además, para ir guardando el progreso y controlar los cambios, se ha optado por usar el sistema de versiones Git y utilizar a GitHub como forja en la nube, ya que al estar en Internet se puede acceder al proyecto en cualquier dispositivo. En este caso, el repositorio está alojado \href{https://github.com/IvanitiX/TFG\_AsistenteVozModular}{en este enlace} 
+
+También se ha tratado de hacer varias pruebas teniendo de base los ejemplos establecidos en los Casos de Uso discutidos en el epígrafe \ref{casos-uso}. Si bien puede que no se acaben haciendo esas funciones, necesitaremos ver cómo se comportan para poder evaluar lo que podemos hacer con el sistema.
 
 \section{Sprint 1}
+En este primer sprint, nuestro objetivo principal es poder interactuar con el ordenador usando la voz, lo que implica hacer que reproduzca sonidos y nos escuche usando el hardware disponible, así como conseguir que este nos pueda reconocer qué estamos diciendo y que si le entregamos un texto nos lo pueda leer .
+
+Dicho esto, este sería el Sprint Backlog:
+\begin{table}[H]
+	\begin{tabularx}{\textwidth}{|c|X|}
+		\hline
+		{\cellcolor{mintgreen}} \textbf{Nº ID} & {\cellcolor{mintgreen}} \textbf{Descripción} \\
+		\hline
+		1 & RF-1. Hablar al Asistente \\
+		\hline
+		2 & RF-2. Escuchar una respuesta del Asistente \\
+		\hline
+		3 & RF-3. Sintetizar la voz de una pregunta en un texto \\
+		\hline
+		4 & RF-4. Generar un audio leyendo una respuesta \\
+		\hline
+	\end{tabularx}
+\end{table}
+
 \subsection{Implementación de la reproducción de audio}
 Para esta parte se hizo un adaptador genérico con el único método que necesitaríamos
 de los reproductores: Reproducir un archivo con el método \texttt{play()}
@@ -68,8 +89,62 @@ Una vez cumplimentados los requisitos, sólo habría que poner un sitio donde gu
 
 Nos da como resultado un archivo \texttt{.wav} que podemos reproducir con los adaptadores que hemos hecho anteriormente.
 
+\subsection{Pruebas}
+Para probar esta primera parte se han realizado varias pruebas para asegurar su funcionamiento. Para poder realizarlas se ha instalado
+el paquete PyTest desde el gestor pip.
+
+Debido a que tenemos 5 componentes a probar, haremos las siguientes pruebas unitarias:
+\begin{itemize}
+	\item Reproducir un audio con PyAudio
+	\item Reproducir un audio con FFMpeg
+	\item Grabar un audio sin necesidad de pulsar botones en PyAudio
+	\item Grabar un audio sin necesidad de pulsar botones en FFMpeg
+	\item Transcribir un archivo de audio
+	\item Sintetizar un texto en un archivo de audio
+\end{itemize}
+
+En cuanto a las pruebas de interacción entre componentes, haremos las siguientes pruebas:
+\begin{itemize}
+	\item Proceso de transcripción desde una grabación. Para ello:
+	\begin{enumerate}
+		\item Con PyAudio, grabamos la voz desde que se habla hasta que haya un silencio.
+		\item El Speech Recognizer transcribe el audio.
+		\item Para dar por válido el resultado, la transcripción no deberá ser de longitud 0.
+	\end{enumerate}
+	\item Proceso de transcripción desde el streaming del micrófono. Se seguirán los siguientes pasos:
+	\begin{enumerate}
+		\item Se llama al método de Vosk que permite la transcripción por Streaming, usando para hacer el flujo PyAudio.
+		\item Se tratará lo que digamos hasta un tiempo de silencio.
+		\item Para dar por válido el resultado, la transcripción no deberá ser de longitud 0.
+	\end{enumerate}
+	\item Proceso de síntesis de un texto y reproducción del mismo. El flujo que recorre es el siguiente:
+	\begin{enumerate}
+		\item Se pide que se genere un audio dado un texto.
+		\item Se reproduce el audio generado.
+		\item Para dar el test por válido, el archivo ha debido generarse y abrirse para reproducir el audio. 
+	\end{enumerate}
+\end{itemize}
+
+Es importante decir que para hacer las pruebas se deberá indicar a PyTest que la entrada y salida sean STDIN/STDOUT para que podamos hacer el testing con el hardware.
+
+A la hora de realizarlas, comprobamos que todos los componentes funcionan y que al combinarlas hacían bastante bien su trabajo, salvo en el caso de la grabación con FFMpeg, donde no se conseguía hacer una grabación del audio sin necesidad de pulsar un botón.
 
 \section{Sprint 2}
+En este Sprint, el objetivo es conseguir un sistema que pueda conectarse con algún mecanismo que nos permite juntar preguntas y respuestas, de forma que lo que se haya transcrito a través del micrófono se pueda tratar para tener una respuesta que el TTS pueda leer.
+
+Nuestro Backlog del Sprint sería el siguiente:
+\begin{table}[H]
+	\begin{tabularx}{\textwidth}{|c|X|}
+		\hline
+		{\cellcolor{mintgreen}} \textbf{Nº ID} & {\cellcolor{mintgreen}} \textbf{Descripción} \\
+		\hline
+		5 & RF-5. Relacionar una pregunta con su respuesta\\
+		\hline
+		9 & RF-7. Responder que se desconoce la respuesta a una pregunta \\
+		\hline
+	\end{tabularx}
+\end{table}
+
 \subsection{Creación del bot en RASA}
 Usar Rasa \cite{rasa} como un módulo de Python es bastante cómodo ya que puede comportarse como un CLI, facilitando gran parte de la creación de chatbots.
 
@@ -179,7 +254,37 @@ Una vez que se ha logrado hacer la conexión, tendríamos que implementar el flu
 \subsection{Controlando algunos fallos de conexión}
 Es posible que en algún momento pueda fallar la conexión entre Rasa y nuestro asistente, así que tendremos que tenerlo en cuenta. Una opción que podemos implementar es capturar las excepciones que digan que no puedan establecer la conexión (como \texttt{requests.exceptions.ConnectionError}), y hacer que nos diga que no puede conectarse con la Base de Conocimientos.
 
+\subsection{Pruebas}
+Para realizar las pruebas  del componente de Rasa, se han seguido las siguientes pruebas unitarias:
+\begin{itemize}
+	\item Con Rasa activado, hacer una petición donde se diga \textit{``Hola''}. Debería devolver el mensaje \textit{``Hola, ¿qué tal?''}
+	\item Con Rasa desactivado, hacer una petición con un mensaje cualquiera. Debería devolver el mensaje por defecto. En mi caso, éste sería \textit{``¡Oh, no! No puedo atenderte en este momento porque no puedo acceder a mis conocimientos, lo siento.''}
+\end{itemize}
+
+También se ha hecho una prueba del concepto donde se le dice al programa \textit{``Hola''}, se transcribe a un texto que luego se envía a Rasa, quien devuelve uno de los dos mensajes (según si el servidor de Rasa está encendido o no). Este mensaje lo leerá el TTS y de ahí será escuchado a través de la salida de audio. 
+
+Al hacer esas primeras pruebas, la ejecución hacía lo esperado. Quizás se podía también tomar como apunte que si se intentaba mandar al chatbot un mensaje de algo que no estaba en sus capacidades, podía darse el caso de que dijera una respuesta aleatoria.
+
 \section{Sprint 3}
+En este Sprint se ha intentado explotar las funcionalidades de Rasa para poder hacer funciones diversas y dinámicas, aprovechando además que se puede usar Python para algunos casos.
+
+El Backlog en este caso tenía las siguientes tareas:
+\begin{table}[H]
+	\begin{tabularx}{\textwidth}{|c|X|}
+		\hline
+		{\cellcolor{mintgreen}} \textbf{Nº ID} & {\cellcolor{mintgreen}} \textbf{Descripción} \\
+		\hline
+		8 & RF-6. Avisar de que no se puede conectar a Internet \\
+		\hline
+		- & Usando las funcionalidades de las que disponga la vía para conectar preguntas y respuestas, crear funcionalidades variadas. \textbf{(*)}\\
+		\hline
+	\end{tabularx}
+\end{table}
+
+\textbf{(*)} Esta tarea del Sprint Backlog no está en el Product Backlog como tal, si no que se trata de un objetivo muy amplio que se irá concretando según se avance.
+
+Durante este Sprint se han pasado también unos Spikes \cite{spike} de índole técnica, ya que para  poder realizar algunas implementaciones se ha necesitado conocer algunas partes de la funcionalidad de Rasa como acciones, entidades e intenciones. Profundizaremos en los conceptos durante la explicación de esta parte.
+
 \subsection{Haciendo funciones con solo texto}
 Este tipo de funciones son bastante simples ya que sólo hay que crear una intención, una declaración y unir ambas partes usando una regla o historia.
 
@@ -413,7 +518,63 @@ Además se ha pasado el proyecto por el linter \textit{PyLint} \cite{pylint}. Un
 	\end{tabularx}
 \end{table}
 
+\subsection{Pruebas}
+Las pruebas realizadas en este punto son de tipo Beta, donde se trata de evaluar el flujo con varias situaciones, y realizando muchas preguntas a Arcadia.
+
+Para ello, podríamos realizar una traza como la siguiente:
+
+
+\begin{itemize}
+	\item \textit{(No encendemos el servidor de Rasa)}
+	\item (Humano) Arcadia, hola.
+	\item (Arcadia) ¡Oh, no! No puedo atenderte en este momento porque no puedo acceder a mis conocimientos, lo siento.
+	\item \textit{(Encendemos el servidor de Rasa y esperamos a que esté activo)}
+	\item (Humano) Arcadia, hola.
+	\item (Arcadia) Hola, ¿qué tal?
+	\item (Humano) Arcadia, ¿qué hora es?
+	\item (Arcadia) Son las 20 horas y 18 minutos
+	\item (Humano) Arcadia, háblame sobre ti
+	\item (Arcadia) Pues soy un Asistente Virtual como los demás, pero aunque no sé mucho, voy aprendiendo cosas poco a poco. Puede que sea la becaria del grupo.
+	\item (Humano) Arcadia, ¿qué opinas de Siri?
+	\item (Arcadia) Creo que Siri es una gran compañera, además de que es la más veterana del cuerpo. Aunque fuera de Apple no se le ve mucho.
+	\item (Humano) Vamos a ver que dices
+	\item (Arcadia) \textit{No detecta nada, se vuelve a escuchar}
+	\item (Humano) Arcadia, Vamos a ver que dices
+	\item (Arcadia) Lo siento, pero no creo que pueda ayudarte con eso.
+	\item (Humano) Arcadia, ¿qué tiempo hace en Granada?
+	\item (Arcadia) En Granada, podremos ver alguna que otra nube. Ahora mismo se está a 28 grados,	con máximas de 32 y mínimas de 19.
+	\item (Humano) Arcadia, ¿cuánto cuesta la luz hoy?
+	\item (Arcadia) En España, a esta hora, el precio es de 332.12 euros el megavatio hora. De media, hoy pagaremos 259.31 euros el megavatio hora, siendo la hora más barata a 212.45 euros el megavatio hora de 02 a 03; y la más cara a 332.12 euros el megavatio hora de 20 a 21
+	\item (Humano) Arcadia, nos vemos
+	\item (Arcadia) ¡Adiós!
+\end{itemize}
+
+Se han probado varios ambientes y micrófonos para investigar si el comportamiento podría cambiar. Los cambios que se pueden notar por el ruido son, sobre todo, relacionados con la transcripción, donde se puede mezclar el fondo con la voz principal y dar algún comportamiento no deseado puntual.
+
+A la hora de hacer una prueba de radio por streaming, sin embargo, tenemos un comportamiento que no se puede resolver en este momento. Se citará en el siguiente sprint.
+\begin{itemize}
+	\item (Humano) Arcadia, pon la radio
+	\item (Arcadia) De acuerdo, te pongo \textit{los cuarenta}. \textit{(Suena la emisora)}
+\end{itemize}
+
+El problema en este caso viene dado porque no se puede en este momento parar la ejecución sin usar el teclado ni se puede seguir llamando al asistente, cosa que nos forzaría a reiniciar el software.
+
 \section{Sprint 4}
+Este último Sprint tiene como objetivo poder oferecer la documentación del proyecto y poder publicar el repositorio en la forja con todo lo necesario para que otros desarrolladores puedan usarlo y hacer cambios y mejoras sobre él.
+
+El backlog en este Sprint tiene listadas las siguientes tareas:
+\begin{table}[H]
+	\begin{tabularx}{\textwidth}{|c|X|}
+		\hline
+		{\cellcolor{mintgreen}} \textbf{Nº ID} & {\cellcolor{mintgreen}} \textbf{Descripción} \\
+		\hline
+		10 &  Aplicar la Licencia al proyecto \\
+		\hline
+		11 & Crear un README para explicar cómo instalar y usar el proyecto \\ \hline
+		12 & Crear una Guía de Conducta para explicar cómo realizar contribuciones al proyecto \\
+		\hline
+	\end{tabularx}
+\end{table}
 \subsection{Terminando la documentación del proyecto}
 Para realizar la documentación se ha hecho uso de \textit{PyDoc}, compilando toda la información que se ha escrito en los métodos en varios archivos web. Si bien puede servir como punto de inicio, lo ideal sería pasarlo en el formato de Markdown.
 
