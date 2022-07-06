@@ -6,6 +6,7 @@
 
 
 Autor: Iván Valero Rodríguez [:octocat: (@IvanitiX)](https://github.com/IvanitiX)
+
 Tutor: Pablo García Sánchez
 ___
 
@@ -44,7 +45,7 @@ Para ejecutar a Arcadia desde Docker, hay que seguir unos pocos pasos:
 
 1. Instala PortAudio en tu sistema.
 
-> Note:
+> **Note**
 >
 > Dependiendo del Sistema Operativo, la manera de instalar PortAudio varía:
 > - En Windows, consulta http://www.portaudio.com/docs/v19-doxydocs/tutorial_start.html
@@ -53,7 +54,7 @@ Para ejecutar a Arcadia desde Docker, hay que seguir unos pocos pasos:
 
 2. Instala docker y docker-compose si no lo tienes.
 
-> Note:
+> **Note**
 >
 > Consulta https://docs.docker.com/get-docker/ para más información.
 
@@ -66,7 +67,7 @@ docker-compose up
 
 4. Accede a una shell de Arcadia Client y ejecuta `python boot.py`
 
-> Note:
+> **Note**
 >
 > En Visual Studio Code se puede dar Botón Derecho > Attach Shell.
 > Desde la terminal, se puede poner una terminal desde el contenedor apuntando a bash como entrypoint.
