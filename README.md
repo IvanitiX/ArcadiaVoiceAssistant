@@ -1,8 +1,12 @@
 # Trabajo de Fin de Grado: *Asistente Virtual Modular usando APIs libres y de Código Abierto* 
 ## (también conocido como *Arcadia Voice Assistant*)
 
-### Autor: Iván Valero Rodríguez
-### Tutor: Pablo García Sánchez
+![Logo](Proyecto.png)
+
+
+
+Autor: Iván Valero Rodríguez [:octocat: (@IvanitiX)](https://github.com/IvanitiX)
+Tutor: Pablo García Sánchez
 ___
 
 ## Generación de la documentación
@@ -34,16 +38,35 @@ O directamente
 
 ## Uso de Arcadia
 
-Para poder usar a Arcadia, necesitaremos hacer unos cuantos pasos.
+¡Ahora en Docker!
 
-> **Warning**
-> Las acciones de la instalación se harán en la carpeta `src`
+Para ejecutar a Arcadia desde Docker, hay que seguir unos pocos pasos:
 
-1. Instalar NanoTTS. Para ello, hay que seguir los pasos de su repositorio original: https://github.com/gmn/nanotts
+1. Instala PortAudio en tu sistema.
 
-> **Note**
-> Posiblemente necesites añadir al `PATH` la ubicación de la carpeta de NanoTTS usando `export PATH=<ubicacion-NanoTTS>:$PATH`. Esto tendrás que poner cada vez que se ejecute un bash o escribiendo en `./.bashrc~` este comando para ahorrarte la repetición
+> Note:
+>
+> Dependiendo del Sistema Operativo, la manera de instalar PortAudio varía:
+> - En Windows, consulta http://www.portaudio.com/docs/v19-doxydocs/tutorial_start.html
+> - En Linux, mira el paquete portaudio en pkgs.org
+> - En Mac, `brew install portaudio`
 
-2. Activar el Entorno Virtual con `source venv/bin/activate`. Este entorno dispone de Python 3.9 y las dependencias necesarias para pdoer ejecutar el sistema.
+2. Instala docker y docker-compose si no lo tienes.
 
-3. Ejecutar `python boot.py`
+> Note:
+>
+> Consulta https://docs.docker.com/get-docker/ para más información.
+
+3. En la carpeta del proyecto, ejecuta estos comandos:
+
+```bash
+docker-compose build
+docker-compose up
+```
+
+4. Accede a una shell de Arcadia Client y ejecuta `python boot.py`
+
+> Note:
+>
+> En Visual Studio Code se puede dar Botón Derecho > Attach Shell.
+> Desde la terminal, se puede poner una terminal desde el contenedor apuntando a bash como entrypoint.

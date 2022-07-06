@@ -658,9 +658,11 @@ Teniendo en cuenta que las posibilidades de Arcadia se pueden extender a la red 
 \end{table}
 
 \subsection{Otros desarrollos que no se han podido completar}
+\label{sect:unfinished-dev}
 Aparte de lo que se ha realizado para resolver los hitos del proyecto, se han intentado hacer algunas mejoras para facilitar el desarrollo o introducir nuevas funcionalidades, pero han quedado sin éxito tras buscar e investigar sin pdoer conseguir hacer arreglos. Pasamos a listar algunos de ellos:
 \begin{itemize}
 	\item \textbf{Docker para desarrollo:} Se ha intentado desarrollar un sistema de dos contenedores que hagan ejecutar una instancia de Rasa y otra de nuestro asistente, conectados por una red entre ambos contenedores, con el objetivo de simplificar la ejecución. Al intentar realizarlo, nos hemos encontrado con que al usar las imágenes oficiales del sistema de Chatbot, nos da un error de permisos que no tiene documentada la solución. Tras intentar hacer cambios para que lo aceptara sin éxito, se ha optado por desistir.
 	\item \textbf{Segundo hilo para algunas ejecuciones:} Hay cuestiones que precisarían una tarea que se ejecute a la vez que nuestro hilo principal, como puede ser escuchar la radio. Sin embargo, en este momento no se ha conseguido ejecutar un nuevo hilo para estas cuestiones. Se tratará de realizar en un posterior trabajo, permitiendo así la concurrencia y/o paralelismo de las tareas que influyen en Arcadia.
+	\item \textbf{Versión para Raspberry Pi}: Si bien sería una buena idea, ya que se podría tener una versión compacta como un prototipo del tamaño de un aparato similar a los competidores con Alexa \cite{alexa} y Echo \cite{echo}, debido a que los contenedores de Docker no están listos, se ha optado por no hacer desarrollos enfocados en la arquitectura ARM que usa esta placa de desarrollo.
 \end{itemize}
 
