@@ -29,7 +29,7 @@ class RasaChatbotAdapter(ChatbotGenericAdapter):
         self.last_result = []
         request = None
         try:
-            request = requests.post('http://localhost:5005/webhooks/rest/webhook', \
+            request = requests.post('http://{0}:5005/webhooks/rest/webhook'.format(settings.RASA_IP), \
             json={"sender": '', "message": query})
         except requests.exceptions.ConnectionError:
             self.last_result = [self.no_connection_to_knowledge_server(),]

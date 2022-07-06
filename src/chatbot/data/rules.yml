@@ -26,3 +26,8 @@ rules:
   steps:
   - intent: play_radio
   - action: utter_play_radio
+
+- rule: Pon Los40Dance si piden que se encienda la radio
+  steps:
+  - intent: play_edm_radio
+  - action: utter_play_edm_radio

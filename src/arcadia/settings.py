@@ -5,6 +5,9 @@ import os
 from pyaudio import paInt16
 from sr.vosk_adapter import PyAudioStreamOnVosk
 
+# Configuraciones para IP de conexión a Rasa
+RASA_IP = os.getenv('RASA_IP');
+
 #Configuraciones para el grabador de PyAudio
 THRESHOLD = 10000
 CHUNK_SIZE = 1024

@@ -4,7 +4,7 @@ Archivo con la interfaz genérica de Text-to-Speech
 """
 import nanotts
 from arcadia import settings
-from .generic_adapters import TTSGenericAdapter
+from tts.generic_adapters import TTSGenericAdapter
 
 
 class NanoTTSAdapter(TTSGenericAdapter):

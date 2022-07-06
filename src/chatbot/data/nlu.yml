@@ -115,6 +115,22 @@ nlu:
     - pon la radio
     - reproduce los cuarenta
     - reproduce los 40
+- intent: play_edm_radio
+  examples: |
+    - pon los cuarenta dance
+    - pon los cuarenta dens
+    - pon los 40 dance
+    - pon los 40 dens
+    - ponme la maxima
+    - ponme la máxima
+    - ponme la radio electrónica
+    - enciende la radio electrónica
+    - pon la radio electrónica
+    - reproduce los cuarenta dance
+    - reproduce los cuarenta dens
+    - reproduce los 40 dance
+    - reproduce los 40 dens
+    
 - intent: city_weather
   examples: |
     - qué tiempo hace en [granada](city)

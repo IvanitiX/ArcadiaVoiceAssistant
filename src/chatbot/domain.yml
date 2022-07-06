@@ -55,6 +55,10 @@ responses:
   - custom:
       text: De acuerdo, te pongo los cuarenta.
       audio: http://21313.live.streamtheworld.com/LOS40.mp3
+  utter_play_edm_radio:
+  - custom:
+      text: De acuerdo, te pongo los cuarenta dens.
+      audio: https://25583.live.streamtheworld.com/LOS40_DANCE_SC
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
