@@ -65,9 +65,10 @@ docker-compose build
 docker-compose up
 ```
 
-4. Accede a una shell de Arcadia Client y ejecuta `python boot.py`
+4. Accede a una shell de Arcadia Client (Se puede apreciar como `arcadia_client` o `tfg_asistente_modular_arcadia_client_1`) y ejecuta `python boot.py`
 
 > **Note**
 >
 > En Visual Studio Code se puede dar Botón Derecho > Attach Shell.
 > Desde la terminal, se puede poner una terminal desde el contenedor apuntando a bash como entrypoint.
+> Por ejemplo, `docker run -it --entrypoint bash arcadia_client`
