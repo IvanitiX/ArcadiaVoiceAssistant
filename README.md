@@ -7,7 +7,9 @@
 
 Autor: Iván Valero Rodríguez [:octocat: (@IvanitiX)](https://github.com/IvanitiX)
 
-Tutor: Pablo García Sánchez
+Tutor: Pablo García Sánchez [:octocat: (@fergunet)](https://github.com/fergunet)
+
+(Trabajo defendido el 14 de Julio de 2022, con nota final de 9'7/10)
 ___
 
 ## Generación de la documentación
