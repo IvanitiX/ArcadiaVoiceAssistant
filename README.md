@@ -1,5 +1,5 @@
-# Trabajo de Fin de Grado: *Asistente Virtual Modular usando APIs libres y de Código Abierto* 
-## (también conocido como *Arcadia Voice Assistant*)
+# *Arcadia Voice Assistant*
+## (También conocido como el Trabajo de Fin de Grado: *Asistente Virtual Modular usando APIs libres y de Código Abierto* )
 
 ![Logo](Proyecto.png)
 
