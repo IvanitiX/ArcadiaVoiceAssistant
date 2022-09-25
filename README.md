@@ -1,6 +1,13 @@
 # *Arcadia Voice Assistant*
 ## (También conocido como el Trabajo de Fin de Grado: *Asistente Virtual Modular usando APIs libres y de Código Abierto* )
 
+> **Note**
+>
+> **¡El repositorio está disponible para que hagáis cambios para HacktoberFest!** Abre issues durante el mes de octubre, haz cambios, colabora con el proyecto...
+> ¡y consigue tu camiseta*!
+>
+> (* Sólo PRs válidos entre el 1 y el 31 de Octubre. Consulta las condiciones [aquí](https://hacktoberfest.com/participation/) )
+
 ![Logo](Proyecto.png)
 
 
