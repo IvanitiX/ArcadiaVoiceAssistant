@@ -8,6 +8,8 @@ libtool autotools-dev automake autoconf alsa-utils pulseaudio wget
 
 RUN pip install -U pip
 RUN pip install -r requirements.txt
+RUN pip install git+https://github.com/openai/whisper.git
+
 
 RUN python -V
 
@@ -22,7 +24,7 @@ RUN mkdir model_files/ test_files/
 RUN cd model_files && apt install -y --no-install-recommends zip unzip && wget https://alphacephei.com/vosk/models/vosk-model-small-es-0.22.zip && unzip vosk-model-small-es-0.22.zip && mv vosk-model-small-es-0.22 model
 
 
-ENV RASA_IP="172.19.0.2"
+ENV RASA_IP="172.20.0.2"
 
 ENTRYPOINT ["tail", "-f", "/dev/null"]
 

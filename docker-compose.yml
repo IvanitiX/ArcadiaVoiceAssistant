@@ -1,13 +1,23 @@
 
 version: '2.4'
 
+networks:
+  rasa-network:
+    driver: bridge
+    ipam:
+        driver: default
+        config:
+        - subnet: 172.20.0.0/16
+
 services:
   rasa:
     build: 
       context: ./src
       dockerfile: dockerfiles/rasa_srv.Dockerfile
     image: arcadia_rasa_server
-    networks: ['rasa-network']
+    networks: 
+        rasa-network:
+            ipv4_address: 172.20.0.2
     ports:
       - "5005:5005"
 
@@ -16,7 +26,9 @@ services:
       context: ./src
       dockerfile: dockerfiles/rasa_actions.Dockerfile
     image: arcadia_rasa_actions
-    networks: ['rasa-network']
+    networks:
+        rasa-network:
+            ipv4_address: 172.20.0.3
     ports:
     - "5055:5055"
     links:
@@ -34,10 +46,10 @@ services:
       - PULSE_SERVER=unix:${XDG_RUNTIME_DIR}/pulse/native
     devices:
       - "/dev/snd:/dev/snd"
-    networks: ['rasa-network']
+    networks:
+        rasa-network:
+            ipv4_address: 172.20.0.4
     group_add:
       - audio
     links:
       - rasa
-
-networks: {rasa-network: {}}
