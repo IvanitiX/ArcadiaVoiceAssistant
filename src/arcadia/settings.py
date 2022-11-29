@@ -27,6 +27,9 @@ VOSK_MODEL_PATH = os.path.abspath('model_files/model/')
 VOSK_RATE = 16000
 RECORDER_ADAPTER = PyAudioStreamOnVosk()
 
+# Configuraciones para Whisper
+WHISPER_MODEL = 'base'
+
 #Configuraciones para el chatbot
 BOT_NAME_VARIANTS = ['arcadia', 'arabia',]
 NO_CONNECTION_TO_CHATBOT_MESSAGE = '¡Oh, no! No puedo atenderte en este momento porque no puedo acceder a mis conocimientos, lo siento.'

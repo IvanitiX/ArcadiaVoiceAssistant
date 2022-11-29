@@ -3,7 +3,7 @@
 """
 
 from audio import pyaudio_adapters, ffmpeg_adapters
-from sr import vosk_adapter
+from sr import vosk_adapter, whisper_adapter
 from tts import nanotts_adapter
 from chatbot_bridge import rasa_adapter
 
