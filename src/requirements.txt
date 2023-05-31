@@ -1,5 +1,9 @@
 #rasa
 PyAudio
+#whisper.ai
+fastapi
+uvicorn[standard]
+python-multipart
 ffmpeg-python
 nanotts
 vosk

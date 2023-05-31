@@ -38,7 +38,7 @@ class WhisperAdapter(generic_adapters.SpeechRecognizerGenericAdapter):
         Devuelve la última transcripción
         @return last_transcript Última transcripción
         """
-        return self.last_transcript
+        return self.last_transcript['text']
 
     def reset_transcript(self):
         """

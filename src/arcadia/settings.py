@@ -31,7 +31,7 @@ RECORDER_ADAPTER = PyAudioStreamOnVosk()
 WHISPER_MODEL = 'base'
 
 #Configuraciones para el chatbot
-BOT_NAME_VARIANTS = ['arcadia', 'arabia',]
+BOT_NAME_VARIANTS = ['arcadia', 'arabia', 'Parcabia', 'Arcavia', 'Arcadia']
 NO_CONNECTION_TO_CHATBOT_MESSAGE = '¡Oh, no! No puedo atenderte en este momento porque no puedo acceder a mis conocimientos, lo siento.'
 
 #Configuraciones de NanoTTS
@@ -40,5 +40,5 @@ SPEED_TTS = 1.25
 PITCH_TTS = 1.1
 
 # Configuraciones para testing
-TESTING_FILES = os.path.abspath('test_files')
+TESTING_FILES = os.path.abspath('test_files/')
 AUDIO_FOLDER_PATH = TESTING_FILES
