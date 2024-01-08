@@ -130,7 +130,6 @@ nlu:
     - reproduce los cuarenta dens
     - reproduce los 40 dance
     - reproduce los 40 dens
-    
 - intent: city_weather
   examples: |
     - qué tiempo hace en [granada](city)
@@ -148,6 +147,62 @@ nlu:
     - que clima hace en [granada](city)
     - que tiempo hara en [huelva](city)
     - arcadia, que tiempo hace en [baza](city)
+- intent: search_on_wikipedia
+  examples: |
+    - busca [freddy mercury](wiki_search_term) en Wikipedia
+    - podrías mirarme información sobre [la luna](wiki_search_term)
+    - busca información sobre [el solsticio de verano](wiki_search_term)
+    - necesito que me busques cosas sobre [Robert Oppenheimer](wiki_search_term)
+    - cuéntame lo que sepas sobre [Ferrari](wiki_search_term)
+    - mírame en Wikipedia el [teorema del punto gordo](wiki_search_term)
+    - busca en Wikipedia [Arpanet](wiki_search_term)
+    - mira en Wikipedia sobre [la RDA](wiki_search_term)
+    - busca ["la noche de los cuchillos largos"](wiki_search_term) en Wikipedia
+    - mira en Wikipedia sobre [Audi](wiki_search_term)
+    - Encuentra en Wikipedia [Isaac Newton](wiki_search_term)
+    - Busca en Wikipedia [Guerra Civil Española](wiki_search_term)
+    - Mírame en Wikipedia [El Quijote](wiki_search_term)
+    - Necesito información de Wikipedia sobre [la tabla periódica](wiki_search_term)
+    - ¿Qué dice Wikipedia sobre [la teoría de la relatividad](wiki_search_term)?
+    - Busca en Wikipedia [Pablo Picasso](wiki_search_term)
+    - Encuentra en Wikipedia [la catedral de Sevilla](wiki_search_term)
+    - Mírame en Wikipedia [la luna](wiki_search_term)
+    - Necesito información de Wikipedia sobre [los dinosaurios](wiki_search_term)
+    - ¿Qué dice Wikipedia sobre [la revolución industrial](wiki_search_term)?
+    - Busca en Wikipedia [Frida Kahlo](wiki_search_term)
+    - Encuentra en Wikipedia [la muralla china](wiki_search_term)
+    - Mírame en Wikipedia [el sistema solar](wiki_search_term)
+    - Necesito información de Wikipedia sobre [la fotosíntesis](wiki_search_term)
+    - ¿Qué dice Wikipedia sobre [la segunda guerra mundial](wiki_search_term)?
+    - Busca en Wikipedia [Miguel de Cervantes](wiki_search_term)
+    - Encuentra en Wikipedia [la torre Eiffel](wiki_search_term)
+    - Mírame en Wikipedia [los agujeros negros](wiki_search_term)
+    - Necesito información de Wikipedia sobre [la evolución](wiki_search_term)
+    - ¿Qué dice Wikipedia sobre [la inteligencia artificial](wiki_search_term)?
+    - Pregúntame sobre [los chakras](wiki_search_term)
+    - Busca en Wikipedia [el ajedrez](wiki_search_term)
+    - Encuentra en Wikipedia [la religión islámica](wiki_search_term)
+    - Mírame en Wikipedia [el futuro del transporte](wiki_search_term)
+    - Necesito información de Wikipedia sobre [el blockchain](wiki_search_term)
+    - ¿Qué dice Wikipedia sobre [el lenguaje de programación Rust](wiki_search_term)?
+    - Habla sobre [el arrepentimiento en el cristianismo](wiki_search_term)
+    - Busca en Wikipedia [la paz global](wiki_search_term)
+    - Encuentra en Wikipedia [el estilo gótico](wiki_search_term)
+    - Mírame en Wikipedia [la higiene dental](wiki_search_term)
+    - Necesito información de Wikipedia sobre [la vacuna COVID-19](wiki_search_term)
+    - ¿Qué dice Wikipedia sobre [la realidad virtual](wiki_search_term)?
+    - Mírame en Wikipedia [la fórmula de Leibniz](wiki_search_term)
+    - Necesito información de Wikipedia sobre [el origen de las especies](wiki_search_term)
+    - ¿Qué dice Wikipedia sobre [el imperio otomano](wiki_search_term)?
+    - Busca en Wikipedia [el pueblo rom](wiki_search_term)
+    - Encuentra en Wikipedia [el cometa Halley](wiki_search_term)
+    - Mírame en Wikipedia [el código de conducta ético](wiki_search_term)
+    - Encuentra en Wikipedia [la biografía de Marilyn Monroe](wiki_search_term)
+    - Mírame en Wikipedia [la película de La La Land](wiki_search_term)
+    - Necesito información de Wikipedia sobre [el conflicto israelí-palestino](wiki_search_term)
+    - ¿Qué dice Wikipedia sobre [el diseño de aeronaves](wiki_search_term)?
+    - Busca en Wikipedia [el caso de aborto legal de Roe vs. Wade](wiki_search_term)
+
 - intent: nlu_fallback
   examples: |
     - amo a ver que dise

@@ -12,10 +12,12 @@ intents:
 - nlu_fallback
 - opinion_siri
 - play_radio
+- search_on_wikipedia
 - talk_about_me
 - tell_time
 - throw_dice
 entities:
+- wiki_search_term
 - city
 slots:
   city:
@@ -23,8 +25,14 @@ slots:
     influence_conversation: true
     mappings:
     - type: custom
+  wiki_search_term:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: custom
 actions:
 - action_light_price
+- action_search_on_wikipedia
 - action_tell_time
 - action_tell_weather
 - action_throw_dice

@@ -11,6 +11,8 @@ import datetime
 from math import ceil
 import random
 from typing import Any, Text, Dict, List
+import wikipedia
+import re
 
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
@@ -249,3 +251,41 @@ class ActionTellWeather(Action):
             print(error)
 
         return []
+
+class ActionSearchOnWikipedia(Action):
+    """"""
+
+    def name(self) -> Text:
+        return "action_search_on_wikipedia"
+
+    def run(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any]
+    ) -> List[Dict[Text, Any]]:
+        wikipedia.set_lang("es")
+
+        response = ''
+
+        search_term = next(tracker.get_latest_entity_values('wiki_search_term'),None)
+
+        if search_term:
+            try:
+                wikipedia_response = wikipedia.summary(search_term)
+                response = f"Según Wikipedia, {wikipedia_response}"
+                response = re.sub('\[(.*?)\]','',response)
+                response = response.replace('\n','')
+            except wikipedia.exceptions.DisambiguationError as error:
+                options = error.options
+                response = f"Hay mucha info parecida en Wikipedia, quizás puedes preguntarme de esta forma:\
+                            {','.join(options)}"
+            except wikipedia.exceptions.PageError as e:
+                response = f"No encuentro nada de eso en Wikipedia, ni nada parecido."
+            except requests.exceptions.ConnectionError:
+                response = ActionsSettings.NO_CONNECTION_TO_INTERNET
+
+        dispatcher.utter_message(text=response)
+
+        return []
+

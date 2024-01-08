@@ -123,3 +123,42 @@ stories:
     entities:
     - city: reus
   - action: action_tell_weather
+
+
+- story: wikipedia_search
+  steps:
+  - intent: search_on_wikipedia
+    entities:
+    - wiki_search_term: baza
+  - action: action_search_on_wikipedia
+  - intent: search_on_wikipedia
+    entities:
+    - wiki_search_term: fenicios
+  - action: action_search_on_wikipedia
+  - intent: search_on_wikipedia
+    entities:
+    - wiki_search_term: el canto del loco
+  - action: action_search_on_wikipedia
+  - intent: search_on_wikipedia
+    entities:
+    - wiki_search_term: la luna
+  - action: action_search_on_wikipedia
+  - intent: search_on_wikipedia
+    entities:
+    - wiki_search_term: medina azahara
+  - action: action_search_on_wikipedia
+
+- story: interactive_story_4
+  steps:
+  - intent: search_on_wikipedia
+    entities:
+    - wiki_search_term: la RDA
+  - action: action_search_on_wikipedia
+  - intent: search_on_wikipedia
+    entities:
+    - wiki_search_term: '"la noche de los cuchillos largos"'
+  - action: action_search_on_wikipedia
+  - intent: search_on_wikipedia
+    entities:
+    - wiki_search_term: Audi
+  - action: action_search_on_wikipedia
