@@ -162,3 +162,10 @@ stories:
     entities:
     - wiki_search_term: Audi
   - action: action_search_on_wikipedia
+
+- story: interactive_story_5
+  steps:
+  - intent: search_on_wikipedia
+    entities:
+    - wiki_search_term: Fernando Alonso
+  - action: action_search_on_wikipedia

@@ -27,8 +27,6 @@ class NanoTTSAdapter(TTSGenericAdapter):
             )
         self._path = shutil.which("nanotts")[:-7]
 
-        print(self.nano_tts)
-
     def generate_voice(self, text):
         """
             Genera un audio narrado por una voz sintética
@@ -57,9 +55,5 @@ class NanoTTSAdapter(TTSGenericAdapter):
         # if self.nano_tts['volume'] is not None:
         #     command.append("--volume")
         #     command.append(str(self.nano_tts['volume']))
-
-        print(' '.join(command))
+        
         process = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-        print(process.stdout)
-        print(process.stderr)
-        print(process.returncode)

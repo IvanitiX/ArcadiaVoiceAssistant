@@ -44,8 +44,11 @@ class RasaChatbotAdapter(ChatbotGenericAdapter):
                         if i['custom']['text']:
                             text = i['custom']['text']
                             self.last_result.append(f'{text}')
-                        source = str(i['custom']['audio'])
-                        self.last_result.append(f'[>] {source}')
+                        if 'audio' in i['custom']:
+                            source = str(i['custom']['audio'])
+                            self.last_result.append(f'[>] {source}')
+                        if 'source' in i['custom']:
+                            self.last_result.append(f"[<>] {i['custom']['source']}")
                     except KeyError:
                         pass
         print(f"{self.last_result}")

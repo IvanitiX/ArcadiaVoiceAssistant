@@ -37,7 +37,6 @@ class PyAudioRecordingAdapter(AudioRecorderAdapter):
             esté en silencio
             @return Devuelve un booleano en función de si sobrepasa el THRESHOLD
         """
-        print(max(audio_data_chunk))
         return max(audio_data_chunk) < self.threshold
 
     def check_silence(self, stream_data):

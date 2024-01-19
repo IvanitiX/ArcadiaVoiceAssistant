@@ -116,16 +116,13 @@ async def ask_to_arcadia_audio(audio: UploadFile):
 
     transcript = instances.SPEECH_RECOGNIZER.recognize(audio.filename)
     keyword_separator = ''
-    print(transcript)
     transcript = transcript.replace(',','')
     for keyword in settings.BOT_NAME_VARIANTS:
         if  keyword in transcript and keyword_separator == '':
             keyword_separator = keyword
     if keyword_separator != '':
         transcript = transcript.split(keyword_separator,1)[-1]
-        print(transcript)
         response = instances.CHATBOT.make_petition(transcript)
-        print(response)
         talk_text = ''.join(response)
         print("Resultado:")
         print(talk_text)

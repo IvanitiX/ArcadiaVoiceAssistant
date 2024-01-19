@@ -202,7 +202,7 @@ nlu:
     - Necesito información de Wikipedia sobre [el conflicto israelí-palestino](wiki_search_term)
     - ¿Qué dice Wikipedia sobre [el diseño de aeronaves](wiki_search_term)?
     - Busca en Wikipedia [el caso de aborto legal de Roe vs. Wade](wiki_search_term)
-
+    - Busca en Wikipedia sobre [Fernando Alonso](wiki_search_term)
 - intent: nlu_fallback
   examples: |
     - amo a ver que dise

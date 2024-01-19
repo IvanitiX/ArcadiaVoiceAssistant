@@ -267,15 +267,21 @@ class ActionSearchOnWikipedia(Action):
         wikipedia.set_lang("es")
 
         response = ''
+        url = ''
 
         search_term = next(tracker.get_latest_entity_values('wiki_search_term'),None)
 
         if search_term:
             try:
-                wikipedia_response = wikipedia.summary(search_term)
-                response = f"Según Wikipedia, {wikipedia_response}"
+                wikipedia_response = wikipedia.page(search_term)
+                response = f"Según Wikipedia, {wikipedia_response.summary}"
                 response = re.sub('\[(.*?)\]','',response)
                 response = response.replace('\n','')
+                # Por razones de limitación con Telegram, sólo se pueden poner 4096 caracteres.
+                response = response[:4096]
+                # Pero está feo cortarlo, así que vamos a dejarlo en el último punto antes del corte.
+                response = response.rsplit('.',1)[0]
+                url = wikipedia_response.url
             except wikipedia.exceptions.DisambiguationError as error:
                 options = error.options
                 response = f"Hay mucha info parecida en Wikipedia, quizás puedes preguntarme de esta forma:\
@@ -284,8 +290,9 @@ class ActionSearchOnWikipedia(Action):
                 response = f"No encuentro nada de eso en Wikipedia, ni nada parecido."
             except requests.exceptions.ConnectionError:
                 response = ActionsSettings.NO_CONNECTION_TO_INTERNET
+        print(f'Wikipedia -> {url} {response}')
 
-        dispatcher.utter_message(text=response)
+        dispatcher.utter_message(custom={'text':response,'source':url})
 
         return []
 

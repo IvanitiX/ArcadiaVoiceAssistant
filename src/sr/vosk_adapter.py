@@ -67,7 +67,6 @@ class VoskAdapter(SpeechRecognizerGenericAdapter):
         @return last_transcript Última transcripción
         """
         print(':: Reconociendo audio...')
-        print(audio)
         self.reset_transcript()
         audio_stream = open(audio,"rb")
         audio_stream.read(44)
