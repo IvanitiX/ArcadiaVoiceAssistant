@@ -11,8 +11,11 @@ import datetime
 from math import ceil
 import random
 from typing import Any, Text, Dict, List
-import wikipedia
 import re
+from os import environ
+
+import wikipedia
+from dotenv import load_dotenv
 
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
@@ -22,9 +25,12 @@ class ActionsSettings():
     """
     Clase para la configuración de variables necesarias en las acciones
     """
+    load_dotenv('../../.envs/.actions.env')
+
     NO_CONNECTION_TO_INTERNET = 'No me puedo conectar a Internet ahora mismo, lo siento.\
          Comprueba por si acaso la conexión.'
-    OPENWEATHERMAP_API_KEY = '831587653e5df6adadd7d236ea88f6d6'
+    OPENWEATHERMAP_API_KEY = environ.get('OPENWEATHERMAP_API_KEY')
+    FOOTBALL_STATS_API_KEY = environ.get('FOOTBALL_STATS_API_KEY')
 
 
 class ActionTellTime(Action):
@@ -133,67 +139,37 @@ class ActionTellWeather(Action):
     """
     #Códigos de fenómenos meteorológicos, con la respuesta que debería dar.
     CODES = {
-        "200" : ", está habiendo una tormenta con algo de lluvia.",
-        "201" : ", está en medio de una tormenta, y además lloviendo",
-        "202" : ", está en medio de una tormenta lloviendo a cántaros",
-        "210" : ", se avecina una pequeña tormenta",
-        "211" : ", está en medio de una tormenta",
-        "212" : ", está en medio de una fuerte tormenta",
-        "221" : ", hay una tormenta con nubes y claros",
-        "230" : ", está en medio de una tormenta con algo de llovizna",
-        "231" : ", está en medio de una tormenta y además llovizneando",
-        "232" : ", está en medio de una tormenta con una llovizna fuerte",
+        96 : ", está en medio de una tormenta, y además lloviendo",
+        99 : ", está en medio de una tormenta lloviendo a cántaros",
+        95 : ", está en medio de una tormenta",
 
-        "300" : ", está cayendo algo de llovizna",
-        "301" : ", está llovizneando",
-        "302" : ", está cayendo una fuerte llovizna",
-        "310" : ", está cayendo algo de llovizna",
-        "311" : ", está empezando a llover seriamente",
-        "312" : ", está a punto de llover muy fuertemente. Llévate un paraguas. ",
-        "313" : ", está a punto de llover muchísimo. Llévate un paraguas. ",
-        "314" : ", está a punto de llover a cántaros. Llévate un paraguas. ",
-        "321" : ", está chispeando bastante fuertemente. Llévate un paraguas. ",
+        51 : ", está cayendo algo de llovizna",
+        53 : ", está llovizneando",
+        55 : ", está cayendo una fuerte llovizna",
+        56 : ", está cayendo algo de llovizna y encima helando",
+        57 : ", está cayendo una llovizna y encima para quedarse pínfano",
 
-        "500" : ", está lloviendo ligeramente. ",
-        "501" : ", está lloviendo.",
-        "502" : ", está lloviendo fuertemente.",
-        "503" : ", está lloviendo con intensidad.",
-        "504" :  ", está lloviendo muy fuertemente.",
-        "511" : ", está lloviendo y helando.",
-        "520" : ", está lloviendo poquito pero a cántaros.",
-        "521" : ", está lloviendo a cántaros.",
-        "522" : ", está lloviendo a cántaros, pero mucho.",
-        "531" : ", está lloviendo... más o menos.",
+        61 : ", está lloviendo ligeramente. Llévate un paraguas.",
+        63 : ", está lloviendo. Llévate un paraguas.",
+        65 : ", está lloviendo fuertemente. Llévate un paraguas.",
+        66 : ", está lloviendo y helando.",
+        67 : ", está lloviendo y helando para quedarse polito.",
 
-        "600" : ", está nevando ligeramente.",
-        "601" : ", está nevando.",
-        "602" : ", está nevando fuertemente.",
-        "611" : ", está lloviendo aguanieve.",
-        "612" : ", está lloviendo algo de aguanieve.",
-        "613" : ", está lloviendo bastante aguanieve.",
-        "615" :  ", está lloviendo un poco  a la vez que nieva.",
-        "616" : ", está lloviendo y nevando.",
-        "620" : ", está cayendo algo de nieve.",
-        "621" : ", están cayendo montones de nieve.",
-        "622" :  ", se viene un alud de nieve.",
+        71 : ", está nevando ligeramente.",
+        73 : ", está nevando.",
+        75 : ", está nevando fuertemente.",
+        85 : ", está cayendo algo de nieve.",
+        86 : ", están cayendo montones de nieve.",
+        77 : ", está granizando. ¡Ponte a salvo!",
 
-        "701" : ", está rodeada de neblina.",
-        "711" : ", está rodeada de humo.",
-        "721" : ", está rodeada de bruma.",
-        "731" : ", está rodeada de calima.",
-        "741" : ", está rodeada de niebla.",
-        "751" : ", está en una tormenta de arena.",
-        "761" : ", está rodeada de polvo.",
-        "762" : ", tiene el cielo cubierto de cenizas del volcán",
-        "771" : ", se pasará por algunos chubascos.",
-        "781" : "... ¡Oh, no! Un tornado, yo que tú me refugiaba ya.",
+        45 : ", está rodeada de neblina.",
+        48 : ", está rodeada de bruma.",
 
-        "800" : ", el cielo está despejado",
+        0 : ", el cielo está despejado",
 
-        "801" : ", podremos ver alguna que otra nube",
-        "802" : ", podemos ver nubes por el cielo",
-        "803" : ", el cielo tendrá más nubes que claros",
-        "804" : ", no parece que vayas a ver el sol, todo serán nubes",
+        1 : ", podremos ver alguna que otra nube",
+        2 : ", el cielo tendrá más nubes que claros",
+        3 : ", no parece que vayas a ver el sol, todo serán nubes",
     }
 
     def name(self) -> Text:
@@ -208,47 +184,71 @@ class ActionTellWeather(Action):
         Método que asocia el código con el mensaje que debería añadir
         @return weather_report Mensaje a añadir al reporte
         """
-        weather_report = self.CODES[str(code)]
-        print(weather_report)
-        return weather_report
+
+        if code in self.CODES:
+            weather_report = self.CODES[code]
+            return weather_report
+        else:
+            return ', se deconoce cómo va.'
+    
+    def geocoding(self, prompt):
+        if len(prompt) < 2:
+            return None
+        
+        uri = 'https://geocoding-api.open-meteo.com/'
+        path = 'v1/search/'
+        get_parameters = f'?name={prompt}&count=1&language=es&format=json'
+
+        url = f'{uri}{path}{get_parameters}'
+        try:
+            request = requests.get(url)
+            if request is not None:
+                req_json = request.json()
+                print(req_json)
+                return (req_json['results'][0]['latitude'],req_json['results'][0]['longitude'])
+            return None
+        except Exception:
+            return None
 
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         """
         Ejecución de la acción.
-        Extrae de la API de OpenWeatherMap a través de Internet
+        Extrae de la API de OpenMeteo a través de Internet
         y fabrica el reporte del tiempo en la ciudad pasada como entidad.
         @utter_message Devuelve el reporte del tiempo para la ciudad.
         """
 
         city = next(tracker.get_latest_entity_values('city'),None)
-        uri = f'https://api.openweathermap.org/data/2.5/weather?q={city}'
-        app_id = f'&appid={ActionsSettings().OPENWEATHERMAP_API_KEY}'
-        units = '&units=metric'
-        lang = '&lang=es'
-        url = f'{uri}{app_id}{units}{lang}'
-        try:
-            request = requests.get(url)
-            if request is not None:
-                req_json = request.json()
-                print(req_json)
-                city_name = req_json.get('name')
-                max_temp = ceil(req_json['main']['temp_max'])
-                min_temp = ceil(req_json['main']['temp_min'])
-                current_temp = ceil(req_json['main']['temp'])
-                pronostic = self.weather_report_sky(req_json['weather'][0]['id'])
+        coordinates = self.geocoding(city)
+        if coordinates is not None:
+            url = f'https://api.open-meteo.com/v1/forecast?latitude={coordinates[0]}&longitude={coordinates[1]}&current=temperature_2m,weather_code&daily=temperature_2m_max,temperature_2m_min'
+            try:
+                request = requests.get(url)
+                if request is not None:
+                    req_json = request.json()
+                    print(req_json)
+                    city_name = city
+                    current_temp = ceil(req_json['current']['temperature_2m'])
+                    max_temp = ceil(req_json['daily']['temperature_2m_max'][0])
+                    min_temp = ceil(req_json['daily']['temperature_2m_min'][0])
+                    pronostic = self.weather_report_sky(req_json['current']['weather_code'])
 
-                sky = f'En {city_name} {pronostic}.'
-                temp = f'Ahora mismo se está a {current_temp} grados,\
-                     con máximas de {max_temp} y mínimas de {min_temp}.'
+                    sky = f'En {city_name} {pronostic}.'
+                    temp = f'Ahora mismo se está a {current_temp} grados,\
+                        con máximas de {max_temp} y mínimas de {min_temp}.'
 
-                dispatcher.utter_message(text=f'{sky} {temp}')
+                    dispatcher.utter_message(text=f'{sky} {temp}')
 
-        except requests.exceptions.ConnectionError as error:
+            except requests.exceptions.ConnectionError as error:
+                dispatcher.utter_message(text=f'Ahora mismo no te puedo decir mucho del tiempo\
+                    que hace en {city}. Consulta a tu meteorólogo.')
+                print(error)
+
+        else:
             dispatcher.utter_message(text=f'Ahora mismo no te puedo decir mucho del tiempo\
-                 que hace en {city}. Consulta a tu meteorólogo.')
-            print(error)
+                que hace en {city} porque no encuentro las coordenadas. Consulta a tu meteorólogo.')
 
         return []
 
