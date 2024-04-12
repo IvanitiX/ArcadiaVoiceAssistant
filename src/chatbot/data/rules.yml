@@ -31,3 +31,13 @@ rules:
   steps:
   - intent: play_edm_radio
   - action: utter_play_edm_radio
+
+- rule: Avisa al "enamorado" que no se puede amar una máquina
+  steps:
+  - intent: love
+  - action: utter_love_advice
+
+- rule: Habla del desarrollador de Arcadia
+  steps:
+  - intent: about_the_developer
+  - action: utter_about_the_developer

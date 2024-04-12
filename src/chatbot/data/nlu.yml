@@ -203,6 +203,20 @@ nlu:
     - ¿Qué dice Wikipedia sobre [el diseño de aeronaves](wiki_search_term)?
     - Busca en Wikipedia [el caso de aborto legal de Roe vs. Wade](wiki_search_term)
     - Busca en Wikipedia sobre [Fernando Alonso](wiki_search_term)
+- intent : love
+  examples: |
+    - te quiero
+    - te amo
+    - me gustas
+    - ¿quieres ser mi novia?
+    - ¿me darías un beso?
+    - dame un beso
+- intent: about_the_developer
+  examples: |
+    - ¿quién te ha creado?
+    - ¿quién es tu creador?
+    - ¿quién te ha desarrollado?
+    - háblame sobre tu desarrollador
 - intent: nlu_fallback
   examples: |
     - amo a ver que dise
