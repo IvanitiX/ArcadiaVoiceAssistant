@@ -147,6 +147,12 @@ nlu:
     - que clima hace en [granada](city)
     - que tiempo hara en [huelva](city)
     - arcadia, que tiempo hace en [baza](city)
+    - como esta el tiempo en [cadiz](city)
+    - dime el tiempo en [córdoba](city)
+    - que tiempo hara en [cordova](city)
+    - cómo está [Vigo](city) hoy
+    - cómo está [14001](city) hoy
+    
 - intent: search_on_wikipedia
   examples: |
     - busca [freddy mercury](wiki_search_term) en Wikipedia
