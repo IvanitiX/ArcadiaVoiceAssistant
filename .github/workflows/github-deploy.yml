@@ -2,7 +2,7 @@ name: SSH - Conectarse, actualizar y volver a levantar Arcadia
 on:
   push:
     branches:
-      - arcadia_api
+      - arcadia-api
 jobs:
   build:
     name: Build
