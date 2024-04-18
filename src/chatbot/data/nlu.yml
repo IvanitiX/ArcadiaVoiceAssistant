@@ -152,6 +152,7 @@ nlu:
     - que tiempo hara en [cordova](city)
     - cómo está [Vigo](city) hoy
     - cómo está [14001](city) hoy
+    - qué tiempo hace en [08080](city)
     
 - intent: search_on_wikipedia
   examples: |
