@@ -20,7 +20,7 @@ RUN mkdir /usr/share/pico/
 RUN cp -r nanotts/lang /usr/share/pico/
 
 RUN mkdir model_files/ test_files/
-RUN cd model_files && apt install -y --no-install-recommends zip unzip && wget --no-check-certificate https://alphacephei.com/vosk/models/vosk-model-small-es-0.22.zip && unzip vosk-model-small-es-0.22.zip && mv vosk-model-small-es-0.22 model
+RUN cd model_files && apt install -y --no-install-recommends zip unzip && wget --no-check-certificate https://alphacephei.com/vosk/models/vosk-model-es-0.42.zip && unzip vosk-model-es-0.42.zip && mv vosk-model-es-0.42 model
 
 
 ENV RASA_IP="172.20.0.2"
