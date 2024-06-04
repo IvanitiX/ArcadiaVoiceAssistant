@@ -169,3 +169,8 @@ stories:
     entities:
     - wiki_search_term: Fernando Alonso
   - action: action_search_on_wikipedia
+
+- story: ask_f1_data
+  steps:
+  - intent: ask_for_f1_data
+  - action: action_get_f1_data

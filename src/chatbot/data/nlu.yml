@@ -224,6 +224,12 @@ nlu:
     - ¿quién es tu creador?
     - ¿quién te ha desarrollado?
     - háblame sobre tu desarrollador
+- intent: ask_for_f1_data
+  examples: |
+    - Tienes información de la Formula uno?
+    - Que tienes de la F1
+    - Cuéntame lo último que tengas de la Fórmula 1
+    - Cómo va la carrera de F1
 - intent: nlu_fallback
   examples: |
     - amo a ver que dise

@@ -21,6 +21,8 @@ from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 import requests
 
+from .openf1_aux import get_all_event_data
+
 class ActionsSettings():
     """
     Clase para la configuración de variables necesarias en las acciones
@@ -295,4 +297,22 @@ class ActionSearchOnWikipedia(Action):
         dispatcher.utter_message(custom={'text':response,'source':url})
 
         return []
+    
+    class ActionGetF1Data(Action):
+        """"""
+    
+        def name(self) -> Text:
+            return "action_get_f1_data"
+    
+        def run(
+            self,
+            dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]
+        ) -> List[Dict[Text, Any]]:
+    
+            dispatcher.utter_message(text = get_all_event_data())
+    
+            return []
+    
 

@@ -2,6 +2,7 @@ FROM python:3.9-slim
 
 RUN pip install -U pip
 RUN pip install rasa
+RUN pip install requests
 RUN pip install wikipedia
 RUN pip install python-dotenv
 
