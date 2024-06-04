@@ -18,6 +18,7 @@ intents:
 - throw_dice
 - love
 - about_the_developer
+- ask_for_f1_data
 entities:
 - wiki_search_term
 - city
@@ -38,6 +39,7 @@ actions:
 - action_tell_time
 - action_tell_weather
 - action_throw_dice
+- action_get_f1_data
 - utter_goodbye
 - utter_greet
 - utter_out_of_scope
