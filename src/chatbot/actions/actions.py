@@ -10,10 +10,11 @@ custom Python code.
 import datetime
 from math import ceil
 import random
-from typing import Any, Text, Dict, List
+from typing import Any, Coroutine, Text, Dict, List
 import re
 from os import environ
 
+from rasa_sdk.types import DomainDict
 import wikipedia
 from dotenv import load_dotenv
 
@@ -22,6 +23,37 @@ from rasa_sdk.executor import CollectingDispatcher
 import requests
 
 from .openf1_aux import get_all_event_data
+from .football_data_aux import get_matches_string
+from .football_data_aux import get_team_info_str
+
+EC_TEAMS_DICT = {
+    'Alemania': 759,
+    'Escocia': 8873,
+    'Hungría': 827,
+    'Suiza': 788,
+    'España': 760,
+    'Croacia': 799,
+    'Italia': 784,
+    'Albania': 1065,
+    'Eslovenia': 777,
+    'Dinamarca': 782,
+    'Serbia': 780,
+    'Inglaterra': 770,
+    'Polonia': 794,
+    'Países Bajos': 8601,
+    'Austria': 816,
+    'Francia': 773,
+    'Bélgica': 805,
+    'Eslovaquia': 768,
+    'Rumanía': 811,
+    'Ucrania': 790,
+    'Turquía': 803,
+    'Türkiye': 803 ,
+    'Georgia': 1978,
+    'Portugal': 765,
+    'República Checa': 798,
+    'Chequia': 798
+}
 
 class ActionsSettings():
     """
@@ -298,21 +330,55 @@ class ActionSearchOnWikipedia(Action):
 
         return []
     
-    class ActionGetF1Data(Action):
-        """"""
-    
-        def name(self) -> Text:
-            return "action_get_f1_data"
-    
-        def run(
-            self,
-            dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]
-        ) -> List[Dict[Text, Any]]:
-    
-            dispatcher.utter_message(text = get_all_event_data())
-    
-            return []
-    
+class ActionGetF1Data(Action):
+    """"""
 
+    def name(self) -> Text:
+        return "action_get_f1_data"
+
+    def run(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any]
+    ) -> List[Dict[Text, Any]]:
+
+        dispatcher.utter_message(text = get_all_event_data())
+
+        return []
+    
+class ActionGetEurocupMatches(Action):
+    def name(self) -> Text:
+        return "action_get_eurocup_matches"
+    
+    def run(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any]
+    ) -> List[Dict[Text, Any]]:
+        
+        dispatcher.utter_message(text = get_matches_string('EC'))
+
+        return []
+
+class ActionGetEurocupTeamInfo(Action):
+    def name(self) -> Text:
+        return "action_get_eurocup_team_info"
+    
+    def run(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any]
+    ) -> List[Dict[Text, Any]]:
+        
+        team = EC_TEAMS_DICT.get(next(tracker.get_latest_entity_values('eurocup_team'),None), None)
+
+        if team is not None:
+            dispatcher.utter_message(text = get_team_info_str(team))
+        
+        else:
+            dispatcher.utter_message(text= "No tengo información de ese equipo.")
+
+        return []

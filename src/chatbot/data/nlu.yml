@@ -230,6 +230,56 @@ nlu:
     - Que tienes de la F1
     - Cuéntame lo último que tengas de la Fórmula 1
     - Cómo va la carrera de F1
+- intent: ask_for_eurocup_matches
+  examples: |
+    - ¿Cuándo es el próximo partido de la Eurocopa?
+    - Quiero saber los horarios de los partidos de la Eurocopa.
+    - ¿Me puedes decir los partidos de la Eurocopa de hoy?
+    - ¿Cuál es el calendario de la Eurocopa?
+    - Muéstrame los partidos de la Eurocopa.
+    - ¿A qué hora juegan en la Eurocopa?
+    - Dime los partidos de la Eurocopa de esta semana.
+    - Necesito información sobre los partidos de la Eurocopa.
+    - ¿Quién juega hoy en la Eurocopa?
+    - ¿Cuándo juega [equipo] en la Eurocopa?
+    - ¿Qué partidos hay programados para la Eurocopa?
+    - Infórmame sobre los próximos partidos de la Eurocopa.
+    - ¿A qué hora son los partidos de la Eurocopa?
+    - Quisiera saber los enfrentamientos de la Eurocopa.
+    - ¿Puedes mostrarme los partidos de fútbol de la Eurocopa?
+    - ¿Cuáles son los partidos de la Eurocopa para mañana?
+    - ¿Quiénes se enfrentan en la Eurocopa esta semana?
+    - ¿Cuándo se juegan los partidos de la Eurocopa?
+    - ¿Qué equipos juegan hoy en la Eurocopa?
+    - ¿Hay algún partido interesante de la Eurocopa hoy?
+- intent: ask_for_eurocup_team_info
+  examples: |
+    - ¿Cuándo juega [España](eurocup_team)?
+    - Quiero saber los partidos de [Portugal](eurocup_team).
+    - ¿Quiénes son los jugadores de [Italia](eurocup_team) en la Eurocopa?
+    - ¿Qué partidos tiene [Francia](eurocup_team) esta semana?
+    - ¿Me puedes decir los próximos partidos de [Alemania](eurocup_team)?
+    - ¿Cuáles son los jugadores de [Inglaterra](eurocup_team)?
+    - ¿Cuándo juega [Croacia](eurocup_team) su próximo partido?
+    - ¿Quiénes juegan en [Polonia](eurocup_team) en la Eurocopa?
+    - Dime los partidos de [Países Bajos](eurocup_team).
+    - ¿Qué equipos jugarán contra [Bélgica](eurocup_team)?
+    - Infórmame sobre los jugadores de [Suiza](eurocup_team).
+    - ¿A qué hora juega [Dinamarca](eurocup_team) hoy?
+    - ¿Cuáles son los partidos de [Austria](eurocup_team) en la Eurocopa?
+    - ¿Quién juega para [Turquía](eurocup_team) en esta Eurocopa?
+    - ¿Quién juega en la selección de [Türkiye](eurocup_team) en esta Eurocopa?
+    - Muéstrame los partidos de [Ucrania](eurocup_team).
+    - ¿Qué jugadores de [Escocia](eurocup_team) participarán en la Eurocopa?
+    - ¿Cuándo es el próximo partido de [Rumanía](eurocup_team)?
+    - ¿Cuántos partidos tiene [Hungría](eurocup_team) en la Eurocopa?
+    - ¿Quiénes están en el equipo de [Serbia](eurocup_team)?
+    - ¿Qué partidos tiene [Georgia](eurocup_team) esta semana?
+    - Quiero saber más sobre los jugadores de [Eslovenia](eurocup_team).
+    - ¿Qué equipos juegan contra [Albania](eurocup_team) en la Eurocopa?
+    - ¿Cuándo juega [Eslovaquia](eurocup_team) su próximo partido?
+    - Dime los jugadores de [República Checa](eurocup_team).
+    - Dime los partidos de la selección de [Chequia](eurocup_team).
 - intent: nlu_fallback
   examples: |
     - amo a ver que dise

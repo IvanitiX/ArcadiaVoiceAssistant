@@ -174,3 +174,17 @@ stories:
   steps:
   - intent: ask_for_f1_data
   - action: action_get_f1_data
+
+
+- story: eurocup_1
+  steps:
+  - intent: ask_for_eurocup_matches
+  - action: action_get_eurocup_matches
+  - intent: ask_for_eurocup_team_info
+    entities:
+    - eurocup_team: España
+  - action: action_get_eurocup_team_info
+  - intent: ask_for_eurocup_team_info
+    entities:
+    - eurocup_team: Chequia
+  - action: action_get_eurocup_team_info

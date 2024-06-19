@@ -19,9 +19,12 @@ intents:
 - love
 - about_the_developer
 - ask_for_f1_data
+- ask_for_eurocup_matches
+- ask_for_eurocup_team_info
 entities:
 - wiki_search_term
 - city
+- eurocup_team
 slots:
   city:
     type: text
@@ -33,6 +36,11 @@ slots:
     influence_conversation: true
     mappings:
     - type: custom
+  eurocup_team:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: custom
 actions:
 - action_light_price
 - action_search_on_wikipedia
@@ -40,6 +48,8 @@ actions:
 - action_tell_weather
 - action_throw_dice
 - action_get_f1_data
+- action_get_eurocup_matches
+- action_get_eurocup_team_info
 - utter_goodbye
 - utter_greet
 - utter_out_of_scope

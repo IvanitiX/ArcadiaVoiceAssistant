@@ -27,6 +27,8 @@ services:
     build: 
       context: ./src
       dockerfile: dockerfiles/rasa_actions.Dockerfile
+    env_file:
+      - src/chatbot/actions/.actions.env
     image: arcadia_rasa_actions
     networks:
         rasa-network:
