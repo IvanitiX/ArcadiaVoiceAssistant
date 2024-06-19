@@ -167,17 +167,13 @@ def get_team_info_str(team):
     for match in info_dict.get('matches'):
         matches = matches + match + '\n'
 
-    info_str = f"""
-        Aquí tienes toda la info de {info_dict.get('name')} ({info_dict.get('short_name')}):
-
-        Entrenador : {info_dict.get('coach')}
-
-        Equipo: 
-        {players}
-
-        Partidos : 
-        {matches}
-    """
+    info_str = f"Aquí tienes toda la info de {info_dict.get('name')} ({info_dict.get('short_name')}): \n \
+        Entrenador : {info_dict.get('coach')} \n \
+        Equipo: \n \
+        {players} \n \
+        Partidos : \n \
+        {matches} \
+    "
 
     info_str.replace('\t','')
 
