@@ -1,4 +1,5 @@
 from .football_data_wrapper import FootballDataWrapper
+from datetime import datetime, timedelta
 
 STAGE_DICT = {
     'GROUP_STAGE' : 'Grupo',
@@ -72,6 +73,12 @@ def get_current_matches(competition_code):
         if goals_team1 == '' and goals_team2 != '':
             goals_team1 = 0
 
+        timestamp = datetime.strptime(match_entry.get('utcDate'),'%Y-%m-%dT%H:%M:%SZ')
+
+        if datetime.now() > (timestamp + timedelta(hours=2, minutes=30)) and goals_team1 == '' and goals_team2 == '':
+            goals_team1 = 0
+            goals_team2 = 0
+
         if team1 and team2:
             str_a = f'{STAGE_DICT[stage]} {group}. {team1} {goals_team1} - {team2} {goals_team2}'
 
@@ -141,6 +148,12 @@ def get_team_info(team):
 
         if goals_team1 == '' and goals_team2 != '':
             goals_team1 = 0
+
+        timestamp = datetime.strptime(match_entry.get('utcDate'),'%Y-%m-%dT%H:%M:%SZ')
+
+        if datetime.now() > (timestamp + timedelta(hours=2, minutes=30)) and goals_team1 == '' and goals_team2 == '':
+            goals_team1 = 0
+            goals_team2 = 0
 
         if team1 and team2:
             str_a = f'{STAGE_DICT[stage]} {group}. {team1} {goals_team1} - {team2} {goals_team2}'
