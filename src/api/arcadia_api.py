@@ -9,6 +9,7 @@ from fastapi.responses import FileResponse
 from time import sleep
 
 from arcadia import settings,instances
+from api.utils import read_audio
 from api.arcadia_api_models import ArcadiaPetition, TTSQuery, \
                                 AVAILABLE_SR_MODELS, AVAILABLE_TTS_MODELS
 
@@ -36,14 +37,7 @@ async def transcript_audio(audio: UploadFile):
 
     sr = instances.SPEECH_RECOGNIZER
 
-    try:
-        contents = audio.file.read()
-        with open(audio.filename, 'wb') as f:
-            f.write(contents)
-    except Exception:
-        return {"message": "Ha habido un error al subir el archivo."}
-    finally:
-        audio.file.close()
+    audio = read_audio(audio)
 
     return {"transcript": sr.recognize(audio.filename)}
 
@@ -57,14 +51,7 @@ async def alternative_transcript_audio(method:str, audio: UploadFile):
     
     sr = AVAILABLE_SR_MODELS[method]
 
-    try:
-        contents = audio.file.read()
-        with open(audio.filename, 'wb') as f:
-            f.write(contents)
-    except Exception:
-        return {"message": "Ha habido un error al subir el archivo."}
-    finally:
-        audio.file.close()
+    audio = read_audio(audio)
 
     return {"transcript": sr.recognize(audio.filename)}
 

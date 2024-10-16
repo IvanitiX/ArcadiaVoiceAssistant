@@ -1,1 +1,4 @@
-wikipedia
+-r rasa_requirements.txt
+requests 
+nlpia2-wikipedia 
+python-dotenv

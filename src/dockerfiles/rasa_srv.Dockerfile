@@ -1,10 +1,11 @@
 FROM python:3.9-slim
 
-RUN pip install -U pip
-RUN pip install rasa
-
 COPY chatbot/ /code
+COPY rasa_requirements.txt /code
 WORKDIR /code
+
+RUN pip install -U pip
+RUN pip install -r rasa_requirements.txt
 
 RUN python -V
 RUN rasa --version
